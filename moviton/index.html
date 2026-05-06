@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moviton Weekly Report | CodeCraft</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  @font-face {
+    font-family: 'Hubot Sans';
+    src: url('https://cdn.jsdelivr.net/npm/@github/hubot-sans@1/fonts/variable/HubotSans.woff2') format('woff2');
+    font-weight: 200 900; font-style: normal; font-display: swap;
+  }
+  :root {
+    --bg:#000; --card:#0a0a0a; --border:#1a1a1a;
+    --w:#fff; --w80:rgba(255,255,255,.8); --w50:rgba(255,255,255,.5);
+    --w30:rgba(255,255,255,.3); --w10:rgba(255,255,255,.1); --w05:rgba(255,255,255,.05);
+    --green:#88F802; --gd:rgba(136,248,2,.12); --g20:rgba(136,248,2,.2);
+    --blue:#2D2AE0; --red:#ff4444; --rd:rgba(255,68,68,.12);
+    --hd:'Hubot Sans','Montserrat',sans-serif; --bd:'Montserrat',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--bd);background:var(--bg);color:var(--w);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+  /* PIN GATE */
+  .gate{position:fixed;inset:0;z-index:1000;background:#000;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .4s}
+  .gate.gone{opacity:0;pointer-events:none}
+  .gate-logo{height:34px;margin-bottom:44px;opacity:.85}
+  .gate-title{font-family:var(--hd);font-size:17px;font-weight:700;margin-bottom:5px}
+  .gate-sub{font-size:12px;color:var(--w50);margin-bottom:36px;text-align:center;max-width:260px}
+  .pin-row{display:flex;gap:12px;margin-bottom:16px}
+  .pin-box{width:54px;height:62px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--w);font-family:var(--hd);font-size:30px;font-weight:800;text-align:center;outline:none;caret-color:var(--green);transition:border-color .2s}
+  .pin-box:focus{border-color:var(--green)}
+  .pin-err{font-size:12px;color:var(--red);min-height:16px;text-align:center}
+  .pin-hint{font-size:11px;color:var(--w30);margin-top:28px;text-align:center;max-width:240px}
+
+  /* NOT PUBLISHED */
+  .np{position:fixed;inset:0;z-index:999;background:#000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:10px}
+  .np.show{display:flex}
+  .np-icon{font-size:44px;margin-bottom:10px}
+  .np-title{font-family:var(--hd);font-size:19px;font-weight:700}
+  .np-sub{font-size:13px;color:var(--w50);text-align:center;max-width:300px}
+
+  /* SCROLL REVEAL */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+  .reveal.on{opacity:1;transform:translateY(0)}
+
+  /* HEADER */
+  .hdr{display:flex;justify-content:space-between;align-items:center;padding:22px 48px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(0,0,0,.93);backdrop-filter:blur(14px);z-index:100}
+  .hdr-l{display:flex;align-items:center;gap:16px}
+  .hdr-cc{height:28px;opacity:.9}
+  .hdr-div{width:1px;height:24px;background:var(--border)}
+  .hdr-cl{height:28px}
+  .hdr-r{text-align:right}
+  .hdr-name{font-family:var(--hd);font-size:20px;font-weight:700;letter-spacing:-.5px}
+  .hdr-week{display:flex;align-items:center;justify-content:flex-end;gap:6px;font-size:11px;color:var(--w50);margin-top:3px}
+  .hdr-dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+  /* CONTAINER */
+  .wrap{max-width:1360px;margin:0 auto;padding:52px 28px 100px}
+
+  /* SECTION */
+  .sec{margin-bottom:60px}
+  .sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+  .sec-title{font-family:var(--hd);font-size:12px;font-weight:700;color:var(--w50);text-transform:uppercase;letter-spacing:2.5px;display:flex;align-items:center;gap:10px}
+  .sec-bar{width:3px;height:14px;background:var(--green);border-radius:2px;flex-shrink:0}
+  .badge{font-size:10px;font-weight:600;padding:3px 10px;border-radius:20px;letter-spacing:.5px}
+  .b-up{background:var(--gd);color:var(--green);border:1px solid var(--g20)}
+  .b-neu{background:var(--w05);color:var(--w50);border:1px solid var(--border)}
+  .b-dn{background:var(--rd);color:#ff7a7a;border:1px solid rgba(255,68,68,.2)}
+
+  /* HERO CARDS */
+  .hero-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .hero-2{grid-template-columns:repeat(2,1fr)}
+  .hero-1{grid-template-columns:1fr}
+  .hero-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:32px 28px;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s}
+  .hero-card:hover{border-color:var(--g20);box-shadow:0 0 60px rgba(136,248,2,.05)}
+  .hero-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--green);opacity:.35}
+  .h-lbl{font-size:10px;font-weight:600;color:var(--w50);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px}
+  .h-val{font-family:var(--hd);font-size:46px;font-weight:800;letter-spacing:-2px;line-height:1;margin-bottom:14px}
+  .h-deltas{display:flex;flex-wrap:wrap;gap:6px}
+
+  /* METRIC GRID */
+  .mgrid{display:grid;gap:12px}
+  .m2{grid-template-columns:1fr 1fr}
+  .m3{grid-template-columns:repeat(3,1fr)}
+  .m4{grid-template-columns:repeat(4,1fr)}
+  .mcard{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px;transition:border-color .3s,box-shadow .3s}
+  .mcard:hover{border-color:var(--w10);box-shadow:0 0 32px rgba(136,248,2,.03)}
+  .m-lbl{font-size:10px;font-weight:600;color:var(--w50);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+  .m-val{font-family:var(--hd);font-size:32px;font-weight:800;letter-spacing:-1px;line-height:1;margin-bottom:10px}
+  .m-val.sm{font-size:26px}
+  .m-deltas{display:flex;flex-direction:column;gap:5px}
+
+  /* DELTAS */
+  .d{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px;width:fit-content}
+  .d.up{background:var(--gd);color:var(--green)}
+  .d.dn{background:var(--rd);color:#ff7a7a}
+  .d.neu{background:var(--w05);color:var(--w50)}
+  .d-lbl{font-size:10px;font-weight:400;opacity:.7}
+
+  /* COOKIE GAUGE */
+  .cookie-wrap{display:flex;align-items:center;gap:40px;padding:28px}
+  .gauge-area{text-align:center;flex-shrink:0}
+  .gauge-canvas{display:block}
+  .gauge-score{font-family:var(--hd);font-size:52px;font-weight:800;letter-spacing:-2px;line-height:1;margin-top:-8px}
+  .gauge-sub{font-size:11px;color:var(--w30)}
+  .cookie-right{flex:1}
+  .cookie-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--border)}
+  .cookie-row:last-child{border-bottom:none}
+  .cookie-row .cl{font-size:12px;color:var(--w50)}
+  .cookie-row .cv{font-weight:700;font-size:13px}
+
+  /* MINDSHARE BAR */
+  .ms-bar-wrap{background:var(--w05);border-radius:6px;height:6px;overflow:hidden;margin:8px 0}
+  .ms-bar{height:100%;border-radius:6px;background:var(--green);width:0;transition:width 1.4s cubic-bezier(.4,0,.2,1)}
+
+  /* DAU/MAU */
+  .dau-wrap{display:flex;align-items:center;gap:28px}
+  .dau-chart-area{position:relative;width:130px;height:130px;flex-shrink:0}
+  .dau-center{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column}
+  .dau-pct{font-family:var(--hd);font-size:28px;font-weight:800;letter-spacing:-1px}
+  .dau-lbl{font-size:10px;color:var(--w50)}
+
+  /* TOP POST */
+  .post-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px}
+  .post-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+  .post-handle{font-size:13px;font-weight:600}
+  .post-tag{font-size:10px;color:var(--w30);margin-left:auto;font-weight:500;letter-spacing:.5px;text-transform:uppercase}
+  .post-text{font-size:14px;color:var(--w80);line-height:1.65;margin-bottom:16px}
+  .post-stats{display:flex;gap:24px}
+  .ps{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--w50)}
+  .ps strong{color:var(--w);font-weight:700}
+
+  /* ENGAGERS */
+  .eng-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+  .eng-pill{display:flex;align-items:center;gap:7px;background:var(--w05);border:1px solid var(--border);border-radius:20px;padding:5px 12px 5px 7px;font-size:12px;color:var(--w80);transition:border-color .2s}
+  .eng-pill:hover{border-color:var(--w10)}
+  .eng-num{width:18px;height:18px;border-radius:50%;background:var(--green);color:#000;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+  /* TABLE */
+  .tbl-wrap{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+  .tbl{width:100%;border-collapse:collapse;font-size:13px}
+  .tbl thead th{text-align:left;padding:12px 18px;font-size:10px;font-weight:600;color:var(--w50);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);background:var(--w05)}
+  .tbl tbody td{padding:12px 18px;border-bottom:1px solid var(--border);color:var(--w80)}
+  .tbl tbody tr:last-child td{border-bottom:none}
+  .tbl tbody tr:hover{background:var(--w05)}
+  .tbl .n{font-variant-numeric:tabular-nums;font-weight:600;color:var(--w)}
+  .rk{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:6px;font-size:11px;font-weight:700}
+  .rk1{background:rgba(255,215,0,.15);color:#ffd700}
+  .rk2{background:rgba(192,192,192,.15);color:#c0c0c0}
+  .rk3{background:rgba(205,127,50,.15);color:#cd7f32}
+  .rkn{background:var(--w05);color:var(--w50)}
+
+  /* CHART CARD */
+  .ccrd{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px}
+  .ccrd h3{font-family:var(--hd);font-size:11px;font-weight:600;color:var(--w50);margin-bottom:16px;text-transform:uppercase;letter-spacing:1px}
+  .ch{position:relative;width:100%;height:220px}
+
+  /* LAYOUTS */
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+
+  /* FOOTER */
+  .foot{text-align:center;padding:32px;border-top:1px solid var(--border)}
+  .foot img{height:22px;opacity:.22}
+  .foot p{font-size:10px;color:var(--w30);margin-top:6px}
+
+  @media(max-width:960px){
+    .hero-row,.m3,.m4,.g2,.g3{grid-template-columns:1fr!important}
+    .m2{grid-template-columns:1fr 1fr}
+    .hdr{flex-direction:column;gap:12px;padding:18px;text-align:center}
+    .hdr-r,.hdr-week{justify-content:center;text-align:center}
+    .wrap{padding:24px 14px 80px}
+    .cookie-wrap{flex-direction:column;text-align:center}
+    .dau-wrap{flex-direction:column}
+  }
+</style>
+</head>
+<body>
+
+<!-- PIN GATE -->
+<div class="gate" id="gate">
+  <img src="logo/CC-full-logo-white.png" class="gate-logo" alt="CodeCraft">
+  <div class="gate-title">Weekly Report</div>
+  <div class="gate-sub" id="gateSub">Enter your 4-digit access code</div>
+  <div class="pin-row">
+    <input class="pin-box" type="password" maxlength="1" inputmode="numeric" id="p0">
+    <input class="pin-box" type="password" maxlength="1" inputmode="numeric" id="p1">
+    <input class="pin-box" type="password" maxlength="1" inputmode="numeric" id="p2">
+    <input class="pin-box" type="password" maxlength="1" inputmode="numeric" id="p3">
+  </div>
+  <div class="pin-err" id="pinErr"></div>
+  <div class="pin-hint">Your access code was provided by your CodeCraft account manager</div>
+</div>
+
+<!-- LOADING -->
+<div class="gate" id="loading" style="display:none">
+  <img src="logo/CC-full-logo-white.png" class="gate-logo" alt="CodeCraft">
+  <div style="width:32px;height:32px;border:2px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;margin-top:8px"></div>
+</div>
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+
+<!-- NOT PUBLISHED -->
+<div class="np" id="np">
+  <div class="np-icon">🔒</div>
+  <div class="np-title">Report not yet available</div>
+  <div class="np-sub">Your account manager will share this before your next call.</div>
+</div>
+
+<!-- HEADER -->
+<div class="hdr" id="hdr" style="display:none">
+  <div class="hdr-l">
+    <img src="logo/CC-full-logo-white.png" class="hdr-cc" alt="CodeCraft">
+    <div class="hdr-div" id="hdrDiv" style="display:none"></div>
+    <img class="hdr-cl" id="hdrCl" style="display:none" alt="">
+  </div>
+  <div class="hdr-r">
+    <div class="hdr-name" id="hdrName"></div>
+    <div class="hdr-week"><span class="hdr-dot"></span><span id="hdrWeek"></span></div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="wrap" id="main" style="display:none">
+
+  <!-- SOCIAL -->
+  <div class="sec reveal" id="secSocial">
+    <div class="sec-hdr">
+      <div class="sec-title"><span class="sec-bar"></span>Social — X / Twitter</div>
+      <span class="badge" id="bdgSocial"></span>
+    </div>
+    <div id="socialHero" class="hero-row" style="margin-bottom:12px"></div>
+    <div id="socialSec" class="mgrid m3" style="margin-bottom:12px"></div>
+    <div id="socialPost"></div>
+  </div>
+
+  <!-- COMMUNITY -->
+  <div class="sec reveal" id="secCom">
+    <div class="sec-hdr">
+      <div class="sec-title"><span class="sec-bar"></span>Community Growth</div>
+      <span class="badge" id="bdgCom"></span>
+    </div>
+    <div id="comTop" class="mgrid m4" style="margin-bottom:12px"></div>
+    <div class="g2" style="margin-bottom:12px">
+      <div id="comDau"></div>
+      <div id="comEng"></div>
+    </div>
+    <div id="comKaito" class="mgrid m3"></div>
+  </div>
+
+  <!-- COOKIE3 -->
+  <div class="sec reveal" id="secCookie">
+    <div class="sec-hdr">
+      <div class="sec-title"><span class="sec-bar"></span>Cookie3 Score</div>
+      <span class="badge" id="bdgCookie"></span>
+    </div>
+    <div class="mcard" id="cookieCard" style="padding:0"></div>
+  </div>
+
+  <!-- WEBSITE -->
+  <div class="sec reveal" id="secWeb">
+    <div class="sec-hdr">
+      <div class="sec-title"><span class="sec-bar"></span>Website &amp; Growth</div>
+      <span class="badge" id="bdgWeb"></span>
+    </div>
+    <div id="webMetrics" class="mgrid m3"></div>
+  </div>
+
+  <!-- CAMPAIGN -->
+  <div class="sec reveal" id="secCamp">
+    <div class="sec-hdr">
+      <div class="sec-title"><span class="sec-bar"></span>Campaign<span id="campNameBadge" style="color:var(--w);opacity:.45;font-size:13px;letter-spacing:0;text-transform:none;font-weight:400;padding-left:4px"></span></div>
+      <span class="badge b-up" id="bdgCamp"></span>
+    </div>
+    <div id="campKpis" class="mgrid" style="margin-bottom:12px"></div>
+    <div class="g2" id="campBot"></div>
+  </div>
+
+  <!-- FINANCE -->
+  <div class="sec reveal" id="secFin">
+    <div class="sec-hdr">
+      <div class="sec-title"><span class="sec-bar"></span>Finance</div>
+    </div>
+    <div id="finMetrics" class="mgrid m3"></div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="foot" id="foot" style="display:none">
+  <img src="logo/CC-symbol-white.png" alt="CodeCraft">
+  <p>Prepared by CodeCraft &bull; <span id="footWeek"></span></p>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════
+// DATA — update this block each week. null = section/metric hidden.
+// ═══════════════════════════════════════════════════════════════════════════
+/*CC_DATA_INJECT_START*/
+const D = {
+  client:      "Moviton",
+  clientLogo:  null,
+  pin:         "1234",
+  published:   true,
+  week:        5,
+  weekDate:    "Week of May 5 2026",
+  campaignStart: "Feb 1 2026",
+
+  social: {
+    followers:      { now: 1000,  lw: 100,   start: 10  },
+    engagement:     { now: "12%", lw: "10%", start: "4%" },
+    viewsPerTweet:  { now: 1000,  lw: 100,   start: 10  },
+    collaborations: { now: 1000,  lw: 100,   start: 10  },
+    mutualFollowers:{ now: 1000,  lw: 100,   start: 10  },
+    topPost: null
+  },
+
+  community: {
+    discordMembers: { now: 1000,   lw: 100,   start: 10   },
+    messages:       { now: 1000,   lw: 100,   start: 10   },
+    dauMau:         { now: 1000,   lw: 100,   start: 10   },
+    smartFollowers: { now: 1000,   lw: 100,   start: 10   },
+    smartReach:     { now: "1000", lw: "100", start: "10" },
+    mindshare:      { now: 1000,   lw: 100,   start: 10   },
+    topEngagers: ["1000","1000","1000","1000","1000","1000","1000","1000"]
+  },
+
+  cookie: {
+    score:    { now: 1000, lw: 100, start: 10 },
+    category: "1000",
+    rank:     "1000"
+  },
+
+  website: {
+    visits:  { now: 1000, lw: 100, start: 10 },
+    signups: { now: 1000, lw: 100, start: 10 }
+  },
+
+  campaign: {
+    name: "1000",
+    kpis: [
+      { label: "1000", now: 1000, lw: 1000, start: 1000 },
+      { label: "1000", now: 1000, lw: 1000, start: 1000 },
+      { label: "1000", now: 1000, lw: 1000, start: 1000 },
+      { label: "1000", now: 1000, lw: 1000, start: 1000 },
+      { label: "1000", now: 1000, lw: 1000, start: 1000 },
+    ],
+    cpm: { value: "1000", platform: "1000", spend: "1000" },
+    leaderboard: [
+      { rank: 1, name: "1000", score: "1000", change: "1000" },
+      { rank: 2, name: "1000", score: "1000", change: "1000" },
+      { rank: 3, name: "1000", score: "1000", change: "1000" },
+      { rank: 4, name: "1000", score: "1000", change: "1000" },
+      { rank: 5, name: "1000", score: "1000", change: "1000" },
+    ]
+  },
+
+  finance: {
+    aum: { now: "1000", lw: "100", start: "10" }
+  }
+};
+/*CC_DATA_INJECT_END*/
+
+// ═══════════════════════════════════════════════════════════════════════════
+// UTILS
+// ═══════════════════════════════════════════════════════════════════════════
+const v = x => x !== null && x !== undefined && x !== "";
+const fmt = n => {
+  if (typeof n === 'string') return n;
+  if (n >= 1e6) return (n/1e6).toFixed(1).replace(/\.0$/,'')+'M';
+  if (n >= 1e3) return (n/1e3).toFixed(1).replace(/\.0$/,'')+'k';
+  return n.toLocaleString();
+};
+const numDelta = (now, lw) => {
+  if (!v(lw) || typeof now !== 'number' || typeof lw !== 'number') return null;
+  const diff = now - lw, pct = lw > 0 ? ((diff/lw)*100).toFixed(1) : null;
+  return { diff, pct, up: diff >= 0 };
+};
+const dBadge = (now, lw, label) => {
+  const d = numDelta(now, lw); if (!d) return '';
+  const sign = d.up ? '+' : '', cls = d.up ? 'up' : 'dn', arr = d.up ? '↑' : '↓';
+  return `<span class="d ${cls}">${arr} ${sign}${fmt(d.diff)}${d.pct?` (${sign}${d.pct}%)`:''} <span class="d-lbl">${label}</span></span>`;
+};
+
+// animated counter
+function animCount(el) {
+  const target = parseFloat(el.dataset.count), short = el.dataset.fmt === 's';
+  const pre = el.dataset.pre||'', suf = el.dataset.suf||'';
+  let start = null;
+  const ease = t => t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+  (function step(ts){
+    if (!start) start = ts;
+    const p = Math.min((ts-start)/1400,1), val = target*ease(p);
+    let s;
+    if (short){ if(target>=1e6)s=(val/1e6).toFixed(1).replace(/\.0$/,'')+'M'; else if(target>=1e3)s=(val/1e3).toFixed(1).replace(/\.0$/,'')+'k'; else s=Math.round(val).toLocaleString(); }
+    else s = Math.round(val).toLocaleString();
+    el.textContent = pre+s+suf;
+    if (p<1) requestAnimationFrame(step);
+  })(performance.now());
+}
+
+// scroll reveal
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('on');
+    e.target.querySelectorAll('[data-count]').forEach(animCount);
+    e.target.querySelectorAll('.ms-bar[data-pct]').forEach(b => setTimeout(()=>b.style.width=b.dataset.pct+'%',300));
+    ro.unobserve(e.target);
+  });
+}, { threshold: 0.08 });
+
+// metric card helper (numeric only — strings rendered separately)
+function mCard(label, data, opts={}) {
+  if (!data || !v(data.now)) return '';
+  const isNum = typeof data.now === 'number';
+  const valHtml = isNum
+    ? `<div class="m-val${opts.sm?' sm':''}" data-count="${data.now}" data-fmt="${opts.short?'s':''}" data-pre="${opts.pre||''}" data-suf="${opts.suf||''}">${opts.pre||''}0${opts.suf||''}</div>`
+    : `<div class="m-val sm">${data.now}</div>`;
+  return `<div class="mcard">
+    <div class="m-lbl">${label}</div>
+    ${valHtml}
+    <div class="m-deltas">
+      ${isNum ? dBadge(data.now, data.lw,    'vs last week') : ''}
+      ${isNum ? dBadge(data.now, data.start, 'vs campaign start') : ''}
+    </div>
+  </div>`;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// PIN
+// ═══════════════════════════════════════════════════════════════════════════
+const pins = [0,1,2,3].map(i => document.getElementById('p'+i));
+document.getElementById('gateSub').textContent = D.client + ' — Enter your access code';
+pins.forEach((inp, i) => {
+  inp.addEventListener('input', () => {
+    inp.value = inp.value.replace(/\D/,'');
+    if (inp.value && i < 3) pins[i+1].focus();
+    if (pins.every(p => p.value)) checkPin();
+  });
+  inp.addEventListener('keydown', e => {
+    if (e.key==='Backspace' && !inp.value && i>0) pins[i-1].focus();
+  });
+});
+if (!SHEET_URL) document.getElementById('gateSub').textContent = D.client + ' — Enter your access code';
+pins[0].focus();
+
+function checkPin() {
+  if (pins.map(p=>p.value).join('') === D.pin) {
+    const gate = document.getElementById('gate');
+    gate.classList.add('gone');
+    setTimeout(() => gate.style.display='none', 400);
+    if (!D.published) { document.getElementById('np').classList.add('show'); return; }
+    buildDash();
+  } else {
+    document.getElementById('pinErr').textContent = 'Incorrect code — please try again.';
+    pins.forEach(p => { p.value=''; p.style.borderColor='var(--red)'; setTimeout(()=>p.style.borderColor='',900); });
+    pins[0].focus();
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// BUILD
+// ═══════════════════════════════════════════════════════════════════════════
+function buildDash() {
+  ['hdr','main','foot'].forEach(id => document.getElementById(id).style.display = id==='hdr'?'flex':'block');
+  document.getElementById('hdrName').textContent = D.client;
+  document.getElementById('hdrWeek').textContent = `Week ${D.week} · ${D.weekDate}`;
+  document.getElementById('footWeek').textContent = D.weekDate;
+  if (D.clientLogo) {
+    const cl = document.getElementById('hdrCl'); cl.src = D.clientLogo; cl.style.display='block';
+    document.getElementById('hdrDiv').style.display='block';
+  }
+  buildSocial(); buildCommunity(); buildCookie(); buildWebsite(); buildCampaign(); buildFinance();
+  document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+}
+
+// ── SOCIAL ──────────────────────────────────────────────────────────────────
+function buildSocial() {
+  const s = D.social;
+  if (!s) { hide('secSocial'); return; }
+
+  // hero cards
+  let hero = [], heroCount = 0;
+  if (v(s.followers?.now)) {
+    heroCount++;
+    hero.push(`<div class="hero-card">
+      <div class="h-lbl">X Followers</div>
+      <div class="h-val" data-count="${s.followers.now}" data-fmt="s">0</div>
+      <div class="h-deltas">
+        ${dBadge(s.followers.now, s.followers.lw,    'vs last week')}
+        ${dBadge(s.followers.now, s.followers.start, 'vs campaign start')}
+      </div>
+    </div>`);
+  }
+  if (v(s.engagement?.now)) {
+    heroCount++;
+    const pNow = parseFloat(s.engagement.now), pLw = v(s.engagement.lw) ? parseFloat(s.engagement.lw) : null;
+    hero.push(`<div class="hero-card">
+      <div class="h-lbl">Engagement Rate</div>
+      <div class="h-val">${s.engagement.now}</div>
+      <div class="h-deltas">
+        ${pLw!==null ? `<span class="d ${pNow>=pLw?'up':'dn'}">${pNow>=pLw?'↑':'↓'} ${s.engagement.lw} → ${s.engagement.now} <span class="d-lbl">vs last week</span></span>` : ''}
+        ${v(s.engagement.start) ? `<span class="d up">↑ from ${s.engagement.start} at start</span>` : ''}
+      </div>
+    </div>`);
+  }
+  if (v(s.viewsPerTweet?.now)) {
+    heroCount++;
+    hero.push(`<div class="hero-card">
+      <div class="h-lbl">Avg. Views / Tweet</div>
+      <div class="h-val" data-count="${s.viewsPerTweet.now}" data-fmt="s">0</div>
+      <div class="h-deltas">
+        ${dBadge(s.viewsPerTweet.now, s.viewsPerTweet.lw,    'vs last week')}
+        ${dBadge(s.viewsPerTweet.now, s.viewsPerTweet.start, 'vs campaign start')}
+      </div>
+    </div>`);
+  }
+  const heroEl = document.getElementById('socialHero');
+  heroEl.innerHTML = hero.join('');
+  if (heroCount === 1) heroEl.className = 'hero-row hero-1';
+  else if (heroCount === 2) heroEl.className = 'hero-row hero-2';
+
+  // secondary
+  let sec = '';
+  sec += mCard('Collaborations',   s.collaborations);
+  sec += mCard('Mutual Followers', s.mutualFollowers);
+  document.getElementById('socialSec').innerHTML = sec;
+
+  // top post
+  const tp = s.topPost;
+  if (tp?.text) {
+    document.getElementById('socialPost').innerHTML = `
+      <div class="post-card">
+        <div class="post-hdr">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="rgba(255,255,255,.55)"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.26 5.634zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <span class="post-handle">${tp.handle}</span>
+          <span class="post-tag">Top post this week</span>
+        </div>
+        <div class="post-text">${tp.text}</div>
+        <div class="post-stats">
+          ${v(tp.views)   ? `<div class="ps"><strong>${fmt(tp.views)}</strong> views</div>` : ''}
+          ${v(tp.likes)   ? `<div class="ps"><strong>${fmt(tp.likes)}</strong> likes</div>` : ''}
+          ${v(tp.reposts) ? `<div class="ps"><strong>${fmt(tp.reposts)}</strong> reposts</div>` : ''}
+        </div>
+      </div>`;
+  }
+
+  // section badge
+  const fd = numDelta(s.followers?.now, s.followers?.lw);
+  setBadge('bdgSocial', fd);
+
+  if (!hero.length && !sec) hide('secSocial');
+}
+
+// ── COMMUNITY ───────────────────────────────────────────────────────────────
+function buildCommunity() {
+  const c = D.community;
+  if (!c) { hide('secCom'); return; }
+
+  // top row
+  let top = '';
+  top += mCard('Discord Members', c.discordMembers, {short:true});
+  top += mCard('Messages Sent',   c.messages,       {short:true});
+  document.getElementById('comTop').innerHTML = top;
+
+  // DAU/MAU donut
+  if (v(c.dauMau?.now)) {
+    document.getElementById('comDau').innerHTML = `
+      <div class="mcard" style="height:100%">
+        <div class="m-lbl">DAU / MAU Ratio</div>
+        <div class="dau-wrap">
+          <div class="dau-chart-area">
+            <canvas id="dauCvs" width="130" height="130"></canvas>
+            <div class="dau-center">
+              <div class="dau-pct">${c.dauMau.now}%</div>
+              <div class="dau-lbl">daily active</div>
+            </div>
+          </div>
+          <div class="m-deltas">
+            ${v(c.dauMau.lw)    ? `<span class="d ${c.dauMau.now>=c.dauMau.lw?'up':'dn'}">${c.dauMau.now>=c.dauMau.lw?'↑':'↓'} ${Math.abs(c.dauMau.now-c.dauMau.lw)}pp <span class="d-lbl">vs last week</span></span>` : ''}
+            ${v(c.dauMau.start) ? `<span class="d up">↑ +${c.dauMau.now-c.dauMau.start}pp <span class="d-lbl">vs campaign start</span></span>` : ''}
+          </div>
+        </div>
+      </div>`;
+    setTimeout(() => {
+      const ctx = document.getElementById('dauCvs');
+      if (ctx) new Chart(ctx, {
+        type:'doughnut',
+        data:{ datasets:[{ data:[c.dauMau.now, 100-c.dauMau.now], backgroundColor:['#88F802','#1a1a1a'], borderWidth:0 }] },
+        options:{ cutout:'74%', responsive:false, plugins:{ legend:{display:false}, tooltip:{enabled:false} } }
+      });
+    }, 200);
+  }
+
+  // top engagers
+  if (c.topEngagers?.length) {
+    const pills = c.topEngagers.map((h,i) => `<div class="eng-pill"><div class="eng-num">${i+1}</div>${h}</div>`).join('');
+    document.getElementById('comEng').innerHTML = `
+      <div class="mcard" style="height:100%">
+        <div class="m-lbl">Top Engagers</div>
+        <div class="eng-list">${pills}</div>
+      </div>`;
+  }
+
+  // kaito row
+  let kaito = '';
+  kaito += mCard('Smart Followers', c.smartFollowers, {short:true});
+  if (v(c.smartReach?.now)) {
+    kaito += `<div class="mcard">
+      <div class="m-lbl">Smart Reach</div>
+      <div class="m-val sm">${c.smartReach.now}</div>
+      <div class="m-deltas">
+        ${v(c.smartReach.lw) ? `<span class="d up">↑ from ${c.smartReach.lw} last week</span>` : ''}
+      </div>
+    </div>`;
+  }
+  if (v(c.mindshare?.now)) {
+    const barPct = Math.min(c.mindshare.now * 12, 100);
+    kaito += `<div class="mcard">
+      <div class="m-lbl">Mindshare</div>
+      <div class="m-val sm">${c.mindshare.now}%</div>
+      <div class="ms-bar-wrap"><div class="ms-bar" data-pct="${barPct}"></div></div>
+      <div class="m-deltas" style="margin-top:8px">
+        ${v(c.mindshare.lw) ? `<span class="d ${c.mindshare.now>=c.mindshare.lw?'up':'dn'}">${c.mindshare.now>=c.mindshare.lw?'↑':'↓'} ${Math.abs((c.mindshare.now-c.mindshare.lw).toFixed(1))}pp <span class="d-lbl">vs last week</span></span>` : ''}
+      </div>
+    </div>`;
+  }
+  document.getElementById('comKaito').innerHTML = kaito;
+
+  const fd = numDelta(c.discordMembers?.now, c.discordMembers?.lw);
+  setBadge('bdgCom', fd);
+
+  if (!top && !kaito) hide('secCom');
+}
+
+// ── COOKIE ───────────────────────────────────────────────────────────────────
+function buildCookie() {
+  const ck = D.cookie;
+  if (!ck || !v(ck.score?.now)) { hide('secCookie'); return; }
+  const score = ck.score.now;
+  const color = score>=70 ? '#88F802' : score>=50 ? '#f5a623' : '#ff4444';
+  const label = score>=70 ? 'Strong' : score>=50 ? 'Moderate' : 'Needs work';
+  const bCls  = score>=70 ? 'b-up' : 'b-neu';
+  document.getElementById('bdgCookie').textContent = label;
+  document.getElementById('bdgCookie').className   = 'badge '+bCls;
+
+  document.getElementById('cookieCard').innerHTML = `
+    <div class="cookie-wrap">
+      <div class="gauge-area">
+        <canvas class="gauge-canvas" id="cookieCvs" width="200" height="114"></canvas>
+        <div class="gauge-score" style="color:${color}">${score}</div>
+        <div class="gauge-sub">out of 100</div>
+        <div style="display:flex;flex-direction:column;gap:6px;align-items:center;margin-top:12px">
+          ${v(ck.score.lw)    ? `<span class="d ${score>=ck.score.lw?'up':'dn'}">${score>=ck.score.lw?'↑':'↓'} ${score>=ck.score.lw?'+':''}${score-ck.score.lw} vs last week</span>` : ''}
+          ${v(ck.score.start) ? `<span class="d up">↑ +${score-ck.score.start} vs campaign start</span>` : ''}
+        </div>
+      </div>
+      <div class="cookie-right">
+        ${ck.category ? `<div class="cookie-row"><span class="cl">Category</span><span class="cv">${ck.category}</span></div>` : ''}
+        ${ck.rank     ? `<div class="cookie-row"><span class="cl">Global Rank</span><span class="cv">${ck.rank}</span></div>` : ''}
+        <div class="cookie-row" style="margin-top:4px;border:none">
+          <div style="background:var(--w05);border-radius:8px;border:1px solid var(--border);padding:14px;width:100%">
+            <div style="font-size:10px;color:var(--w50);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Interpretation</div>
+            <div style="font-size:12px;color:var(--w80);line-height:1.7">
+              ${score>=70 ? 'Strong on-chain presence and active community engagement.' : score>=50 ? 'Moderate engagement — growing in the right direction.' : 'Early stage — focus on increasing on-chain activity and community size.'}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+
+  setTimeout(() => {
+    const c2 = document.getElementById('cookieCvs'); if (!c2) return;
+    const ctx = c2.getContext('2d');
+    const cx=100,cy=108,r=86,lw=13;
+    ctx.clearRect(0,0,200,114);
+    ctx.beginPath(); ctx.arc(cx,cy,r,Math.PI,2*Math.PI);
+    ctx.strokeStyle='#1a1a1a'; ctx.lineWidth=lw; ctx.lineCap='round'; ctx.stroke();
+    ctx.beginPath(); ctx.arc(cx,cy,r,Math.PI,Math.PI+(score/100)*Math.PI);
+    ctx.strokeStyle=color; ctx.lineWidth=lw; ctx.lineCap='round'; ctx.stroke();
+  }, 300);
+}
+
+// ── WEBSITE ──────────────────────────────────────────────────────────────────
+function buildWebsite() {
+  const w = D.website;
+  if (!w) { hide('secWeb'); return; }
+  let html = '';
+  html += mCard('Unique Visits', w.visits,  {short:true});
+  html += mCard('Sign Ups',      w.signups);
+  if (v(w.visits?.now) && v(w.signups?.now)) {
+    const r  = ((w.signups.now/w.visits.now)*100).toFixed(1);
+    const rl = (v(w.visits.lw)&&v(w.signups.lw)) ? ((w.signups.lw/w.visits.lw)*100).toFixed(1) : null;
+    html += `<div class="mcard">
+      <div class="m-lbl">Conversion Rate</div>
+      <div class="m-val sm">${r}%</div>
+      <div class="m-deltas">
+        ${rl ? `<span class="d ${parseFloat(r)>=parseFloat(rl)?'up':'dn'}">${parseFloat(r)>=parseFloat(rl)?'↑':'↓'} from ${rl}% last week</span>` : ''}
+      </div>
+    </div>`;
+  }
+  document.getElementById('webMetrics').innerHTML = html;
+  const fd = numDelta(w.visits?.now, w.visits?.lw);
+  setBadge('bdgWeb', fd);
+  if (!html) hide('secWeb');
+}
+
+// ── CAMPAIGN ─────────────────────────────────────────────────────────────────
+function buildCampaign() {
+  const ca = D.campaign;
+  if (!ca) { hide('secCamp'); return; }
+  if (ca.name) document.getElementById('campNameBadge').textContent = '— '+ca.name;
+
+  let kpis = '';
+  if (ca.kpis?.length) {
+    const c = ca.kpis.length>=4?'m4':ca.kpis.length===3?'m3':ca.kpis.length===2?'m2':'m2';
+    document.getElementById('campKpis').classList.add(c);
+    ca.kpis.forEach(k => { kpis += mCard(k.label, k, {short:true}); });
+  }
+  document.getElementById('campKpis').innerHTML = kpis;
+
+  let bot = '';
+  if (ca.cpm?.value) {
+    bot += `<div class="mcard">
+      <div class="m-lbl">CPM — ${ca.cpm.platform}</div>
+      <div class="m-val sm">${ca.cpm.value}</div>
+      ${ca.cpm.spend ? `<div class="m-deltas"><span class="d neu">Total spend: ${ca.cpm.spend}</span></div>` : ''}
+    </div>`;
+  }
+  if (ca.leaderboard?.length) {
+    const rows = ca.leaderboard.map(r => {
+      const rk = r.rank<=3 ? 'rk'+r.rank : 'rkn';
+      const chg = r.change.includes('↑')?'var(--green)':r.change.includes('↓')?'#ff7a7a':'var(--w50)';
+      return `<tr><td><span class="rk ${rk}">${r.rank}</span></td><td class="n">${r.name}</td><td class="n">${r.score}</td><td style="color:${chg}">${r.change}</td></tr>`;
+    }).join('');
+    bot += `<div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr><th>#</th><th>Handle</th><th>Score</th><th>Change</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+  }
+  document.getElementById('campBot').innerHTML = bot;
+  if (!kpis && !bot) hide('secCamp');
+}
+
+// ── FINANCE ──────────────────────────────────────────────────────────────────
+function buildFinance() {
+  const f = D.finance;
+  if (!f) { hide('secFin'); return; }
+  let html = '';
+  if (v(f.aum?.now)) {
+    html += `<div class="mcard">
+      <div class="m-lbl">Assets Under Management (AUM)</div>
+      <div class="m-val sm">${f.aum.now}</div>
+      <div class="m-deltas">
+        ${v(f.aum.lw)    ? `<span class="d up">↑ from ${f.aum.lw} last week</span>` : ''}
+        ${v(f.aum.start) ? `<span class="d up">↑ from ${f.aum.start} at campaign start</span>` : ''}
+      </div>
+    </div>`;
+  }
+  document.getElementById('finMetrics').innerHTML = html;
+  if (!html) hide('secFin');
+}
+
+// ── HELPERS ──────────────────────────────────────────────────────────────────
+function hide(id) { const el = document.getElementById(id); if (el) el.style.display='none'; }
+function setBadge(id, delta) {
+  const el = document.getElementById(id); if (!el) return;
+  if (!delta) { el.style.display='none'; return; }
+  el.textContent = delta.up ? '↑ Growing' : '↓ Declining';
+  el.className = 'badge ' + (delta.up ? 'b-up' : 'b-dn');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// GOOGLE SHEET PARSER
+// Set SHEET_URL to your published sheet tab URL to enable live data.
+// Leave empty to use the hardcoded D object above.
+// ═══════════════════════════════════════════════════════════════════════════
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbwVRKddEyh9V1r43X2iseqDJ7oMq_0bENcJRcyc2nRhNPZ-sE5rFA9nSRSw4S4uKi0zwQ/exec";
+
+function parseNum(s) {
+  if (!s || s.trim() === '') return null;
+  const n = parseFloat(s.replace(/[^0-9.\-]/g, ''));
+  return isNaN(n) ? null : n;
+}
+function parseVal(s) {
+  if (!s || s.trim() === '') return null;
+  const n = parseNum(s);
+  // If original has letters/symbols beyond just a number, keep as string
+  return (n !== null && String(n) === s.trim()) ? n : s.trim();
+}
+function parseBool(s) { return s && s.trim().toUpperCase() === 'Y'; }
+
+function buildDFromSheet(rows) {
+  // rows: array of {section, key, label, start, lw, now, show}
+  const get = (sec, k) => rows.find(r => r.section === sec && r.key === k);
+
+  // Meta rows: value lives in the 'show' column (that's where the template put defaults).
+  // Fall back to 'now' so it works either way.
+  const m = (k) => {
+    const r = get('meta', k);
+    if (!r) return null;
+    return ((r.show && r.show.trim()) || (r.now && r.now.trim()) || '').trim() || null;
+  };
+
+  // Data rows: show if show=Y, OR if show is empty and this_week has a value.
+  // Explicit show=N always hides.
+  const shown = (sec, k) => {
+    const r = get(sec, k);
+    if (!r) return false;
+    const s = (r.show || '').trim().toUpperCase();
+    if (s === 'N') return false;
+    if (s === 'Y') return true;
+    return !!(r.now && r.now.trim()); // show if value exists
+  };
+
+  const val = (sec, k, col) => { const r = get(sec,k); return r ? parseVal(r[col]) : null; };
+  const trio = (sec, k) => shown(sec,k) ? { start: parseVal(val(sec,k,'start')||null), lw: parseVal(val(sec,k,'lw')||null), now: parseVal(val(sec,k,'now')||null) } : null;
+  const strTrio = (sec, k) => shown(sec,k) ? { start: val(sec,k,'start'), lw: val(sec,k,'lw'), now: val(sec,k,'now') } : null;
+
+  // engagers: show if this_week has a value and show != N
+  const engagers = [];
+  for (let i=1;i<=8;i++) {
+    const r = get('engager', String(i));
+    const s = r ? (r.show||'').trim().toUpperCase() : '';
+    if (r && r.now && r.now.trim() && s !== 'N') engagers.push(r.now.trim());
+  }
+
+  // campaign KPIs
+  const kpis = [];
+  for (let i=1;i<=5;i++) {
+    const lbl = val('kpi',`${i}_label`,'now');
+    const now = parseNum(val('kpi',`${i}_now`,'now'));
+    if (lbl && now !== null) kpis.push({ label: lbl, start: parseNum(val('kpi',`${i}_start`,'now')), lw: parseNum(val('kpi',`${i}_lw`,'now')), now });
+  }
+
+  // leaderboard
+  const lb = [];
+  for (let i=1;i<=5;i++) {
+    const name = val('lb',`${i}_name`,'now');
+    const score = val('lb',`${i}_score`,'now');
+    if (name && score) lb.push({ rank:i, name, score, change: val('lb',`${i}_change`,'now') || '→' });
+  }
+
+  const postHandle = val('post','handle','now');
+  const postText   = val('post','text','now');
+
+  return {
+    client:      m('client') || 'Client',
+    clientLogo:  m('clientLogo') || null,
+    pin:         m('pin') || '0000',
+    published:   parseBool(m('published')),
+    week:        parseNum(m('week')) || 1,
+    weekDate:    m('weekDate') || '',
+    campaignStart: m('campaignStart') || '',
+
+    social: {
+      followers:       trio('social','followers'),
+      engagement:      strTrio('social','engagement'),
+      viewsPerTweet:   trio('social','viewsPerTweet'),
+      collaborations:  trio('social','collaborations'),
+      mutualFollowers: trio('social','mutualFollowers'),
+      topPost: (postHandle||postText) ? {
+        handle:  postHandle, text: postText,
+        views:   parseNum(val('post','views','now')),
+        likes:   parseNum(val('post','likes','now')),
+        reposts: parseNum(val('post','reposts','now')),
+      } : null
+    },
+
+    community: {
+      discordMembers: trio('community','discordMembers'),
+      messages:       trio('community','messages'),
+      dauMau:         trio('community','dauMau'),
+      smartFollowers: trio('community','smartFollowers'),
+      smartReach:     strTrio('community','smartReach'),
+      mindshare:      trio('community','mindshare'),
+      topEngagers:    engagers.length ? engagers : null,
+    },
+
+    cookie: {
+      score:    trio('cookie','score'),
+      category: val('cookie','category','now'),
+      rank:     val('cookie','rank','now'),
+    },
+
+    website: {
+      visits:  trio('website','visits'),
+      signups: trio('website','signups'),
+    },
+
+    campaign: {
+      name: val('campaign','name','now'),
+      kpis: kpis.length ? kpis : null,
+      cpm: val('campaign','cpm_value','now') ? {
+        value:    val('campaign','cpm_value','now'),
+        platform: val('campaign','cpm_platform','now'),
+        spend:    val('campaign','cpm_spend','now'),
+      } : null,
+      leaderboard: lb.length ? lb : null,
+    },
+
+    finance: {
+      aum: strTrio('finance','aum'),
+    }
+  };
+}
+
+function parseCSVText(text) {
+  const lines = text.split(/\r?\n/).filter(l => l.trim());
+  return lines.slice(1).map(line => {
+    const fields = [];
+    let cur = '', inQ = false;
+    for (let i=0; i<line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') { inQ = !inQ; }
+      else if (ch === ',' && !inQ) { fields.push(cur.trim()); cur = ''; }
+      else { cur += ch; }
+    }
+    fields.push(cur.trim());
+    const [section='', key='', label='', start='', lw='', now='', show=''] = fields;
+    return { section: section.trim(), key: key.trim(), label, start, lw, now, show };
+  }).filter(r => r.section && r.key);
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+if (SHEET_URL) {
+  // Sheet-driven mode: show loading, fetch CSV, then show PIN gate
+  const loadEl = document.getElementById('loading');
+  const gateEl = document.getElementById('gate');
+  loadEl.style.display = 'flex';
+  gateEl.style.display = 'none';
+  fetch(SHEET_URL + '?t=' + Date.now())
+    .then(r => { if (!r.ok) throw new Error('fetch failed'); return r.text(); })
+    .then(text => {
+      const rows = parseCSVText(text);
+      Object.assign(D, buildDFromSheet(rows));
+      document.getElementById('gateSub').textContent = D.client + ' — Enter your access code';
+      loadEl.classList.add('gone');
+      setTimeout(() => { loadEl.style.display='none'; gateEl.style.display='flex'; pins[0].focus(); }, 400);
+    })
+    .catch(() => {
+      // On error fall back to hardcoded D
+      loadEl.classList.add('gone');
+      setTimeout(() => { loadEl.style.display='none'; gateEl.style.display='flex'; pins[0].focus(); }, 400);
+    });
+} else {
+  // Hardcoded mode: use D object directly
+  document.getElementById('gateSub').textContent = D.client + ' — Enter your access code';
+}
+</script>
+</body>
+</html>
