@@ -301,65 +301,179 @@
 // ═══════════════════════════════════════════════════════════════════════════
 /*CC_DATA_INJECT_START*/
 const D = {
-  client:      "Moviton",
-  clientLogo:  null,
-  pin:         "1234",
-  published:   true,
-  week:        5,
-  weekDate:    "Week of May 5 2026",
-  campaignStart: "Feb 1 2026",
-
-  social: {
-    followers:      { now: 1000,  lw: 100,   start: 10  },
-    engagement:     { now: "12%", lw: "10%", start: "4%" },
-    viewsPerTweet:  { now: 1000,  lw: 100,   start: 10  },
-    collaborations: { now: 1000,  lw: 100,   start: 10  },
-    mutualFollowers:{ now: 1000,  lw: 100,   start: 10  },
-    topPost: null
+  "client": "Moviton",
+  "clientLogo": null,
+  "pin": "1234",
+  "published": true,
+  "week": 5,
+  "weekDate": "Week of May 5 2026",
+  "campaignStart": "Sun Feb 01 2026 00:00:00 GMT+0000 (Greenwich Mean Time)",
+  "social": {
+    "followers": {
+      "start": 10,
+      "lw": 100,
+      "now": 9999
+    },
+    "engagement": {
+      "start": "0.04",
+      "lw": "0.1",
+      "now": "0.12"
+    },
+    "viewsPerTweet": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "collaborations": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "mutualFollowers": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "topPost": {
+      "handle": "@handle",
+      "text": null,
+      "views": null,
+      "likes": null,
+      "reposts": null
+    }
   },
-
-  community: {
-    discordMembers: { now: 1000,   lw: 100,   start: 10   },
-    messages:       { now: 1000,   lw: 100,   start: 10   },
-    dauMau:         { now: 1000,   lw: 100,   start: 10   },
-    smartFollowers: { now: 1000,   lw: 100,   start: 10   },
-    smartReach:     { now: "1000", lw: "100", start: "10" },
-    mindshare:      { now: 1000,   lw: 100,   start: 10   },
-    topEngagers: ["1000","1000","1000","1000","1000","1000","1000","1000"]
+  "community": {
+    "discordMembers": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "messages": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "dauMau": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "smartFollowers": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "smartReach": {
+      "start": "10",
+      "lw": "100",
+      "now": "1000"
+    },
+    "mindshare": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "topEngagers": null
   },
-
-  cookie: {
-    score:    { now: 1000, lw: 100, start: 10 },
-    category: "1000",
-    rank:     "1000"
+  "cookie": {
+    "score": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "category": "1000",
+    "rank": "1000"
   },
-
-  website: {
-    visits:  { now: 1000, lw: 100, start: 10 },
-    signups: { now: 1000, lw: 100, start: 10 }
+  "website": {
+    "visits": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "signups": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    }
   },
-
-  campaign: {
-    name: "1000",
-    kpis: [
-      { label: "1000", now: 1000, lw: 1000, start: 1000 },
-      { label: "1000", now: 1000, lw: 1000, start: 1000 },
-      { label: "1000", now: 1000, lw: 1000, start: 1000 },
-      { label: "1000", now: 1000, lw: 1000, start: 1000 },
-      { label: "1000", now: 1000, lw: 1000, start: 1000 },
+  "campaign": {
+    "name": "1000",
+    "kpis": [
+      {
+        "label": "1000",
+        "start": 1000,
+        "lw": 1000,
+        "now": 1000
+      },
+      {
+        "label": "1000",
+        "start": 1000,
+        "lw": 1000,
+        "now": 1000
+      },
+      {
+        "label": "1000",
+        "start": 1000,
+        "lw": 1000,
+        "now": 1000
+      },
+      {
+        "label": "1000",
+        "start": 1000,
+        "lw": 1000,
+        "now": 1000
+      },
+      {
+        "label": "1000",
+        "start": 1000,
+        "lw": 1000,
+        "now": 1000
+      }
     ],
-    cpm: { value: "1000", platform: "1000", spend: "1000" },
-    leaderboard: [
-      { rank: 1, name: "1000", score: "1000", change: "1000" },
-      { rank: 2, name: "1000", score: "1000", change: "1000" },
-      { rank: 3, name: "1000", score: "1000", change: "1000" },
-      { rank: 4, name: "1000", score: "1000", change: "1000" },
-      { rank: 5, name: "1000", score: "1000", change: "1000" },
+    "cpm": {
+      "value": "1000",
+      "platform": "1000",
+      "spend": "1000"
+    },
+    "leaderboard": [
+      {
+        "rank": 1,
+        "name": "1000",
+        "score": "1000",
+        "change": "1000"
+      },
+      {
+        "rank": 2,
+        "name": "1000",
+        "score": "1000",
+        "change": "1000"
+      },
+      {
+        "rank": 3,
+        "name": "1000",
+        "score": "1000",
+        "change": "1000"
+      },
+      {
+        "rank": 4,
+        "name": "1000",
+        "score": "1000",
+        "change": "1000"
+      },
+      {
+        "rank": 5,
+        "name": "1000",
+        "score": "1000",
+        "change": "1000"
+      }
     ]
   },
-
-  finance: {
-    aum: { now: "1000", lw: "100", start: "10" }
+  "finance": {
+    "aum": {
+      "start": "10",
+      "lw": "100",
+      "now": "1000"
+    }
   }
 };
 /*CC_DATA_INJECT_END*/
