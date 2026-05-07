@@ -156,7 +156,6 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .ov-card,.mcard,.score-card,.chart-card,.eng-card{
   opacity:0;transform:translateY(20px);
 }
-/* hover overrides transform, but we need to keep the lift */
 .mcard.in,.score-card.in{opacity:1;transform:translateY(0)}
 .mcard.in:hover{transform:translateY(-4px)}
 .score-card.in:hover{transform:translateY(-4px)}
@@ -219,7 +218,6 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 
 <div id="main" style="display:none">
 
-  <!-- 01 OVERVIEW — dark -->
   <div class="page-sec" id="secOv">
     <div class="ps-inner">
       <div class="sec-hdr">
@@ -234,7 +232,6 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
     </div>
   </div>
 
-  <!-- 02 X / TWITTER — light -->
   <div class="page-sec light" id="secX">
     <div class="ps-inner">
       <div class="sec-hdr">
@@ -255,7 +252,6 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
     </div>
   </div>
 
-  <!-- 03 DISCORD — dark -->
   <div class="page-sec" id="secDiscord">
     <div class="ps-inner">
       <div class="sec-hdr">
@@ -273,7 +269,6 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
     </div>
   </div>
 
-  <!-- 04 COOKIE3 — light -->
   <div class="page-sec light" id="secCookie">
     <div class="ps-inner">
       <div class="sec-hdr">
@@ -291,7 +286,6 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
     </div>
   </div>
 
-  <!-- 05 COMMUNITY GROWTH: QUESTING — dark -->
   <div class="page-sec" id="secGrowth">
     <div class="ps-inner">
       <div class="sec-hdr">
@@ -306,7 +300,6 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
     </div>
   </div>
 
-  <!-- 06 MINDSHARE — light -->
   <div class="page-sec light" id="secMind">
     <div class="ps-inner">
       <div class="sec-hdr">
@@ -337,60 +330,149 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 <script>
 /*CC_DATA_INJECT_START*/
 const D = {
-  client:       "Moviton",
-  clientLogo:   null,
-  pin:          "1234",
-  published:    true,
-  week:         5,
-  weekDate:     "Week of May 5 2026",
-  campaignStart:"Feb 1 2026",
-
-  overview: {
-    followers: { now: 89142,  lw: 87500, start: 45000 },
-    discord:   { now: 12400,  lw: 11800, start: 8200  },
-    cookie:    { now: 72,     lw: 68,    start: 45    },
-    collabs:   { now: 24,     lw: 18,    start: 0     }
+  "client": "Moviton",
+  "clientLogo": null,
+  "pin": "1234",
+  "published": true,
+  "week": 5,
+  "weekDate": "Week of May 5 2026",
+  "campaignStart": "Sun Feb 01 2026 00:00:00 GMT+0000 (Greenwich Mean Time)",
+  "overview": {
+    "followers": {
+      "start": 45000,
+      "lw": 87500,
+      "now": 1234567890
+    },
+    "discord": {
+      "start": 8200,
+      "lw": 11800,
+      "now": 12400
+    },
+    "cookie": {
+      "start": 45,
+      "lw": 68,
+      "now": 72
+    },
+    "collabs": {
+      "start": null,
+      "lw": 18,
+      "now": 24
+    }
   },
-
-  x: {
-    followers:   { now: 89142,   lw: 87500,  start: 45000  },
-    impressions: { now: 1240000, lw: 980000, start: 320000 },
-    engagements: { now: 45200,   lw: 38400,  start: 12000  },
-    verified:    { now: 3240,    lw: 3100,   start: 1200   },
-    mutual:      { now: 2140,    lw: 1900,   start: 800    }
+  "x": {
+    "followers": {
+      "start": 45000,
+      "lw": 87500,
+      "now": 89142
+    },
+    "impressions": {
+      "start": 320000,
+      "lw": 980000,
+      "now": 1240000
+    },
+    "engagements": {
+      "start": 12000,
+      "lw": 38400,
+      "now": 45200
+    },
+    "verified": {
+      "start": 1200,
+      "lw": 3100,
+      "now": 3240
+    },
+    "mutual": {
+      "start": 800,
+      "lw": 1900,
+      "now": 2140
+    }
   },
-
-  discord: {
-    members:     { now: 12400, lw: 11800, start: 8200  },
-    messages:    { now: 45600, lw: 38200, start: 15000 },
-    topEngagers: ["@genesis_whale","@cryptobuilder","@defi_degen","@moonhunter","@quant_bro","@nft_visionary","@chain_maxi","@alpha_seeker"]
+  "discord": {
+    "members": {
+      "start": 8200,
+      "lw": 11800,
+      "now": 12400
+    },
+    "messages": {
+      "start": 15000,
+      "lw": 38200,
+      "now": 45600
+    },
+    "topEngagers": null
   },
-
-  cookie3: {
-    score:     { now: 72,     lw: 68,     start: 45    },
-    smart:     { now: 4200,   lw: 3900,   start: 1800  },
-    reach:     { now: "1.2M", lw: "980k", start: "400k"},
-    viewsPost: { now: 12400,  lw: 10200,  start: 4500  },
-    engTweet:  { now: "3.2%", lw: "2.9%", start: "1.8%"}
+  "cookie3": {
+    "score": {
+      "start": 45,
+      "lw": 68,
+      "now": 72
+    },
+    "smart": {
+      "start": 1800,
+      "lw": 3900,
+      "now": 4200
+    },
+    "reach": {
+      "start": "400k",
+      "lw": "980k",
+      "now": "1.2M"
+    },
+    "viewsPost": {
+      "start": 4500,
+      "lw": 10200,
+      "now": 12400
+    },
+    "engTweet": {
+      "start": 0.018,
+      "lw": 0.029,
+      "now": 0.032
+    }
   },
-
-  growth: {
-    collabs:    { now: 24,    lw: 18,    start: 0    },
-    registered: { now: 8400,  lw: 7200,  start: 3100 },
-    dau:        { now: 1840,  lw: 1620,  start: 820  },
-    mau:        { now: 12400, lw: 11200, start: 6800 }
+  "growth": {
+    "collabs": {
+      "start": null,
+      "lw": 18,
+      "now": 24
+    },
+    "registered": {
+      "start": 3100,
+      "lw": 7200,
+      "now": 8400
+    },
+    "dau": {
+      "start": 820,
+      "lw": 1620,
+      "now": 1840
+    },
+    "mau": {
+      "start": 6800,
+      "lw": 11200,
+      "now": 12400
+    }
   },
-
-  mindshare: {
-    uniqueEngagers: { now: 4200,    lw: 3800,    start: 1200   },
-    posts:          { now: 840,     lw: 720,     start: 280    },
-    quotePosts:     { now: 320,     lw: 280,     start: 90     },
-    impressions:    { now: 2400000, lw: 1980000, start: 680000 }
+  "mindshare": {
+    "uniqueEngagers": {
+      "start": 1200,
+      "lw": 3800,
+      "now": 4200
+    },
+    "posts": {
+      "start": 280,
+      "lw": 720,
+      "now": 840
+    },
+    "quotePosts": {
+      "start": 90,
+      "lw": 280,
+      "now": 320
+    },
+    "impressions": {
+      "start": 680000,
+      "lw": 1980000,
+      "now": 2400000
+    }
   }
 };
 /*CC_DATA_INJECT_END*/
 
-// ── UTILS ─────────────────────────────────────────────────────────────────────
 const vv = x => x !== null && x !== undefined && x !== "";
 const fmt = n => {
   if (typeof n !== 'number') return String(n);
@@ -402,35 +484,23 @@ const fmt = n => {
 const pct = (a, b) => b > 0 ? (a-b)/b*100 : null;
 const hide = id => { const e=document.getElementById(id); if(e) e.style.display='none'; };
 
-// ── GROWTH INDICATORS ─────────────────────────────────────────────────────────
 function growRows(data) {
   if (!data || !vv(data.now)) return '';
   const isNum = typeof data.now === 'number';
   let rows = '';
   if (isNum && typeof data.start === 'number' && data.start > 0) {
     const p = pct(data.now, data.start), up = p >= 0;
-    rows += `<div class="grow-row">
-      <span class="grow-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span>
-      <span class="grow-pct ${up?'up':'dn'}">${up?'+':''}${Math.round(p)}%</span>
-      <span class="grow-abs">${up?'+':''}${fmt(Math.abs(data.now-data.start))}</span>
-      <span class="grow-lbl">since ${D.campaignStart||'start'}</span>
-    </div>`;
+    rows += `<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}">${up?'+':''}${Math.round(p)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(data.now-data.start))}</span><span class="grow-lbl">since ${D.campaignStart||'start'}</span></div>`;
   }
   if (isNum && typeof data.lw === 'number') {
     const p = pct(data.now, data.lw), up = p >= 0;
-    rows += `<div class="grow-row">
-      <span class="grow-arrow ${up?'up':'dn'}" style="font-size:19px">${up?'↑':'↓'}</span>
-      <span class="grow-pct ${up?'up':'dn'}" style="font-size:19px">${up?'+':''}${Math.abs(p).toFixed(1)}%</span>
-      <span class="grow-abs">${up?'+':''}${fmt(Math.abs(data.now-data.lw))}</span>
-      <span class="grow-lbl">vs last week</span>
-    </div>`;
+    rows += `<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}" style="font-size:19px">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}" style="font-size:19px">${up?'+':''}${Math.abs(p).toFixed(1)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(data.now-data.lw))}</span><span class="grow-lbl">vs last week</span></div>`;
   } else if (typeof data.now === 'string' && vv(data.lw)) {
     const n=parseFloat(data.now),l=parseFloat(data.lw);
     if (!isNaN(n)&&!isNaN(l)) { const up=n>=l; rows+=`<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}" style="font-size:19px">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}" style="font-size:19px">${data.lw}→${data.now}</span><span class="grow-lbl" style="margin-left:6px">vs last week</span></div>`; }
   }
   return rows ? `<div class="ov-growth">${rows}</div>` : '';
 }
-
 function mGrowRows(data) {
   if (!data || !vv(data.now)) return '';
   const isNum = typeof data.now === 'number';
@@ -448,7 +518,6 @@ function mGrowRows(data) {
   }
   return rows ? `<div class="m-growth">${rows}</div>` : '';
 }
-
 function ctxStrip(data) {
   if (!data) return '';
   const c = [];
@@ -457,17 +526,12 @@ function ctxStrip(data) {
   if (vv(data.now))   c.push(`<div class="ov-ctx-col ctx-now"><div class="ov-ctx-lbl">This Week</div><div class="ov-ctx-val">${fmt(data.now)}</div></div>`);
   return c.length ? `<div class="ov-ctx">${c.join('')}</div>` : '';
 }
-
 function mCard(label, data) {
   if (!data || !vv(data.now)) return '';
   const isNum = typeof data.now === 'number';
-  const numEl = isNum
-    ? `<div class="m-num" data-count="${data.now}" data-fmt="s">${fmt(data.now)}</div>`
-    : `<div class="m-num sm">${data.now}</div>`;
+  const numEl = isNum ? `<div class="m-num" data-count="${data.now}" data-fmt="s">${fmt(data.now)}</div>` : `<div class="m-num sm">${data.now}</div>`;
   return `<div class="mcard"><div class="m-lbl">${label}</div>${numEl}${mGrowRows(data)}</div>`;
 }
-
-// ── COUNTER ANIMATION ─────────────────────────────────────────────────────────
 function animCount(el) {
   const target = parseFloat(el.dataset.count), short = el.dataset.fmt === 's';
   let t0 = null;
@@ -476,22 +540,15 @@ function animCount(el) {
     if (!t0) t0 = ts;
     const p = Math.min((ts-t0)/1400, 1), v = target * ease(p);
     let s;
-    if (short) {
-      if(target>=1e9)s=(v/1e9).toFixed(1).replace(/\.0$/,'')+'B';
-      else if(target>=1e6)s=(v/1e6).toFixed(1).replace(/\.0$/,'')+'M';
-      else if(target>=1e3)s=(v/1e3).toFixed(1).replace(/\.0$/,'')+'k';
-      else s=Math.round(v).toLocaleString();
-    } else s = Math.round(v).toLocaleString();
+    if (short) { if(target>=1e9)s=(v/1e9).toFixed(1).replace(/\.0$/,'')+'B'; else if(target>=1e6)s=(v/1e6).toFixed(1).replace(/\.0$/,'')+'M'; else if(target>=1e3)s=(v/1e3).toFixed(1).replace(/\.0$/,'')+'k'; else s=Math.round(v).toLocaleString(); }
+    else s = Math.round(v).toLocaleString();
     el.textContent = s;
     if (p < 1) requestAnimationFrame(step);
   })(performance.now());
 }
-
-// ── STAGGERED SECTION ANIMATION ───────────────────────────────────────────────
 function animateSection(sec) {
   if (!sec) return;
-  const animatable = [...sec.querySelectorAll('.ov-card,.mcard,.score-card,.chart-card,.eng-card')];
-  animatable.forEach((el, i) => {
+  [...sec.querySelectorAll('.ov-card,.mcard,.score-card,.chart-card,.eng-card')].forEach((el,i) => {
     setTimeout(() => {
       el.style.transition = 'opacity .55s cubic-bezier(.16,1,.3,1), transform .55s cubic-bezier(.16,1,.3,1), border-color .2s, box-shadow .35s';
       el.classList.add('in');
@@ -499,300 +556,35 @@ function animateSection(sec) {
     }, i * 75 + 60);
   });
 }
-
 const secObserver = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (!e.isIntersecting) return;
-    animateSection(e.target);
-    secObserver.unobserve(e.target);
-  });
+  entries.forEach(e => { if (!e.isIntersecting) return; animateSection(e.target); secObserver.unobserve(e.target); });
 }, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
 
-// ── CHART PALETTE ─────────────────────────────────────────────────────────────
 const C = {
-  dark: {
-    tc:'rgba(255,255,255,0.4)', gc:'rgba(255,255,255,0.05)',
-    green:'#88F802', greenFill:'rgba(136,248,2,0.15)',
-    lwBg:'rgba(255,255,255,0.07)', lwBorder:'rgba(255,255,255,0.18)',
-    tooltip:{ backgroundColor:'#111', titleColor:'#fff', bodyColor:'rgba(255,255,255,.6)',
-              borderColor:'rgba(136,248,2,.25)', borderWidth:1 }
-  },
-  light: {
-    tc:'rgba(13,13,13,0.45)', gc:'rgba(0,0,0,0.06)',
-    green:'#4ea800', greenFill:'rgba(78,168,0,0.11)',
-    lwBg:'rgba(0,0,0,0.07)', lwBorder:'rgba(0,0,0,0.18)',
-    tooltip:{ backgroundColor:'#111', titleColor:'#fff', bodyColor:'rgba(255,255,255,.6)',
-              borderColor:'rgba(78,168,0,.25)', borderWidth:1 }
-  }
+  dark:{ tc:'rgba(255,255,255,0.4)',gc:'rgba(255,255,255,0.05)',green:'#88F802',greenFill:'rgba(136,248,2,0.15)',lwBg:'rgba(255,255,255,0.07)',lwBorder:'rgba(255,255,255,0.18)',tooltip:{backgroundColor:'#111',titleColor:'#fff',bodyColor:'rgba(255,255,255,.6)',borderColor:'rgba(136,248,2,.25)',borderWidth:1}},
+  light:{tc:'rgba(13,13,13,0.45)',gc:'rgba(0,0,0,0.06)',green:'#4ea800',greenFill:'rgba(78,168,0,0.11)',lwBg:'rgba(0,0,0,0.07)',lwBorder:'rgba(0,0,0,0.18)',tooltip:{backgroundColor:'#111',titleColor:'#fff',bodyColor:'rgba(255,255,255,.6)',borderColor:'rgba(78,168,0,.25)',borderWidth:1}}
 };
-const chartDefaults = (p, label) => ({
-  responsive:true, maintainAspectRatio:false,
-  animation:{ duration:1100, easing:'easeOutQuart' },
-  interaction:{ mode:'index', intersect:false },
-  plugins:{
-    legend:{labels:{color:p.tc,font:{family:'Montserrat',size:10},boxWidth:10,padding:16}},
-    tooltip:{...p.tooltip, padding:14, cornerRadius:10,
-      titleFont:{family:'Montserrat',size:12,weight:'700'},
-      bodyFont:{family:'Montserrat',size:11},
-      callbacks:{label:ctx=>' '+ctx.dataset.label+': '+fmt(ctx.parsed.y)}}
-  }
-});
-const axisX = p => ({ grid:{color:p.gc,drawBorder:false}, border:{color:'transparent'}, ticks:{color:p.tc,font:{family:'Montserrat',size:11,weight:'600'}} });
-const axisY = p => ({ grid:{color:p.gc,drawBorder:false}, border:{color:'transparent'}, ticks:{color:p.tc,font:{family:'Montserrat',size:10},callback:v=>fmt(v)} });
+const chartDefaults = p => ({responsive:true,maintainAspectRatio:false,animation:{duration:1100,easing:'easeOutQuart'},interaction:{mode:'index',intersect:false},plugins:{legend:{labels:{color:p.tc,font:{family:'Montserrat',size:10},boxWidth:10,padding:16}},tooltip:{...p.tooltip,padding:14,cornerRadius:10,titleFont:{family:'Montserrat',size:12,weight:'700'},bodyFont:{family:'Montserrat',size:11},callbacks:{label:ctx=>' '+ctx.dataset.label+': '+fmt(ctx.parsed.y)}}}});
+const axisX = p => ({grid:{color:p.gc,drawBorder:false},border:{color:'transparent'},ticks:{color:p.tc,font:{family:'Montserrat',size:11,weight:'600'}}});
+const axisY = p => ({grid:{color:p.gc,drawBorder:false},border:{color:'transparent'},ticks:{color:p.tc,font:{family:'Montserrat',size:10},callback:v=>fmt(v)}});
+function trajChart(canvasId,values,isLight,label){const cvs=document.getElementById(canvasId);if(!cvs)return;const p=isLight?C.light:C.dark;const grad=cvs.getContext('2d').createLinearGradient(0,0,0,200);grad.addColorStop(0,p.greenFill);grad.addColorStop(1,'rgba(0,0,0,0)');new Chart(cvs,{type:'line',data:{labels:['Campaign Start','Last Week','This Week'],datasets:[{label,data:values,borderColor:p.green,borderWidth:2.5,pointRadius:5,pointBackgroundColor:p.green,pointBorderColor:p.green,pointHoverRadius:8,pointHoverBackgroundColor:p.green,tension:.38,fill:true,backgroundColor:grad}]},options:{...chartDefaults(p),plugins:{...chartDefaults(p).plugins,legend:{display:false}},scales:{x:axisX(p),y:axisY(p)}}});}
+function colChart(canvasId,labels,lwData,nowData,isLight){const cvs=document.getElementById(canvasId);if(!cvs)return;const p=isLight?C.light:C.dark;new Chart(cvs,{type:'bar',data:{labels,datasets:[{label:'Last Week',data:lwData,backgroundColor:p.lwBg,borderColor:p.lwBorder,borderWidth:1.5,borderRadius:6,borderSkipped:false},{label:'This Week',data:nowData,backgroundColor:p.green+'b3',borderColor:p.green,borderWidth:0,borderRadius:6,borderSkipped:false}]},options:{...chartDefaults(p),scales:{x:axisX(p),y:axisY(p)}}});}
 
-function trajChart(canvasId, values, isLight, label) {
-  const cvs = document.getElementById(canvasId); if (!cvs) return;
-  const p = isLight ? C.light : C.dark;
-  const grad = cvs.getContext('2d').createLinearGradient(0,0,0,200);
-  grad.addColorStop(0, p.greenFill); grad.addColorStop(1,'rgba(0,0,0,0)');
-  new Chart(cvs, {
-    type:'line',
-    data:{ labels:['Campaign Start','Last Week','This Week'], datasets:[{
-      label, data:values, borderColor:p.green, borderWidth:2.5,
-      pointRadius:5, pointBackgroundColor:p.green, pointBorderColor:p.green,
-      pointHoverRadius:8, pointHoverBackgroundColor:p.green,
-      tension:.38, fill:true, backgroundColor:grad
-    }]},
-    options:{...chartDefaults(p), plugins:{...chartDefaults(p).plugins, legend:{display:false}},
-      scales:{ x:axisX(p), y:axisY(p) }}
-  });
-}
-
-function colChart(canvasId, labels, lwData, nowData, isLight) {
-  const cvs = document.getElementById(canvasId); if (!cvs) return;
-  const p = isLight ? C.light : C.dark;
-  new Chart(cvs, {
-    type:'bar',
-    data:{ labels, datasets:[
-      { label:'Last Week', data:lwData, backgroundColor:p.lwBg, borderColor:p.lwBorder, borderWidth:1.5, borderRadius:6, borderSkipped:false },
-      { label:'This Week', data:nowData, backgroundColor:p.green+'b3', borderColor:p.green, borderWidth:0, borderRadius:6, borderSkipped:false }
-    ]},
-    options:{...chartDefaults(p), scales:{ x:axisX(p), y:axisY(p) }}
-  });
-}
-
-// ── PIN ───────────────────────────────────────────────────────────────────────
-const pins = [0,1,2,3].map(i => document.getElementById('p'+i));
+const pins = [0,1,2,3].map(i=>document.getElementById('p'+i));
 document.getElementById('gateSub').textContent = D.client + ' — Enter your access code';
-pins.forEach((inp,i) => {
-  inp.addEventListener('input', () => {
-    inp.value = inp.value.replace(/\D/,'');
-    if (inp.value && i < 3) pins[i+1].focus();
-    if (pins.every(p => p.value)) checkPin();
-  });
-  inp.addEventListener('keydown', e => { if(e.key==='Backspace'&&!inp.value&&i>0) pins[i-1].focus(); });
-});
+pins.forEach((inp,i)=>{inp.addEventListener('input',()=>{inp.value=inp.value.replace(/\D/,'');if(inp.value&&i<3)pins[i+1].focus();if(pins.every(p=>p.value))checkPin();});inp.addEventListener('keydown',e=>{if(e.key==='Backspace'&&!inp.value&&i>0)pins[i-1].focus();});});
 pins[0].focus();
+function checkPin(){if(pins.map(p=>p.value).join('')===String(D.pin)){const g=document.getElementById('gate');g.classList.add('gone');setTimeout(()=>g.style.display='none',400);if(!D.published){document.getElementById('np').classList.add('show');return;}buildDash();}else{document.getElementById('pinErr').textContent='Incorrect code — please try again.';pins.forEach(p=>{p.value='';p.style.borderColor='var(--red)';setTimeout(()=>p.style.borderColor='',900);});pins[0].focus();}}
+function buildDash(){document.getElementById('hdr').style.display='flex';document.getElementById('main').style.display='block';document.getElementById('foot').style.display='block';document.getElementById('hdrName').textContent=D.client;document.getElementById('hdrWeek').textContent=`Week ${D.week} · ${D.weekDate}`;document.getElementById('footWeek').textContent=D.weekDate;if(D.clientLogo){const cl=document.getElementById('hdrCl');cl.src=D.clientLogo;cl.style.display='block';document.getElementById('hdrDiv').style.display='block';}buildOverview();buildX();buildDiscord();buildCookie();buildGrowth();buildMindshare();document.querySelectorAll('.page-sec').forEach(s=>secObserver.observe(s));}
+function buildOverview(){const ov=D.overview;if(!ov){hide('secOv');return;}const items=[{label:'X Followers',data:ov.followers},{label:'Discord Members',data:ov.discord},{label:'Cookie3 Score',data:ov.cookie},{label:'Collaborations',data:ov.collabs}];let html='';items.forEach(({label,data})=>{if(!data||!vv(data.now))return;const n=typeof data.now==='number';html+=`<div class="ov-card"><div class="ov-lbl">${label}</div>${n?`<div class="ov-num" data-count="${data.now}" data-fmt="s">${fmt(data.now)}</div>`:`<div class="ov-num" style="font-size:44px">${data.now}</div>`}${growRows(data)}${ctxStrip(data)}</div>`;});document.getElementById('ovGrid').innerHTML=html;const series=[{label:'X Followers',d:ov.followers,color:'#88F802'},{label:'Discord',d:ov.discord,color:'#4B8EF8'},{label:'Cookie3',d:ov.cookie,color:'#F5A623'}].filter(s=>s.d&&typeof s.d.start==='number'&&s.d.start>0&&vv(s.d.lw)&&vv(s.d.now));if(series.length){document.getElementById('ovTrajWrap').style.display='block';setTimeout(()=>{const cvs=document.getElementById('ovTrajCvs');if(!cvs)return;const p=C.dark;new Chart(cvs,{type:'line',data:{labels:['Campaign Start','Last Week','This Week'],datasets:series.map(s=>({label:s.label,data:[0,Math.round(pct(s.d.lw,s.d.start)*10)/10,Math.round(pct(s.d.now,s.d.start)*10)/10],borderColor:s.color,borderWidth:2.5,pointRadius:5,pointBackgroundColor:s.color,pointHoverRadius:8,tension:.38,fill:false}))},options:{...chartDefaults(p),scales:{x:axisX(p),y:{...axisY(p),ticks:{...axisY(p).ticks,callback:v=>v+'%'},title:{display:true,text:'% growth from campaign start',color:'rgba(255,255,255,.22)',font:{size:9,family:'Montserrat'}}}}}});},350);}if(!html)hide('secOv');}
+function buildX(){const x=D.x;if(!x){hide('secX');return;}const fields=[{label:'Followers',data:x.followers},{label:'Impressions',data:x.impressions},{label:'Engagements',data:x.engagements},{label:'Verified Followers',data:x.verified},{label:'Mutual Followers',data:x.mutual}];document.getElementById('xCards').innerHTML=fields.map(f=>mCard(f.label,f.data)).join('');const eng=[{label:'Engagements',d:x.engagements},{label:'Verified',d:x.verified},{label:'Mutual',d:x.mutual}].filter(e=>e.d&&vv(e.d.lw)&&vv(e.d.now));if(eng.length){document.getElementById('xColWrap').style.display='block';setTimeout(()=>colChart('xColCvs',eng.map(e=>e.label),eng.map(e=>e.d.lw),eng.map(e=>e.d.now),true),300);}if(x.followers&&vv(x.followers.start)&&vv(x.followers.lw)&&vv(x.followers.now)){document.getElementById('xTrajWrap').style.display='block';setTimeout(()=>trajChart('xTrajCvs',[x.followers.start,x.followers.lw,x.followers.now],true,'Followers'),300);}}
+function buildDiscord(){const dc=D.discord;if(!dc){hide('secDiscord');return;}document.getElementById('discordStats').innerHTML=mCard('Discord Members',dc.members)+mCard('Total Messages',dc.messages);if(dc.topEngagers?.length){const pills=dc.topEngagers.map((h,i)=>`<div class="eng-pill"><div class="eng-num">${i+1}</div>${h}</div>`).join('');document.getElementById('discordEng').innerHTML=`<div class="eng-card"><div class="m-lbl">Top Engagers</div><div class="eng-list">${pills}</div></div>`;}if(dc.members&&vv(dc.members.start)&&vv(dc.members.lw)&&vv(dc.members.now)){document.getElementById('discordTrajWrap').style.display='block';setTimeout(()=>trajChart('discordTrajCvs',[dc.members.start,dc.members.lw,dc.members.now],false,'Members'),300);}}
+function buildCookie(){const ck=D.cookie3;if(!ck||!vv(ck.score?.now)){hide('secCookie');return;}const score=ck.score.now;const color=score>=70?'#4ea800':score>=50?'#e67e00':'#c0392b';const tag=score>=70?'Strong':score>=50?'Moderate':'Needs Work';document.getElementById('cookieScore').innerHTML=`<div class="score-card"><div class="m-lbl">Cookie3 Score</div><div class="score-num" style="color:${color}" data-count="${score}">${score}</div><div class="score-tag" style="color:${color}">${tag}</div>${mGrowRows(ck.score)}</div>`;document.getElementById('cookieMet').innerHTML=mCard('Smart Followers',ck.smart)+mCard('Smart Reach',ck.reach)+mCard('Avg. Views / Post',ck.viewsPost)+mCard('Avg. Engagement / Tweet',ck.engTweet);if(ck.score&&vv(ck.score.start)&&vv(ck.score.lw)&&vv(ck.score.now)){document.getElementById('cookieTrajWrap').style.display='block';setTimeout(()=>trajChart('cookieTrajCvs',[ck.score.start,ck.score.lw,ck.score.now],true,'Score'),300);}}
+function buildGrowth(){const g=D.growth;if(!g){hide('secGrowth');return;}document.getElementById('growthCards').innerHTML=mCard('Collaborations',g.collabs)+mCard('Registered Users',g.registered)+mCard('DAU',g.dau)+mCard('MAU',g.mau);const hasDau=g.dau&&vv(g.dau.start)&&vv(g.dau.lw)&&vv(g.dau.now);const hasMau=g.mau&&vv(g.mau.start)&&vv(g.mau.lw)&&vv(g.mau.now);if(hasDau||hasMau){document.getElementById('growthColWrap').style.display='block';setTimeout(()=>{const cvs=document.getElementById('growthColCvs');if(!cvs)return;const p=C.dark;const labels=['Campaign Start','Last Week','This Week'];const datasets=[];if(hasMau)datasets.push({label:'MAU',data:[g.mau.start,g.mau.lw,g.mau.now],backgroundColor:'rgba(136,248,2,0.22)',borderColor:'rgba(136,248,2,0.5)',borderWidth:1.5,borderRadius:6,borderSkipped:false});if(hasDau)datasets.push({label:'DAU',data:[g.dau.start,g.dau.lw,g.dau.now],backgroundColor:'rgba(136,248,2,0.78)',borderColor:'transparent',borderRadius:6,borderSkipped:false});new Chart(cvs,{type:'bar',data:{labels,datasets},options:{...chartDefaults(p),scales:{x:axisX(p),y:axisY(p)}}});},300);}}
+function buildMindshare(){const ms=D.mindshare;if(!ms){hide('secMind');return;}document.getElementById('mindCards').innerHTML=mCard('Unique Engagers',ms.uniqueEngagers)+mCard('Posts',ms.posts)+mCard('Quote Posts',ms.quotePosts)+mCard('Impressions',ms.impressions);const cols=[{label:'Unique Engagers',d:ms.uniqueEngagers},{label:'Posts',d:ms.posts},{label:'Quote Posts',d:ms.quotePosts}].filter(c=>c.d&&vv(c.d.lw)&&vv(c.d.now));if(cols.length){document.getElementById('mindColWrap').style.display='block';setTimeout(()=>colChart('mindColCvs',cols.map(c=>c.label),cols.map(c=>c.d.lw),cols.map(c=>c.d.now),true),300);}if(ms.impressions&&vv(ms.impressions.start)&&vv(ms.impressions.lw)&&vv(ms.impressions.now)){document.getElementById('mindTrajWrap').style.display='block';setTimeout(()=>trajChart('mindTrajCvs',[ms.impressions.start,ms.impressions.lw,ms.impressions.now],true,'Impressions'),300);}}
 
-function checkPin() {
-  if (pins.map(p=>p.value).join('') === String(D.pin)) {
-    const g = document.getElementById('gate'); g.classList.add('gone'); setTimeout(()=>g.style.display='none',400);
-    if (!D.published) { document.getElementById('np').classList.add('show'); return; }
-    buildDash();
-  } else {
-    document.getElementById('pinErr').textContent = 'Incorrect code — please try again.';
-    pins.forEach(p=>{p.value='';p.style.borderColor='var(--red)';setTimeout(()=>p.style.borderColor='',900);});
-    pins[0].focus();
-  }
-}
-
-// ── BUILD ─────────────────────────────────────────────────────────────────────
-function buildDash() {
-  document.getElementById('hdr').style.display = 'flex';
-  document.getElementById('main').style.display = 'block';
-  document.getElementById('foot').style.display = 'block';
-  document.getElementById('hdrName').textContent = D.client;
-  document.getElementById('hdrWeek').textContent = `Week ${D.week} · ${D.weekDate}`;
-  document.getElementById('footWeek').textContent = D.weekDate;
-  if (D.clientLogo) { const cl=document.getElementById('hdrCl'); cl.src=D.clientLogo; cl.style.display='block'; document.getElementById('hdrDiv').style.display='block'; }
-  buildOverview(); buildX(); buildDiscord(); buildCookie(); buildGrowth(); buildMindshare();
-  document.querySelectorAll('.page-sec').forEach(s => secObserver.observe(s));
-}
-
-// ── OVERVIEW ──────────────────────────────────────────────────────────────────
-function buildOverview() {
-  const ov = D.overview; if (!ov) { hide('secOv'); return; }
-  const items = [
-    { label:'X Followers',     data: ov.followers },
-    { label:'Discord Members', data: ov.discord   },
-    { label:'Cookie3 Score',   data: ov.cookie    },
-    { label:'Collaborations',  data: ov.collabs   },
-  ];
-  let html = '';
-  items.forEach(({label,data}) => {
-    if (!data||!vv(data.now)) return;
-    const n = typeof data.now === 'number';
-    html += `<div class="ov-card">
-      <div class="ov-lbl">${label}</div>
-      ${n ? `<div class="ov-num" data-count="${data.now}" data-fmt="s">${fmt(data.now)}</div>` : `<div class="ov-num" style="font-size:44px">${data.now}</div>`}
-      ${growRows(data)}
-      ${ctxStrip(data)}
-    </div>`;
-  });
-  document.getElementById('ovGrid').innerHTML = html;
-
-  const series = [
-    { label:'X Followers', d:ov.followers, color:'#88F802' },
-    { label:'Discord',     d:ov.discord,   color:'#4B8EF8' },
-    { label:'Cookie3',     d:ov.cookie,    color:'#F5A623' },
-  ].filter(s => s.d && typeof s.d.start === 'number' && s.d.start > 0 && vv(s.d.lw) && vv(s.d.now));
-
-  if (series.length) {
-    document.getElementById('ovTrajWrap').style.display = 'block';
-    setTimeout(() => {
-      const cvs = document.getElementById('ovTrajCvs'); if (!cvs) return;
-      const p = C.dark;
-      new Chart(cvs, {
-        type:'line',
-        data:{ labels:['Campaign Start','Last Week','This Week'], datasets: series.map(s => ({
-          label: s.label,
-          data:[0, Math.round(pct(s.d.lw,s.d.start)*10)/10, Math.round(pct(s.d.now,s.d.start)*10)/10],
-          borderColor:s.color, borderWidth:2.5, pointRadius:5, pointBackgroundColor:s.color,
-          pointHoverRadius:8, tension:.38, fill:false
-        }))},
-        options:{...chartDefaults(p),
-          scales:{ x:axisX(p),
-            y:{...axisY(p), ticks:{...axisY(p).ticks, callback:v=>v+'%'},
-              title:{display:true,text:'% growth from campaign start',color:'rgba(255,255,255,.22)',font:{size:9,family:'Montserrat'}}}
-          }
-        }
-      });
-    }, 350);
-  }
-}
-
-// ── X / TWITTER ───────────────────────────────────────────────────────────────
-function buildX() {
-  const x = D.x; if (!x) { hide('secX'); return; }
-  const fields = [
-    { label:'Followers',           data: x.followers   },
-    { label:'Impressions',         data: x.impressions  },
-    { label:'Engagements',         data: x.engagements  },
-    { label:'Verified Followers',  data: x.verified     },
-    { label:'Mutual Followers',    data: x.mutual       },
-  ];
-  document.getElementById('xCards').innerHTML = fields.map(f => mCard(f.label,f.data)).join('');
-
-  // Column chart: engagement metrics each at their own scale (grouped)
-  const eng = [
-    { label:'Engagements',       d: x.engagements },
-    { label:'Verified',          d: x.verified    },
-    { label:'Mutual',            d: x.mutual      },
-  ].filter(e => e.d && vv(e.d.lw) && vv(e.d.now));
-  if (eng.length) {
-    document.getElementById('xColWrap').style.display = 'block';
-    setTimeout(() => colChart('xColCvs', eng.map(e=>e.label), eng.map(e=>e.d.lw), eng.map(e=>e.d.now), true), 300);
-  }
-
-  // Line chart: follower trajectory
-  if (x.followers && vv(x.followers.start) && vv(x.followers.lw) && vv(x.followers.now)) {
-    document.getElementById('xTrajWrap').style.display = 'block';
-    setTimeout(() => trajChart('xTrajCvs', [x.followers.start,x.followers.lw,x.followers.now], true, 'Followers'), 300);
-  }
-}
-
-// ── DISCORD ───────────────────────────────────────────────────────────────────
-function buildDiscord() {
-  const dc = D.discord; if (!dc) { hide('secDiscord'); return; }
-  document.getElementById('discordStats').innerHTML =
-    mCard('Discord Members',dc.members) + mCard('Total Messages',dc.messages);
-  if (dc.topEngagers?.length) {
-    const pills = dc.topEngagers.map((h,i)=>`<div class="eng-pill"><div class="eng-num">${i+1}</div>${h}</div>`).join('');
-    document.getElementById('discordEng').innerHTML = `<div class="eng-card"><div class="m-lbl">Top Engagers</div><div class="eng-list">${pills}</div></div>`;
-  }
-  if (dc.members && vv(dc.members.start) && vv(dc.members.lw) && vv(dc.members.now)) {
-    document.getElementById('discordTrajWrap').style.display = 'block';
-    setTimeout(() => trajChart('discordTrajCvs',[dc.members.start,dc.members.lw,dc.members.now],false,'Members'),300);
-  }
-}
-
-// ── COOKIE3 ───────────────────────────────────────────────────────────────────
-function buildCookie() {
-  const ck = D.cookie3; if (!ck||!vv(ck.score?.now)) { hide('secCookie'); return; }
-  const score = ck.score.now;
-  const color = score>=70?'#4ea800':score>=50?'#e67e00':'#c0392b';
-  const tag   = score>=70?'Strong':score>=50?'Moderate':'Needs Work';
-  document.getElementById('cookieScore').innerHTML = `<div class="score-card">
-    <div class="m-lbl">Cookie3 Score</div>
-    <div class="score-num" style="color:${color}" data-count="${score}">${score}</div>
-    <div class="score-tag" style="color:${color}">${tag}</div>
-    ${mGrowRows(ck.score)}
-  </div>`;
-  document.getElementById('cookieMet').innerHTML =
-    mCard('Smart Followers',ck.smart) + mCard('Smart Reach',ck.reach) +
-    mCard('Avg. Views / Post',ck.viewsPost) + mCard('Avg. Engagement / Tweet',ck.engTweet);
-  if (ck.score && vv(ck.score.start) && vv(ck.score.lw) && vv(ck.score.now)) {
-    document.getElementById('cookieTrajWrap').style.display = 'block';
-    setTimeout(() => trajChart('cookieTrajCvs',[ck.score.start,ck.score.lw,ck.score.now],true,'Score'),300);
-  }
-}
-
-// ── COMMUNITY GROWTH: QUESTING ────────────────────────────────────────────────
-function buildGrowth() {
-  const g = D.growth; if (!g) { hide('secGrowth'); return; }
-  document.getElementById('growthCards').innerHTML =
-    mCard('Collaborations',g.collabs) + mCard('Registered Users',g.registered) +
-    mCard('DAU',g.dau) + mCard('MAU',g.mau);
-  const hasDau = g.dau && vv(g.dau.start) && vv(g.dau.lw) && vv(g.dau.now);
-  const hasMau = g.mau && vv(g.mau.start) && vv(g.mau.lw) && vv(g.mau.now);
-  if (hasDau || hasMau) {
-    document.getElementById('growthColWrap').style.display = 'block';
-    setTimeout(() => {
-      const cvs = document.getElementById('growthColCvs'); if (!cvs) return;
-      const p = C.dark;
-      const labels = ['Campaign Start','Last Week','This Week'];
-      const datasets = [];
-      if (hasMau) datasets.push({
-        label:'MAU', data:[g.mau.start,g.mau.lw,g.mau.now],
-        backgroundColor:'rgba(136,248,2,0.22)', borderColor:'rgba(136,248,2,0.5)',
-        borderWidth:1.5, borderRadius:6, borderSkipped:false
-      });
-      if (hasDau) datasets.push({
-        label:'DAU', data:[g.dau.start,g.dau.lw,g.dau.now],
-        backgroundColor:'rgba(136,248,2,0.78)', borderColor:'transparent',
-        borderRadius:6, borderSkipped:false
-      });
-      new Chart(cvs, { type:'bar', data:{labels,datasets},
-        options:{...chartDefaults(p), scales:{x:axisX(p),y:axisY(p)}} });
-    }, 300);
-  }
-}
-
-// ── MINDSHARE ─────────────────────────────────────────────────────────────────
-function buildMindshare() {
-  const ms = D.mindshare; if (!ms) { hide('secMind'); return; }
-  document.getElementById('mindCards').innerHTML =
-    mCard('Unique Engagers',ms.uniqueEngagers) + mCard('Posts',ms.posts) +
-    mCard('Quote Posts',ms.quotePosts) + mCard('Impressions',ms.impressions);
-
-  // Column chart: posts / engagers / quotes (similar scale)
-  const cols = [
-    { label:'Unique Engagers', d:ms.uniqueEngagers },
-    { label:'Posts',           d:ms.posts          },
-    { label:'Quote Posts',     d:ms.quotePosts     },
-  ].filter(c => c.d && vv(c.d.lw) && vv(c.d.now));
-  if (cols.length) {
-    document.getElementById('mindColWrap').style.display = 'block';
-    setTimeout(() => colChart('mindColCvs',cols.map(c=>c.label),cols.map(c=>c.d.lw),cols.map(c=>c.d.now),true),300);
-  }
-
-  // Line chart: impressions trajectory
-  if (ms.impressions && vv(ms.impressions.start) && vv(ms.impressions.lw) && vv(ms.impressions.now)) {
-    document.getElementById('mindTrajWrap').style.display = 'block';
-    setTimeout(() => trajChart('mindTrajCvs',[ms.impressions.start,ms.impressions.lw,ms.impressions.now],true,'Impressions'),300);
-  }
-}
-
-// ── INIT ──────────────────────────────────────────────────────────────────────
-const SHEET_URL = "";
-if (SHEET_URL) {
-  const lEl=document.getElementById('loading'),gEl=document.getElementById('gate');
-  lEl.style.display='flex';gEl.style.display='none';
-  fetch(SHEET_URL+'?t='+Date.now())
-    .then(r=>{if(!r.ok)throw 0;return r.text();})
-    .then(()=>{lEl.classList.add('gone');setTimeout(()=>{lEl.style.display='none';gEl.style.display='flex';pins[0].focus();},400);})
-    .catch(()=>{lEl.classList.add('gone');setTimeout(()=>{lEl.style.display='none';gEl.style.display='flex';pins[0].focus();},400);});
-}
+const SHEET_URL="";
+if(SHEET_URL){const lEl=document.getElementById('loading'),gEl=document.getElementById('gate');lEl.style.display='flex';gEl.style.display='none';fetch(SHEET_URL+'?t='+Date.now()).then(r=>{if(!r.ok)throw 0;return r.text();}).then(()=>{lEl.classList.add('gone');setTimeout(()=>{lEl.style.display='none';gEl.style.display='flex';pins[0].focus();},400);}).catch(()=>{lEl.classList.add('gone');setTimeout(()=>{lEl.style.display='none';gEl.style.display='flex';pins[0].focus();},400);});}
 </script>
 </body>
 </html>
