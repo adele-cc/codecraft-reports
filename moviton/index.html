@@ -304,55 +304,179 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 <script>
 /*CC_DATA_INJECT_START*/
 const D = {
-  client:       "Moviton",
-  clientLogo:   null,
-  pin:          "1234",
-  published:    true,
-  week:         5,
-  weekDate:     "Week of May 5 2026",
-  campaignStart:"Feb 1 2026",
-
-  overview: {
-    followers: { now: 89142,  lw: 87500, start: 45000 },
-    discord:   { now: 12400,  lw: 11800, start: 8200  },
-    cookie:    { now: 72,     lw: 68,    start: 45    },
-    collabs:   { now: 24,     lw: 18,    start: 0     }
+  "client": "Moviton",
+  "clientLogo": null,
+  "pin": "1234",
+  "published": true,
+  "week": 5,
+  "weekDate": "Week of May 5 2026",
+  "campaignStart": "Sun Feb 01 2026 00:00:00 GMT+0000 (Greenwich Mean Time)",
+  "social": {
+    "followers": {
+      "start": 10,
+      "lw": 100,
+      "now": 9999
+    },
+    "engagement": {
+      "start": "0.04",
+      "lw": "0.1",
+      "now": "0.12"
+    },
+    "viewsPerTweet": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "collaborations": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "mutualFollowers": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "topPost": {
+      "handle": "@handle",
+      "text": null,
+      "views": null,
+      "likes": null,
+      "reposts": null
+    }
   },
-
-  x: {
-    followers:   { now: 89142,   lw: 87500,  start: 45000  },
-    impressions: { now: 1240000, lw: 980000, start: 320000 },
-    engagements: { now: 45200,   lw: 38400,  start: 12000  },
-    verified:    { now: 3240,    lw: 3100,   start: 1200   },
-    mutual:      { now: 2140,    lw: 1900,   start: 800    }
+  "community": {
+    "discordMembers": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "messages": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "dauMau": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "smartFollowers": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "smartReach": {
+      "start": "10",
+      "lw": "100",
+      "now": "1000"
+    },
+    "mindshare": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "topEngagers": null
   },
-
-  discord: {
-    members:     { now: 12400, lw: 11800, start: 8200  },
-    messages:    { now: 45600, lw: 38200, start: 15000 },
-    topEngagers: ["@genesis_whale","@cryptobuilder","@defi_degen","@moonhunter","@quant_bro","@nft_visionary","@chain_maxi","@alpha_seeker"]
+  "cookie": {
+    "score": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "category": "1000",
+    "rank": "1000"
   },
-
-  cookie3: {
-    score:     { now: 72,     lw: 68,     start: 45    },
-    smart:     { now: 4200,   lw: 3900,   start: 1800  },
-    reach:     { now: "1.2M", lw: "980k", start: "400k"},
-    viewsPost: { now: 12400,  lw: 10200,  start: 4500  },
-    engTweet:  { now: "3.2%", lw: "2.9%", start: "1.8%"}
+  "website": {
+    "visits": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    },
+    "signups": {
+      "start": 10,
+      "lw": 100,
+      "now": 1000
+    }
   },
-
-  growth: {
-    collabs:    { now: 24,    lw: 18,    start: 0    },
-    registered: { now: 8400,  lw: 7200,  start: 3100 },
-    dau:        { now: 1840,  lw: 1620,  start: 820  },
-    mau:        { now: 12400, lw: 11200, start: 6800 }
+  "campaign": {
+    "name": "1000",
+    "kpis": [
+      {
+        "label": "1000",
+        "start": 1000,
+        "lw": 1000,
+        "now": 1000
+      },
+      {
+        "label": "1000",
+        "start": 1000,
+        "lw": 1000,
+        "now": 1000
+      },
+      {
+        "label": "1000",
+        "start": 1000,
+        "lw": 1000,
+        "now": 1000
+      },
+      {
+        "label": "1000",
+        "start": 1000,
+        "lw": 1000,
+        "now": 1000
+      },
+      {
+        "label": "1000",
+        "start": 1000,
+        "lw": 1000,
+        "now": 1000
+      }
+    ],
+    "cpm": {
+      "value": "1000",
+      "platform": "1000",
+      "spend": "1000"
+    },
+    "leaderboard": [
+      {
+        "rank": 1,
+        "name": "1000",
+        "score": "1000",
+        "change": "1000"
+      },
+      {
+        "rank": 2,
+        "name": "1000",
+        "score": "1000",
+        "change": "1000"
+      },
+      {
+        "rank": 3,
+        "name": "1000",
+        "score": "1000",
+        "change": "1000"
+      },
+      {
+        "rank": 4,
+        "name": "1000",
+        "score": "1000",
+        "change": "1000"
+      },
+      {
+        "rank": 5,
+        "name": "1000",
+        "score": "1000",
+        "change": "1000"
+      }
+    ]
   },
-
-  mindshare: {
-    uniqueEngagers: { now: 4200,    lw: 3800,    start: 1200   },
-    posts:          { now: 840,     lw: 720,     start: 280    },
-    quotePosts:     { now: 320,     lw: 280,     start: 90     },
-    impressions:    { now: 2400000, lw: 1980000, start: 680000 }
+  "finance": {
+    "aum": {
+      "start": "10",
+      "lw": "100",
+      "now": "1000"
+    }
   }
 };
 /*CC_DATA_INJECT_END*/
