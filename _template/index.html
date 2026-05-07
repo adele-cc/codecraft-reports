@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Weekly Report | CodeCraft</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Hubot Sans';src:url('https://cdn.jsdelivr.net/npm/@github/hubot-sans@1/fonts/variable/HubotSans.woff2')format('woff2');font-weight:200 900;font-style:normal;font-display:swap}
+html{scroll-behavior:smooth}
+:root{
+  --bg:#000;--card:#0a0a0a;--border:#1c1c1c;
+  --w:#fff;--w70:rgba(255,255,255,.7);--w50:rgba(255,255,255,.5);
+  --w30:rgba(255,255,255,.3);--w15:rgba(255,255,255,.15);--w08:rgba(255,255,255,.08);
+  --green:#88F802;--red:#ff4444;
+  --hd:'Hubot Sans','Montserrat',sans-serif;--bd:'Montserrat',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoothing:antialiased}
+
+/* GATE */
+.gate{position:fixed;inset:0;z-index:1000;background:#000;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .4s}
+.gate.gone{opacity:0;pointer-events:none}
+.gate-logo{height:30px;margin-bottom:44px;opacity:.75}
+.gate-title{font-family:var(--hd);font-size:16px;font-weight:700;margin-bottom:4px}
+.gate-sub{font-size:12px;color:var(--w50);margin-bottom:36px;text-align:center;max-width:250px}
+.pin-row{display:flex;gap:12px;margin-bottom:12px}
+.pin-box{width:52px;height:60px;border-radius:10px;border:1px solid var(--border);background:var(--card);color:var(--w);font-family:var(--hd);font-size:28px;font-weight:800;text-align:center;outline:none;caret-color:var(--green);transition:border-color .2s}
+.pin-box:focus{border-color:rgba(136,248,2,.5)}
+.pin-err{font-size:11px;color:var(--red);min-height:16px;text-align:center}
+.pin-hint{font-size:11px;color:var(--w30);margin-top:24px;text-align:center;max-width:220px}
+.np{position:fixed;inset:0;z-index:999;background:#000;display:none;align-items:center;justify-content:center;flex-direction:column;gap:8px}
+.np.show{display:flex}
+.np-title{font-family:var(--hd);font-size:18px;font-weight:700;margin-top:16px}
+.np-sub{font-size:13px;color:var(--w50);text-align:center;max-width:280px}
+
+/* HEADER */
+.hdr{display:flex;justify-content:space-between;align-items:center;padding:20px 52px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(0,0,0,.92);backdrop-filter:blur(16px);z-index:100}
+.hdr-l{display:flex;align-items:center;gap:16px}
+.hdr-cc{height:22px;opacity:.8}
+.hdr-div{width:1px;height:20px;background:var(--border)}
+.hdr-cl{height:24px}
+.hdr-r{text-align:right}
+.hdr-name{font-family:var(--hd);font-size:17px;font-weight:800;letter-spacing:-.3px}
+.hdr-week{display:flex;align-items:center;justify-content:flex-end;gap:6px;font-size:11px;color:var(--w50);margin-top:2px}
+.hdr-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* PAGE SECTIONS — full-width bands */
+.page-sec{padding:88px 0}
+.page-sec.light{
+  background:#f3f1ed;
+  --bg:#f3f1ed;--card:#fff;--border:#e4e2dd;
+  --w:#0d0d0d;--w70:rgba(13,13,13,.7);--w50:rgba(13,13,13,.5);
+  --w30:rgba(13,13,13,.3);--w15:rgba(13,13,13,.13);--w08:rgba(13,13,13,.06);
+  --green:#4ea800;--red:#c0392b;
+}
+.ps-inner{max-width:1400px;margin:0 auto;padding:0 52px}
+
+/* SECTION HEADER */
+.sec-hdr{margin-bottom:40px}
+.sec-title{font-family:var(--hd);font-size:30px;font-weight:800;letter-spacing:-1.2px;color:var(--w);line-height:1;margin-bottom:22px}
+.sec-rule{width:100%;height:1px;background:var(--border)}
+
+/* ── OVERVIEW CARDS ──────────────────────────────────────────── */
+.ov-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;background:var(--border);border-radius:20px;overflow:hidden}
+.ov-card{background:var(--card);padding:36px 32px 30px;position:relative;cursor:default;overflow:hidden}
+.ov-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.ov-card:hover{background:#0e0e0e}
+.ov-card:hover::after{transform:scaleX(1)}
+.ov-lbl{font-size:11px;font-weight:600;color:var(--w50);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:20px}
+.ov-num{font-family:var(--hd);font-size:58px;font-weight:800;letter-spacing:-3px;line-height:1;margin-bottom:24px;color:var(--w)}
+.ov-growth{margin-bottom:20px}
+.grow-row{display:flex;align-items:baseline;gap:8px;line-height:1}
+.grow-row+.grow-row{margin-top:12px}
+.grow-arrow{font-family:var(--hd);font-size:26px;font-weight:900;line-height:1;flex-shrink:0}
+.grow-arrow.up{color:var(--green)}.grow-arrow.dn{color:var(--red)}
+.grow-pct{font-family:var(--hd);font-size:26px;font-weight:800;letter-spacing:-1px;line-height:1}
+.grow-pct.up{color:var(--green)}.grow-pct.dn{color:var(--red)}
+.grow-abs{font-size:12px;font-weight:600;color:var(--w50);margin-left:2px}
+.grow-lbl{font-size:11px;color:var(--w30);font-weight:500;white-space:nowrap;padding-left:2px}
+.ov-ctx{display:flex;padding-top:18px;border-top:1px solid var(--border)}
+.ov-ctx-col{flex:1;text-align:center;padding:0 4px}
+.ov-ctx-col+.ov-ctx-col{border-left:1px solid var(--border)}
+.ov-ctx-lbl{font-size:9px;color:var(--w30);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
+.ov-ctx-val{font-family:var(--hd);font-size:14px;font-weight:700;color:var(--w50)}
+.ov-ctx-col.ctx-now .ov-ctx-val{color:var(--green)}
+
+/* ── METRIC CARDS ────────────────────────────────────────────── */
+.mgrid{display:grid;gap:12px}
+.m2{grid-template-columns:1fr 1fr}
+.m3{grid-template-columns:repeat(3,1fr)}
+.m4{grid-template-columns:repeat(4,1fr)}
+.m5{grid-template-columns:repeat(5,1fr)}
+.mcard{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px 24px;
+  cursor:default;
+  transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .2s,box-shadow .35s;
+}
+.page-sec.light .mcard{box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.mcard:hover{transform:translateY(-4px);border-color:rgba(136,248,2,.35);box-shadow:0 16px 48px rgba(0,0,0,.5)}
+.page-sec.light .mcard:hover{transform:translateY(-4px);border-color:rgba(78,168,0,.3);box-shadow:0 12px 36px rgba(0,0,0,.11)}
+.m-lbl{font-size:11px;font-weight:600;color:var(--w50);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
+.m-num{font-family:var(--hd);font-size:36px;font-weight:800;letter-spacing:-1.5px;line-height:1;margin-bottom:16px;color:var(--w)}
+.m-num.sm{font-size:28px}
+.m-growth{display:flex;flex-direction:column;gap:8px}
+.m-grow-row{display:flex;align-items:baseline;gap:6px}
+.m-arrow{font-family:var(--hd);font-size:18px;font-weight:900;line-height:1;flex-shrink:0}
+.m-arrow.up{color:var(--green)}.m-arrow.dn{color:var(--red)}
+.m-pct{font-family:var(--hd);font-size:18px;font-weight:800;letter-spacing:-.5px;line-height:1}
+.m-pct.up{color:var(--green)}.m-pct.dn{color:var(--red)}
+.m-pct-lbl{font-size:11px;color:var(--w30);font-weight:500}
+
+/* ── SCORE CARD (Cookie3) ────────────────────────────────────── */
+.score-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:32px 28px;
+  cursor:default;
+  transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .2s,box-shadow .35s}
+.score-card:hover{transform:translateY(-4px);border-color:rgba(78,168,0,.3);box-shadow:0 12px 36px rgba(0,0,0,.11)}
+.score-num{font-family:var(--hd);font-size:88px;font-weight:800;letter-spacing:-5px;line-height:1;margin-bottom:4px}
+.score-tag{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;margin-bottom:24px;opacity:.75}
+
+/* ── ENGAGER PILLS ───────────────────────────────────────────── */
+.eng-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:26px;height:100%}
+.eng-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.eng-pill{
+  display:flex;align-items:center;gap:8px;
+  background:var(--w08);border:1px solid var(--border);border-radius:24px;
+  padding:7px 16px 7px 6px;font-size:13px;color:var(--w70);
+  cursor:default;transition:background .2s,border-color .2s,transform .2s;
+}
+.eng-pill:hover{background:rgba(136,248,2,.1);border-color:rgba(136,248,2,.3);transform:translateY(-2px)}
+.page-sec.light .eng-pill:hover{background:rgba(78,168,0,.1);border-color:rgba(78,168,0,.3)}
+.eng-num{width:22px;height:22px;border-radius:50%;background:var(--green);color:#000;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+
+/* ── CHART CARDS ─────────────────────────────────────────────── */
+.chart-card{
+  background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 28px 22px;
+  transition:border-color .2s;
+}
+.chart-card:hover{border-color:rgba(136,248,2,.18)}
+.page-sec.light .chart-card:hover{border-color:rgba(78,168,0,.2)}
+.chart-lbl{font-size:11px;font-weight:700;color:var(--w30);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:20px}
+.ch{position:relative;width:100%;height:200px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+
+/* ── LAYOUT HELPERS ──────────────────────────────────────────── */
+.gap12{display:flex;flex-direction:column;gap:12px}
+.foot{text-align:center;padding:32px;border-top:1px solid var(--border)}
+.foot img{height:18px;opacity:.16}
+.foot p{font-size:11px;color:var(--w30);margin-top:6px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── CARD ENTRY ANIMATION ────────────────────────────────────── */
+.ov-card,.mcard,.score-card,.chart-card,.eng-card{
+  opacity:0;transform:translateY(20px);
+}
+.mcard.in,.score-card.in{opacity:1;transform:translateY(0)}
+.mcard.in:hover{transform:translateY(-4px)}
+.score-card.in:hover{transform:translateY(-4px)}
+.ov-card.in{opacity:1;transform:translateY(0)}
+.chart-card.in{opacity:1;transform:translateY(0)}
+.eng-card.in{opacity:1;transform:translateY(0)}
+
+@media(max-width:1100px){.ov-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:860px){
+  .ov-grid,.m3,.m4,.m5,.g2{grid-template-columns:1fr!important}
+  .m2{grid-template-columns:1fr 1fr}
+  .ov-num{font-size:48px}.grow-pct,.grow-arrow{font-size:22px}
+  .hdr{flex-direction:column;gap:10px;padding:16px;text-align:center}
+  .hdr-r,.hdr-week{justify-content:center}
+  .page-sec{padding:56px 0}
+  .ps-inner{padding:0 20px}
+  .sec-title{font-size:22px}
+  .score-num{font-size:64px}
+}
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <img src="https://raw.githubusercontent.com/adele-cc/codecraft-reports/main/moviton/logo/CC-full-logo-white.png" class="gate-logo" alt="CodeCraft">
+  <div class="gate-title">Weekly Report</div>
+  <div class="gate-sub" id="gateSub">Enter your 4-digit access code</div>
+  <div class="pin-row">
+    <input class="pin-box" type="password" maxlength="1" inputmode="numeric" id="p0">
+    <input class="pin-box" type="password" maxlength="1" inputmode="numeric" id="p1">
+    <input class="pin-box" type="password" maxlength="1" inputmode="numeric" id="p2">
+    <input class="pin-box" type="password" maxlength="1" inputmode="numeric" id="p3">
+  </div>
+  <div class="pin-err" id="pinErr"></div>
+  <div class="pin-hint">Your access code was provided by your CodeCraft account manager</div>
+</div>
+
+<div class="gate" id="loading" style="display:none">
+  <img src="https://raw.githubusercontent.com/adele-cc/codecraft-reports/main/moviton/logo/CC-full-logo-white.png" class="gate-logo" alt="CodeCraft">
+  <div style="width:28px;height:28px;border:2px solid var(--border);border-top-color:var(--green);border-radius:50%;animation:spin .7s linear infinite;margin-top:10px"></div>
+</div>
+
+<div class="np" id="np">
+  <div style="font-size:40px">🔒</div>
+  <div class="np-title">Report not yet available</div>
+  <div class="np-sub">Your account manager will share this before your next call.</div>
+</div>
+
+<div class="hdr" id="hdr" style="display:none">
+  <div class="hdr-l">
+    <img src="https://raw.githubusercontent.com/adele-cc/codecraft-reports/main/moviton/logo/CC-full-logo-white.png" class="hdr-cc" alt="CodeCraft">
+    <div class="hdr-div" id="hdrDiv" style="display:none"></div>
+    <img class="hdr-cl" id="hdrCl" style="display:none" alt="">
+  </div>
+  <div class="hdr-r">
+    <div class="hdr-name" id="hdrName"></div>
+    <div class="hdr-week"><span class="hdr-dot"></span><span id="hdrWeek"></span></div>
+  </div>
+</div>
+
+<div id="main" style="display:none">
+
+  <div class="page-sec" id="secOv">
+    <div class="ps-inner">
+      <div class="sec-hdr">
+        <div class="sec-title">Overview</div>
+        <div class="sec-rule"></div>
+      </div>
+      <div id="ovGrid" class="ov-grid" style="margin-bottom:12px"></div>
+      <div class="chart-card" id="ovTrajWrap" style="display:none">
+        <div class="chart-lbl">Overall growth since campaign start — % indexed to start</div>
+        <div class="ch" style="height:220px"><canvas id="ovTrajCvs"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-sec light" id="secX">
+    <div class="ps-inner">
+      <div class="sec-hdr">
+        <div class="sec-title">X / Twitter</div>
+        <div class="sec-rule"></div>
+      </div>
+      <div id="xCards" class="mgrid m5" style="margin-bottom:12px"></div>
+      <div class="g2">
+        <div class="chart-card" id="xColWrap" style="display:none">
+          <div class="chart-lbl">Engagement metrics — last week vs this week</div>
+          <div class="ch" style="height:190px"><canvas id="xColCvs"></canvas></div>
+        </div>
+        <div class="chart-card" id="xTrajWrap" style="display:none">
+          <div class="chart-lbl">Follower growth trajectory</div>
+          <div class="ch" style="height:190px"><canvas id="xTrajCvs"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-sec" id="secDiscord">
+    <div class="ps-inner">
+      <div class="sec-hdr">
+        <div class="sec-title">Discord</div>
+        <div class="sec-rule"></div>
+      </div>
+      <div class="g2" style="margin-bottom:12px">
+        <div id="discordStats" class="mgrid m2"></div>
+        <div id="discordEng"></div>
+      </div>
+      <div class="chart-card" id="discordTrajWrap" style="display:none">
+        <div class="chart-lbl">Member growth trajectory</div>
+        <div class="ch"><canvas id="discordTrajCvs"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-sec light" id="secCookie">
+    <div class="ps-inner">
+      <div class="sec-hdr">
+        <div class="sec-title">Cookie3</div>
+        <div class="sec-rule"></div>
+      </div>
+      <div class="g2" style="margin-bottom:12px">
+        <div id="cookieScore"></div>
+        <div id="cookieMet" class="mgrid m2"></div>
+      </div>
+      <div class="chart-card" id="cookieTrajWrap" style="display:none">
+        <div class="chart-lbl">Score trajectory</div>
+        <div class="ch"><canvas id="cookieTrajCvs"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-sec" id="secGrowth">
+    <div class="ps-inner">
+      <div class="sec-hdr">
+        <div class="sec-title">Community Growth: Questing</div>
+        <div class="sec-rule"></div>
+      </div>
+      <div id="growthCards" class="mgrid m4" style="margin-bottom:12px"></div>
+      <div class="chart-card" id="growthColWrap" style="display:none">
+        <div class="chart-lbl">DAU &amp; MAU — campaign progression</div>
+        <div class="ch"><canvas id="growthColCvs"></canvas></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-sec light" id="secMind">
+    <div class="ps-inner">
+      <div class="sec-hdr">
+        <div class="sec-title">Mindshare</div>
+        <div class="sec-rule"></div>
+      </div>
+      <div id="mindCards" class="mgrid m4" style="margin-bottom:12px"></div>
+      <div class="g2">
+        <div class="chart-card" id="mindColWrap" style="display:none">
+          <div class="chart-lbl">Posts &amp; engagers — last week vs this week</div>
+          <div class="ch" style="height:190px"><canvas id="mindColCvs"></canvas></div>
+        </div>
+        <div class="chart-card" id="mindTrajWrap" style="display:none">
+          <div class="chart-lbl">Impressions trajectory</div>
+          <div class="ch" style="height:190px"><canvas id="mindTrajCvs"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="foot" id="foot" style="display:none">
+  <img src="https://raw.githubusercontent.com/adele-cc/codecraft-reports/main/moviton/logo/CC-symbol-white.png" alt="CodeCraft">
+  <p>Prepared by CodeCraft &bull; <span id="footWeek"></span></p>
+</div>
+
+<script>
+/*CC_DATA_INJECT_START*/
+const D = {
+  client:'',clientLogo:null,pin:'0000',published:false,
+  week:1,weekDate:'',campaignStart:'',
+  overview:null,x:null,discord:null,cookie3:null,growth:null,mindshare:null
+};
+/*CC_DATA_INJECT_END*/
+
+const vv = x => x !== null && x !== undefined && x !== "";
+const fmt = n => {
+  if (typeof n !== 'number') return String(n);
+  if (n >= 1e9) return (n/1e9).toFixed(1).replace(/\.0$/,'')+'B';
+  if (n >= 1e6) return (n/1e6).toFixed(1).replace(/\.0$/,'')+'M';
+  if (n >= 1e3) return (n/1e3).toFixed(1).replace(/\.0$/,'')+'k';
+  return n.toLocaleString();
+};
+const pct = (a, b) => b > 0 ? (a-b)/b*100 : null;
+const hide = id => { const e=document.getElementById(id); if(e) e.style.display='none'; };
+
+function growRows(data) {
+  if (!data || !vv(data.now)) return '';
+  const isNum = typeof data.now === 'number';
+  let rows = '';
+  if (isNum && typeof data.start === 'number' && data.start > 0) {
+    const p = pct(data.now, data.start), up = p >= 0;
+    rows += `<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}">${up?'+':''}${Math.round(p)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(data.now-data.start))}</span><span class="grow-lbl">since ${D.campaignStart||'start'}</span></div>`;
+  }
+  if (isNum && typeof data.lw === 'number') {
+    const p = pct(data.now, data.lw), up = p >= 0;
+    rows += `<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}" style="font-size:19px">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}" style="font-size:19px">${up?'+':''}${Math.abs(p).toFixed(1)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(data.now-data.lw))}</span><span class="grow-lbl">vs last week</span></div>`;
+  } else if (typeof data.now === 'string' && vv(data.lw)) {
+    const n=parseFloat(data.now),l=parseFloat(data.lw);
+    if (!isNaN(n)&&!isNaN(l)) { const up=n>=l; rows+=`<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}" style="font-size:19px">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}" style="font-size:19px">${data.lw}→${data.now}</span><span class="grow-lbl" style="margin-left:6px">vs last week</span></div>`; }
+  }
+  return rows ? `<div class="ov-growth">${rows}</div>` : '';
+}
+function mGrowRows(data) {
+  if (!data || !vv(data.now)) return '';
+  const isNum = typeof data.now === 'number';
+  let rows = '';
+  if (isNum && typeof data.start === 'number' && data.start > 0) {
+    const p = pct(data.now, data.start), up = p >= 0;
+    rows += `<div class="m-grow-row"><span class="m-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}">${up?'+':''}${Math.round(p)}%</span><span class="m-pct-lbl">since start</span></div>`;
+  }
+  if (isNum && typeof data.lw === 'number') {
+    const p = pct(data.now, data.lw), up = p >= 0;
+    rows += `<div class="m-grow-row"><span class="m-arrow ${up?'up':'dn'}" style="font-size:14px">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}" style="font-size:14px">${up?'+':''}${Math.abs(p).toFixed(1)}%</span><span class="m-pct-lbl">${up?'+':''}${fmt(Math.abs(data.now-data.lw))} vs last week</span></div>`;
+  } else if (typeof data.now === 'string' && vv(data.lw)) {
+    const n=parseFloat(data.now),l=parseFloat(data.lw);
+    if (!isNaN(n)&&!isNaN(l)) { const up=n>=l; rows+=`<div class="m-grow-row"><span class="m-arrow ${up?'up':'dn'}" style="font-size:14px">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}" style="font-size:14px">${data.lw}→${data.now}</span><span class="m-pct-lbl">vs last week</span></div>`; }
+  }
+  return rows ? `<div class="m-growth">${rows}</div>` : '';
+}
+function ctxStrip(data) {
+  if (!data) return '';
+  const c = [];
+  if (vv(data.start)) c.push(`<div class="ov-ctx-col"><div class="ov-ctx-lbl">Start</div><div class="ov-ctx-val">${fmt(data.start)}</div></div>`);
+  if (vv(data.lw))    c.push(`<div class="ov-ctx-col"><div class="ov-ctx-lbl">Last Week</div><div class="ov-ctx-val">${fmt(data.lw)}</div></div>`);
+  if (vv(data.now))   c.push(`<div class="ov-ctx-col ctx-now"><div class="ov-ctx-lbl">This Week</div><div class="ov-ctx-val">${fmt(data.now)}</div></div>`);
+  return c.length ? `<div class="ov-ctx">${c.join('')}</div>` : '';
+}
+function mCard(label, data) {
+  if (!data || !vv(data.now)) return '';
+  const isNum = typeof data.now === 'number';
+  const numEl = isNum ? `<div class="m-num" data-count="${data.now}" data-fmt="s">${fmt(data.now)}</div>` : `<div class="m-num sm">${data.now}</div>`;
+  return `<div class="mcard"><div class="m-lbl">${label}</div>${numEl}${mGrowRows(data)}</div>`;
+}
+function animCount(el) {
+  const target = parseFloat(el.dataset.count), short = el.dataset.fmt === 's';
+  let t0 = null;
+  const ease = t => t<.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+  (function step(ts) {
+    if (!t0) t0 = ts;
+    const p = Math.min((ts-t0)/1400, 1), v = target * ease(p);
+    let s;
+    if (short) { if(target>=1e9)s=(v/1e9).toFixed(1).replace(/\.0$/,'')+'B'; else if(target>=1e6)s=(v/1e6).toFixed(1).replace(/\.0$/,'')+'M'; else if(target>=1e3)s=(v/1e3).toFixed(1).replace(/\.0$/,'')+'k'; else s=Math.round(v).toLocaleString(); }
+    else s = Math.round(v).toLocaleString();
+    el.textContent = s;
+    if (p < 1) requestAnimationFrame(step);
+  })(performance.now());
+}
+function animateSection(sec) {
+  if (!sec) return;
+  [...sec.querySelectorAll('.ov-card,.mcard,.score-card,.chart-card,.eng-card')].forEach((el,i) => {
+    setTimeout(() => {
+      el.style.transition = 'opacity .55s cubic-bezier(.16,1,.3,1), transform .55s cubic-bezier(.16,1,.3,1), border-color .2s, box-shadow .35s';
+      el.classList.add('in');
+      el.querySelectorAll('[data-count]').forEach(animCount);
+    }, i * 75 + 60);
+  });
+}
+const secObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (!e.isIntersecting) return; animateSection(e.target); secObserver.unobserve(e.target); });
+}, { threshold: 0.05, rootMargin: '0px 0px -60px 0px' });
+
+const C = {
+  dark:{ tc:'rgba(255,255,255,0.4)',gc:'rgba(255,255,255,0.05)',green:'#88F802',greenFill:'rgba(136,248,2,0.15)',lwBg:'rgba(255,255,255,0.07)',lwBorder:'rgba(255,255,255,0.18)',tooltip:{backgroundColor:'#111',titleColor:'#fff',bodyColor:'rgba(255,255,255,.6)',borderColor:'rgba(136,248,2,.25)',borderWidth:1}},
+  light:{tc:'rgba(13,13,13,0.45)',gc:'rgba(0,0,0,0.06)',green:'#4ea800',greenFill:'rgba(78,168,0,0.11)',lwBg:'rgba(0,0,0,0.07)',lwBorder:'rgba(0,0,0,0.18)',tooltip:{backgroundColor:'#111',titleColor:'#fff',bodyColor:'rgba(255,255,255,.6)',borderColor:'rgba(78,168,0,.25)',borderWidth:1}}
+};
+const chartDefaults = p => ({responsive:true,maintainAspectRatio:false,animation:{duration:1100,easing:'easeOutQuart'},interaction:{mode:'index',intersect:false},plugins:{legend:{labels:{color:p.tc,font:{family:'Montserrat',size:10},boxWidth:10,padding:16}},tooltip:{...p.tooltip,padding:14,cornerRadius:10,titleFont:{family:'Montserrat',size:12,weight:'700'},bodyFont:{family:'Montserrat',size:11},callbacks:{label:ctx=>' '+ctx.dataset.label+': '+fmt(ctx.parsed.y)}}}});
+const axisX = p => ({grid:{color:p.gc,drawBorder:false},border:{color:'transparent'},ticks:{color:p.tc,font:{family:'Montserrat',size:11,weight:'600'}}});
+const axisY = p => ({grid:{color:p.gc,drawBorder:false},border:{color:'transparent'},ticks:{color:p.tc,font:{family:'Montserrat',size:10},callback:v=>fmt(v)}});
+function trajChart(canvasId,values,isLight,label){const cvs=document.getElementById(canvasId);if(!cvs)return;const p=isLight?C.light:C.dark;const grad=cvs.getContext('2d').createLinearGradient(0,0,0,200);grad.addColorStop(0,p.greenFill);grad.addColorStop(1,'rgba(0,0,0,0)');new Chart(cvs,{type:'line',data:{labels:['Campaign Start','Last Week','This Week'],datasets:[{label,data:values,borderColor:p.green,borderWidth:2.5,pointRadius:5,pointBackgroundColor:p.green,pointBorderColor:p.green,pointHoverRadius:8,pointHoverBackgroundColor:p.green,tension:.38,fill:true,backgroundColor:grad}]},options:{...chartDefaults(p),plugins:{...chartDefaults(p).plugins,legend:{display:false}},scales:{x:axisX(p),y:axisY(p)}}});}
+function colChart(canvasId,labels,lwData,nowData,isLight){const cvs=document.getElementById(canvasId);if(!cvs)return;const p=isLight?C.light:C.dark;new Chart(cvs,{type:'bar',data:{labels,datasets:[{label:'Last Week',data:lwData,backgroundColor:p.lwBg,borderColor:p.lwBorder,borderWidth:1.5,borderRadius:6,borderSkipped:false},{label:'This Week',data:nowData,backgroundColor:p.green+'b3',borderColor:p.green,borderWidth:0,borderRadius:6,borderSkipped:false}]},options:{...chartDefaults(p),scales:{x:axisX(p),y:axisY(p)}}});}
+
+const pins = [0,1,2,3].map(i=>document.getElementById('p'+i));
+document.getElementById('gateSub').textContent = D.client + ' — Enter your access code';
+pins.forEach((inp,i)=>{inp.addEventListener('input',()=>{inp.value=inp.value.replace(/\D/,'');if(inp.value&&i<3)pins[i+1].focus();if(pins.every(p=>p.value))checkPin();});inp.addEventListener('keydown',e=>{if(e.key==='Backspace'&&!inp.value&&i>0)pins[i-1].focus();});});
+pins[0].focus();
+function checkPin(){if(pins.map(p=>p.value).join('')===String(D.pin)){const g=document.getElementById('gate');g.classList.add('gone');setTimeout(()=>g.style.display='none',400);if(!D.published){document.getElementById('np').classList.add('show');return;}buildDash();}else{document.getElementById('pinErr').textContent='Incorrect code — please try again.';pins.forEach(p=>{p.value='';p.style.borderColor='var(--red)';setTimeout(()=>p.style.borderColor='',900);});pins[0].focus();}}
+function buildDash(){document.getElementById('hdr').style.display='flex';document.getElementById('main').style.display='block';document.getElementById('foot').style.display='block';document.getElementById('hdrName').textContent=D.client;document.getElementById('hdrWeek').textContent=`Week ${D.week} · ${D.weekDate}`;document.getElementById('footWeek').textContent=D.weekDate;if(D.clientLogo){const cl=document.getElementById('hdrCl');cl.src=D.clientLogo;cl.style.display='block';document.getElementById('hdrDiv').style.display='block';}buildOverview();buildX();buildDiscord();buildCookie();buildGrowth();buildMindshare();document.querySelectorAll('.page-sec').forEach(s=>secObserver.observe(s));}
+function buildOverview(){const ov=D.overview;if(!ov){hide('secOv');return;}const items=[{label:'X Followers',data:ov.followers},{label:'Discord Members',data:ov.discord},{label:'Cookie3 Score',data:ov.cookie},{label:'Collaborations',data:ov.collabs}];let html='';items.forEach(({label,data})=>{if(!data||!vv(data.now))return;const n=typeof data.now==='number';html+=`<div class="ov-card"><div class="ov-lbl">${label}</div>${n?`<div class="ov-num" data-count="${data.now}" data-fmt="s">${fmt(data.now)}</div>`:`<div class="ov-num" style="font-size:44px">${data.now}</div>`}${growRows(data)}${ctxStrip(data)}</div>`;});document.getElementById('ovGrid').innerHTML=html;const series=[{label:'X Followers',d:ov.followers,color:'#88F802'},{label:'Discord',d:ov.discord,color:'#4B8EF8'},{label:'Cookie3',d:ov.cookie,color:'#F5A623'}].filter(s=>s.d&&typeof s.d.start==='number'&&s.d.start>0&&vv(s.d.lw)&&vv(s.d.now));if(series.length){document.getElementById('ovTrajWrap').style.display='block';setTimeout(()=>{const cvs=document.getElementById('ovTrajCvs');if(!cvs)return;const p=C.dark;new Chart(cvs,{type:'line',data:{labels:['Campaign Start','Last Week','This Week'],datasets:series.map(s=>({label:s.label,data:[0,Math.round(pct(s.d.lw,s.d.start)*10)/10,Math.round(pct(s.d.now,s.d.start)*10)/10],borderColor:s.color,borderWidth:2.5,pointRadius:5,pointBackgroundColor:s.color,pointHoverRadius:8,tension:.38,fill:false}))},options:{...chartDefaults(p),scales:{x:axisX(p),y:{...axisY(p),ticks:{...axisY(p).ticks,callback:v=>v+'%'},title:{display:true,text:'% growth from campaign start',color:'rgba(255,255,255,.22)',font:{size:9,family:'Montserrat'}}}}}});},350);}if(!html)hide('secOv');}
+function buildX(){const x=D.x;if(!x){hide('secX');return;}const fields=[{label:'Followers',data:x.followers},{label:'Impressions',data:x.impressions},{label:'Engagements',data:x.engagements},{label:'Verified Followers',data:x.verified},{label:'Mutual Followers',data:x.mutual}];document.getElementById('xCards').innerHTML=fields.map(f=>mCard(f.label,f.data)).join('');const eng=[{label:'Engagements',d:x.engagements},{label:'Verified',d:x.verified},{label:'Mutual',d:x.mutual}].filter(e=>e.d&&vv(e.d.lw)&&vv(e.d.now));if(eng.length){document.getElementById('xColWrap').style.display='block';setTimeout(()=>colChart('xColCvs',eng.map(e=>e.label),eng.map(e=>e.d.lw),eng.map(e=>e.d.now),true),300);}if(x.followers&&vv(x.followers.start)&&vv(x.followers.lw)&&vv(x.followers.now)){document.getElementById('xTrajWrap').style.display='block';setTimeout(()=>trajChart('xTrajCvs',[x.followers.start,x.followers.lw,x.followers.now],true,'Followers'),300);}}
+function buildDiscord(){const dc=D.discord;if(!dc){hide('secDiscord');return;}document.getElementById('discordStats').innerHTML=mCard('Discord Members',dc.members)+mCard('Total Messages',dc.messages);if(dc.topEngagers?.length){const pills=dc.topEngagers.map((h,i)=>`<div class="eng-pill"><div class="eng-num">${i+1}</div>${h}</div>`).join('');document.getElementById('discordEng').innerHTML=`<div class="eng-card"><div class="m-lbl">Top Engagers</div><div class="eng-list">${pills}</div></div>`;}if(dc.members&&vv(dc.members.start)&&vv(dc.members.lw)&&vv(dc.members.now)){document.getElementById('discordTrajWrap').style.display='block';setTimeout(()=>trajChart('discordTrajCvs',[dc.members.start,dc.members.lw,dc.members.now],false,'Members'),300);}}
+function buildCookie(){const ck=D.cookie3;if(!ck||!vv(ck.score?.now)){hide('secCookie');return;}const score=ck.score.now;const color=score>=70?'#4ea800':score>=50?'#e67e00':'#c0392b';const tag=score>=70?'Strong':score>=50?'Moderate':'Needs Work';document.getElementById('cookieScore').innerHTML=`<div class="score-card"><div class="m-lbl">Cookie3 Score</div><div class="score-num" style="color:${color}" data-count="${score}">${score}</div><div class="score-tag" style="color:${color}">${tag}</div>${mGrowRows(ck.score)}</div>`;document.getElementById('cookieMet').innerHTML=mCard('Smart Followers',ck.smart)+mCard('Smart Reach',ck.reach)+mCard('Avg. Views / Post',ck.viewsPost)+mCard('Avg. Engagement / Tweet',ck.engTweet);if(ck.score&&vv(ck.score.start)&&vv(ck.score.lw)&&vv(ck.score.now)){document.getElementById('cookieTrajWrap').style.display='block';setTimeout(()=>trajChart('cookieTrajCvs',[ck.score.start,ck.score.lw,ck.score.now],true,'Score'),300);}}
+function buildGrowth(){const g=D.growth;if(!g){hide('secGrowth');return;}document.getElementById('growthCards').innerHTML=mCard('Collaborations',g.collabs)+mCard('Registered Users',g.registered)+mCard('DAU',g.dau)+mCard('MAU',g.mau);const hasDau=g.dau&&vv(g.dau.start)&&vv(g.dau.lw)&&vv(g.dau.now);const hasMau=g.mau&&vv(g.mau.start)&&vv(g.mau.lw)&&vv(g.mau.now);if(hasDau||hasMau){document.getElementById('growthColWrap').style.display='block';setTimeout(()=>{const cvs=document.getElementById('growthColCvs');if(!cvs)return;const p=C.dark;const labels=['Campaign Start','Last Week','This Week'];const datasets=[];if(hasMau)datasets.push({label:'MAU',data:[g.mau.start,g.mau.lw,g.mau.now],backgroundColor:'rgba(136,248,2,0.22)',borderColor:'rgba(136,248,2,0.5)',borderWidth:1.5,borderRadius:6,borderSkipped:false});if(hasDau)datasets.push({label:'DAU',data:[g.dau.start,g.dau.lw,g.dau.now],backgroundColor:'rgba(136,248,2,0.78)',borderColor:'transparent',borderRadius:6,borderSkipped:false});new Chart(cvs,{type:'bar',data:{labels,datasets},options:{...chartDefaults(p),scales:{x:axisX(p),y:axisY(p)}}});},300);}}
+function buildMindshare(){const ms=D.mindshare;if(!ms){hide('secMind');return;}document.getElementById('mindCards').innerHTML=mCard('Unique Engagers',ms.uniqueEngagers)+mCard('Posts',ms.posts)+mCard('Quote Posts',ms.quotePosts)+mCard('Impressions',ms.impressions);const cols=[{label:'Unique Engagers',d:ms.uniqueEngagers},{label:'Posts',d:ms.posts},{label:'Quote Posts',d:ms.quotePosts}].filter(c=>c.d&&vv(c.d.lw)&&vv(c.d.now));if(cols.length){document.getElementById('mindColWrap').style.display='block';setTimeout(()=>colChart('mindColCvs',cols.map(c=>c.label),cols.map(c=>c.d.lw),cols.map(c=>c.d.now),true),300);}if(ms.impressions&&vv(ms.impressions.start)&&vv(ms.impressions.lw)&&vv(ms.impressions.now)){document.getElementById('mindTrajWrap').style.display='block';setTimeout(()=>trajChart('mindTrajCvs',[ms.impressions.start,ms.impressions.lw,ms.impressions.now],true,'Impressions'),300);}}
+
+const SHEET_URL="";
+if(SHEET_URL){const lEl=document.getElementById('loading'),gEl=document.getElementById('gate');lEl.style.display='flex';gEl.style.display='none';fetch(SHEET_URL+'?t='+Date.now()).then(r=>{if(!r.ok)throw 0;return r.text();}).then(()=>{lEl.classList.add('gone');setTimeout(()=>{lEl.style.display='none';gEl.style.display='flex';pins[0].focus();},400);}).catch(()=>{lEl.classList.add('gone');setTimeout(()=>{lEl.style.display='none';gEl.style.display='flex';pins[0].focus();},400);});}
+</script>
+</body>
+</html>
