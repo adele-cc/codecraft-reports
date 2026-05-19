@@ -419,7 +419,7 @@ function growRows(data) {
   let rows = '';
   if (isNum && typeof data.start === 'number' && data.start > 0) {
     const p = pct(data.now, data.start), up = p >= 0;
-    rows += `<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}">${up?'+':''}${Math.round(p)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(data.now-data.start))}</span><span class="grow-lbl">since ${D.campaignStart||'start'}</span></div>`;
+    rows += `<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}">${up?'+':''}${Math.round(p)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(data.now-data.start))}</span><span class="grow-lbl">since start of campaign</span></div>`;
   }
   if (isNum && typeof data.lw === 'number') {
     const p = pct(data.now, data.lw), up = p >= 0;
