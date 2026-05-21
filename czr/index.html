@@ -90,7 +90,8 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 
 /* ── METRIC CARDS ────────────────────────────────────────────── */
 .mgrid{display:grid;gap:12px}
-.m2{grid-template-columns:1fr 1fr}
+.m1{grid-template-columns:1fr;max-width:380px}
+.m2{grid-template-columns:1fr 1fr;max-width:720px}
 .m3{grid-template-columns:repeat(3,1fr)}
 .m4{grid-template-columns:repeat(4,1fr)}
 .m5{grid-template-columns:repeat(5,1fr)}
@@ -392,7 +393,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 <script>
 /*CC_DATA_INJECT_START*/
 const D = {
-  "client": "heyAura",
+  "client": "CZR",
   "clientLogo": null,
   "pin": "4321",
   "published": true,
@@ -403,17 +404,25 @@ const D = {
   "nowLabel": null,
   "overview": {
     "followers": null,
-    "discord": null,
+    "discord": {
+      "start": 34116,
+      "lw": 46401,
+      "now": 47911
+    },
     "cookie": null,
     "collabs": {
-      "start": null,
+      "start": 0,
       "lw": 234,
       "now": 234
     },
     "extra": []
   },
   "x": {
-    "followers": null,
+    "followers": {
+      "start": 14978,
+      "lw": 92100,
+      "now": 87100
+    },
     "impressions": null,
     "engagements": null,
     "verified": null,
@@ -421,15 +430,27 @@ const D = {
     "extra": []
   },
   "discord": {
-    "members": null,
+    "members": {
+      "start": 34116,
+      "lw": 46401,
+      "now": 47911
+    },
     "messages": null,
     "telegram": null,
     "extra": [],
     "topEngagers": null
   },
   "cookie3": {
-    "score": null,
-    "smart": null,
+    "score": {
+      "start": 1654,
+      "lw": 2764,
+      "now": 2658
+    },
+    "smart": {
+      "start": 48,
+      "lw": 63,
+      "now": 63
+    },
     "reach": null,
     "viewsPost": null,
     "engTweet": null,
@@ -437,19 +458,19 @@ const D = {
   },
   "growth": {
     "collabs": {
-      "start": null,
+      "start": 0,
       "lw": 234,
       "now": 234
     },
     "registered": {
-      "start": null,
-      "lw": null,
-      "now": null
+      "start": 0,
+      "lw": 33714,
+      "now": 34702
     },
     "dau": {
-      "start": null,
-      "lw": null,
-      "now": null
+      "start": 0,
+      "lw": 4000,
+      "now": 4000
     },
     "mau": null,
     "extra": []
@@ -500,9 +521,14 @@ function growRows(data) {
   if (!data || !vv(data.now)) return '';
   const isNum = typeof data.now === 'number';
   let rows = '';
-  if (isNum && typeof data.start === 'number' && data.start > 0) {
-    const p = pct(data.now, data.start), up = p >= 0;
-    rows += `<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}">${up?'+':''}${Math.round(p)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(data.now-data.start))}</span><span class="grow-lbl">since start of campaign</span></div>`;
+  if (isNum && typeof data.start === 'number') {
+    const diff = data.now - data.start, up = diff >= 0;
+    if (data.start > 0) {
+      const p = pct(data.now, data.start);
+      rows += `<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}">${up?'+':''}${Math.round(p)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(diff))}</span><span class="grow-lbl">since start of campaign</span></div>`;
+    } else {
+      rows += `<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="grow-abs" style="margin-left:0">${up?'+':''}${fmt(Math.abs(diff))}</span><span class="grow-lbl">since start of campaign</span></div>`;
+    }
   }
   if (isNum && typeof data.lw === 'number') {
     const p = pct(data.now, data.lw), up = p >= 0;
@@ -517,9 +543,14 @@ function mGrowRows(data) {
   if (!data || !vv(data.now)) return '';
   const isNum = typeof data.now === 'number';
   let rows = '';
-  if (isNum && typeof data.start === 'number' && data.start > 0) {
-    const p = pct(data.now, data.start), up = p >= 0;
-    rows += `<div class="m-grow-row"><span class="m-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}">${up?'+':''}${Math.round(p)}%</span><span class="m-pct-lbl">since campaign start</span></div>`;
+  if (isNum && typeof data.start === 'number') {
+    const diff = data.now - data.start, up = diff >= 0;
+    if (data.start > 0) {
+      const p = pct(data.now, data.start);
+      rows += `<div class="m-grow-row"><span class="m-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}">${up?'+':''}${Math.round(p)}%</span><span class="m-pct-lbl">since campaign start</span></div>`;
+    } else {
+      rows += `<div class="m-grow-row"><span class="m-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}">${up?'+':''}${fmt(diff)}</span><span class="m-pct-lbl">since campaign start</span></div>`;
+    }
   }
   if (isNum && typeof data.lw === 'number') {
     const p = pct(data.now, data.lw), up = p >= 0;
