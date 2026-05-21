@@ -90,7 +90,8 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 
 /* ── METRIC CARDS ────────────────────────────────────────────── */
 .mgrid{display:grid;gap:12px}
-.m2{grid-template-columns:1fr 1fr}
+.m1{grid-template-columns:1fr;max-width:380px}
+.m2{grid-template-columns:1fr 1fr;max-width:720px}
 .m3{grid-template-columns:repeat(3,1fr)}
 .m4{grid-template-columns:repeat(4,1fr)}
 .m5{grid-template-columns:repeat(5,1fr)}
@@ -429,7 +430,7 @@ const D = {
       "now": 12100
     },
     "verified": {
-      "start": null,
+      "start": 0,
       "lw": null,
       "now": 786
     },
@@ -458,7 +459,7 @@ const D = {
   "growth": {
     "collabs": null,
     "registered": {
-      "start": null,
+      "start": 0,
       "lw": null,
       "now": 2640
     },
@@ -512,9 +513,14 @@ function growRows(data) {
   if (!data || !vv(data.now)) return '';
   const isNum = typeof data.now === 'number';
   let rows = '';
-  if (isNum && typeof data.start === 'number' && data.start > 0) {
-    const p = pct(data.now, data.start), up = p >= 0;
-    rows += `<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}">${up?'+':''}${Math.round(p)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(data.now-data.start))}</span><span class="grow-lbl">since start of campaign</span></div>`;
+  if (isNum && typeof data.start === 'number') {
+    const diff = data.now - data.start, up = diff >= 0;
+    if (data.start > 0) {
+      const p = pct(data.now, data.start);
+      rows += `<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}">${up?'+':''}${Math.round(p)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(diff))}</span><span class="grow-lbl">since start of campaign</span></div>`;
+    } else {
+      rows += `<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="grow-abs" style="margin-left:0">${up?'+':''}${fmt(Math.abs(diff))}</span><span class="grow-lbl">since start of campaign</span></div>`;
+    }
   }
   if (isNum && typeof data.lw === 'number') {
     const p = pct(data.now, data.lw), up = p >= 0;
@@ -529,9 +535,14 @@ function mGrowRows(data) {
   if (!data || !vv(data.now)) return '';
   const isNum = typeof data.now === 'number';
   let rows = '';
-  if (isNum && typeof data.start === 'number' && data.start > 0) {
-    const p = pct(data.now, data.start), up = p >= 0;
-    rows += `<div class="m-grow-row"><span class="m-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}">${up?'+':''}${Math.round(p)}%</span><span class="m-pct-lbl">since campaign start</span></div>`;
+  if (isNum && typeof data.start === 'number') {
+    const diff = data.now - data.start, up = diff >= 0;
+    if (data.start > 0) {
+      const p = pct(data.now, data.start);
+      rows += `<div class="m-grow-row"><span class="m-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}">${up?'+':''}${Math.round(p)}%</span><span class="m-pct-lbl">since campaign start</span></div>`;
+    } else {
+      rows += `<div class="m-grow-row"><span class="m-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}">${up?'+':''}${fmt(diff)}</span><span class="m-pct-lbl">since campaign start</span></div>`;
+    }
   }
   if (isNum && typeof data.lw === 'number') {
     const p = pct(data.now, data.lw), up = p >= 0;
