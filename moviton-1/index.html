@@ -857,25 +857,17 @@ const D = {
     "articles": [
       {
         "url": "https://www.coindesk.com/markets/2026/07/02/u-s-payroll-growth-slowed-sharply-in-june-adding-only-57-000-jobs",
-        "pub": "CoinDesk",
-        "headline": "Acme Protocol Sees 130% Growth...",
-        "date": "Sun Jun 28 2026 01:00:00 GMT+0100 (British Summer Time)",
-        "imgUrl": "https://...",
-        "reach": "2.1M",
-        "views": "420k",
-        "value": "$48k",
-        "eng": "5.2k"
+        "pub": "",
+        "headline": "U.S. payroll growth slowed sharply in June, adding only 57,000 jobs",
+        "date": "",
+        "imgUrl": "https://cdn.sanity.io/images/s3y3vcno/production/a4d81e192e1f62823140aa467b9ae9ea05af455a-6000x4000.jpg?auto=format&amp;w=960&amp;h=540&amp;crop=focalpoint&amp;fit=clip&amp;q=75&amp;fm=jpg"
       },
       {
         "url": "https://...",
-        "pub": "The Block",
-        "headline": "How Acme Protocol Is Redefining...",
-        "date": "Tue Jun 30 2026 01:00:00 GMT+0100 (British Summer Time)",
-        "imgUrl": null,
-        "reach": "840k",
-        "views": "168k",
-        "value": "$32k",
-        "eng": "3.8k"
+        "pub": "",
+        "headline": "",
+        "date": "",
+        "imgUrl": null
       }
     ],
     "podcasts": [
@@ -1037,6 +1029,7 @@ function renderPostCards(posts, gridId, isKol){
       card.className='xpost-card';
       card.innerHTML=`<div class="xpost-head"><div class="xpost-author"><div class="xpost-avatar">${av}</div><div><div class="xpost-name">${p.name||'—'}</div><div class="xpost-handle">${p.handle||''}</div></div></div><div class="xpost-x">${X_SVG_LG}</div></div><div class="xpost-body"><div class="xpost-text">${(p.text||'').replace(/\n/g,'<br>')}</div></div>${imgH}<div class="xpost-stats"><div class="xpost-stat"><div class="xpost-stat-val">${sv(p.views)}</div><div class="xpost-stat-lbl">Views</div></div><div class="xpost-stat"><div class="xpost-stat-val">${sv(p.likes)}</div><div class="xpost-stat-lbl">Likes</div></div><div class="xpost-stat"><div class="xpost-stat-val">${sv(p.reposts)}</div><div class="xpost-stat-lbl">Reposts</div></div><div class="xpost-stat"><div class="xpost-stat-val">${sv(p.replies)}</div><div class="xpost-stat-lbl">Replies</div></div></div><a href="${p.url||'#'}" target="_blank" class="xpost-link">View on ${X_SVG}</a>`;
     }
+    if(p.url){card.style.cursor='pointer';card.onclick=e=>{if(!e.target.closest('a'))window.open(p.url,'_blank');};}
     grid.appendChild(card); obs(card);
   });
 }
@@ -1331,6 +1324,7 @@ function buildPr(){
       const dom=domainOf(a.url);
       const statsH=[{v:a.reach,l:'Reach'},{v:a.views,l:'Views'},{v:a.value,l:'Value'},{v:a.eng,l:'Eng.'}].filter(s=>vv(s.v)).map(s=>`<div class="article-stat"><div class="article-stat-val">${s.v}</div><div class="article-stat-lbl">${s.l}</div></div>`).join('');
       const card=document.createElement('div'); card.className='article-card';
+      card.style.cursor='pointer'; card.onclick=e=>{if(!e.target.closest('a'))window.open(a.url,'_blank');};
       card.innerHTML=`${imgH}<div class="article-body"><div class="article-pub"><div class="article-favicon"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" alt=""></div><div class="article-pub-name">${a.pub||dom}</div>${a.date?`<div class="article-pub-date">${a.date}</div>`:''}</div><div class="article-headline">${a.headline||a.url}</div></div>${statsH?`<div class="article-stats">${statsH}</div>`:''}<a href="${a.url}" target="_blank" class="article-link">${EXT_SVG} Read article</a>`;
       grid.appendChild(card); obs(card);
     });
@@ -1342,7 +1336,8 @@ function buildPr(){
       const {name,color,icon,listen}=plat(p.platUrl||p.url||'');
       const thumbH=p.thumb?`<img src="${p.thumb}" alt="" onerror="this.style.display='none'">`:' ';
       const card=document.createElement('div'); card.className='pod-card';
-      card.innerHTML=`<div class="pod-thumb">${thumbH}<div class="pod-platform-badge"><div class="pod-platform-icon" style="background:${color}22">${icon}</div><div class="pod-platform-name">${name}</div></div><div class="pod-play-overlay"><div class="pod-play-circle">${PLAY_SVG}</div></div></div><div class="pod-body"><div class="pod-title">${p.title||'Untitled'}</div><div class="pod-meta">${p.guest?`<div class="pod-meta-item">${MIC_SVG} ${p.guest}</div>`:''} ${p.dur?`<div class="pod-meta-item">${CLK_SVG} ${p.dur}</div>`:''}</div></div><a href="${p.url||'#'}" target="_blank" class="pod-link">${listen} on ${name}</a>`;
+      const _purl=p.platUrl||p.url||'#'; card.style.cursor='pointer'; card.onclick=e=>{if(!e.target.closest('a'))window.open(_purl,'_blank');};
+      card.innerHTML=`<div class="pod-thumb">${thumbH}<div class="pod-platform-badge"><div class="pod-platform-icon" style="background:${color}22">${icon}</div><div class="pod-platform-name">${name}</div></div><div class="pod-play-overlay"><div class="pod-play-circle">${PLAY_SVG}</div></div></div><div class="pod-body"><div class="pod-title">${p.title||'Untitled'}</div><div class="pod-meta">${p.guest?`<div class="pod-meta-item">${MIC_SVG} ${p.guest}</div>`:''} ${p.dur?`<div class="pod-meta-item">${CLK_SVG} ${p.dur}</div>`:''}</div></div><a href="${_purl}" target="_blank" class="pod-link">${listen} on ${name}</a>`;
       grid.appendChild(card); obs(card);
     });
   }
