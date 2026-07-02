@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Weekly Report | CodeCraft</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -202,6 +203,12 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .kol-body{padding:12px 14px 10px}
 .kol-text{font-size:13px;color:var(--w70);line-height:1.6;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
 .page-sec.light .kol-text{color:rgba(13,13,13,.72)}
+
+/* ── TWEET EMBED WRAPPER ─────────────────────────────────────── */
+.tweet-embed-wrap{opacity:0;transform:translateY(20px)}
+.tweet-embed-wrap.in{opacity:1;transform:translateY(0)}
+.tweet-embed-wrap .twitter-tweet{margin:0 auto!important}
+.kol-embed-followers{font-size:11px;font-weight:700;color:var(--green);padding:8px 14px 0;letter-spacing:.3px}
 
 /* ── SCREENSHOT CARD ─────────────────────────────────────────── */
 .score-ss-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:visible;transition:border-color .2s;opacity:0;transform:translateY(20px)}
@@ -628,7 +635,18 @@ function domainOf(url){try{return new URL(url).hostname.replace('www.','');}catc
 // ── POST CARD RENDERER (shared) ────────────────────────────────
 function renderPostCards(posts, gridId, isKol){
   const grid=document.getElementById(gridId); if(!grid)return;
+  let hasEmbeds=false;
   posts.forEach(p=>{
+    // oEmbed path — renders official Twitter tweet with PFP, images, counts
+    if(p.embedHtml){
+      const wrap=document.createElement('div');
+      wrap.className='tweet-embed-wrap';
+      if(isKol&&p.followers)wrap.innerHTML=`<div class="kol-embed-followers">${p.followers} followers</div>`;
+      wrap.innerHTML+=p.embedHtml;
+      grid.appendChild(wrap); obs(wrap); hasEmbeds=true;
+      return;
+    }
+    // API v2 path — custom card with full metrics
     const initials=(p.name||'').substring(0,2).toUpperCase()||'?';
     const av=p.avatar?`<img src="${p.avatar}" alt="" onerror="this.parentElement.textContent='${initials}'">`:`${initials}`;
     let imgH='';
@@ -648,6 +666,8 @@ function renderPostCards(posts, gridId, isKol){
     if(p.url){card.style.cursor='pointer';card.onclick=e=>{if(!e.target.closest('a'))window.open(p.url,'_blank');};}
     grid.appendChild(card); obs(card);
   });
+  // Re-initialise Twitter widgets for any embeds added after widgets.js loaded
+  if(hasEmbeds&&window.twttr&&window.twttr.widgets)window.twttr.widgets.load(grid);
 }
 
 // ── BUILD: OVERVIEW ────────────────────────────────────────────
