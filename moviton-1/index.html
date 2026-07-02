@@ -573,52 +573,52 @@ const D = {
     },
     "posts": [
       {
-        "url": "https://x.com/EthraShip/status/2072319323213816248?s=20",
-        "name": "",
-        "handle": "",
+        "name": "Ethra Ship Protocol",
+        "handle": "@EthraShip",
         "avatar": null,
-        "text": "",
+        "text": "Most RWA protocols tokenized what already existed onchain: treasuries, real estate, private credit.Ethra went upstream - to the ships that move everything else.That’s a $20T industry. Now coming onchain. pic.twitter.com/fwYS2J2nI3",
         "imageUrl": null,
         "views": null,
         "likes": null,
         "reposts": null,
-        "replies": null
+        "replies": null,
+        "url": "https://x.com/EthraShip/status/2072319323213816248?s=20"
       },
       {
-        "url": "https://x.com/EthraShip/status/2071594626226495630?s=20",
-        "name": "",
-        "handle": "",
+        "name": "Ethra Ship Protocol",
+        "handle": "@EthraShip",
         "avatar": null,
-        "text": "",
+        "text": "Maritime trade powers the global economy.Yet most people have never interacted with the industry behind it.Ethra Ship is building the digital layer around one of the world's most important industries - bringing maritime infrastructure onchain for the first time. pic.twitter.com/Y1Mz7DtM1s",
         "imageUrl": null,
         "views": null,
         "likes": null,
         "reposts": null,
-        "replies": null
+        "replies": null,
+        "url": "https://x.com/EthraShip/status/2071594626226495630?s=20"
       },
       {
-        "url": "https://x.com/EthraShip/status/2070144993935888467?s=20",
-        "name": "",
-        "handle": "",
+        "name": "Ethra Ship Protocol",
+        "handle": "@EthraShip",
         "avatar": null,
-        "text": "",
+        "text": "The coffee in your cup arrived by sea.The steel in your building arrived by sea.The chip in your phone arrived by sea.80% of what you own moved by water.0% has been accessible onchain.…Until now. pic.twitter.com/m2im5a9MAW",
         "imageUrl": null,
         "views": null,
         "likes": null,
         "reposts": null,
-        "replies": null
+        "replies": null,
+        "url": "https://x.com/EthraShip/status/2070144993935888467?s=20"
       },
       {
-        "url": "https://x.com/EthraShip/status/2069420209816096932?s=20",
-        "name": "",
-        "handle": "",
+        "name": "Ethra Ship Protocol",
+        "handle": "@EthraShip",
         "avatar": null,
-        "text": "",
+        "text": "Shipping has existed for 5,000 years. It financed the Silk Road. It built empires. It survived two world wars, three oil crises, and a global pandemic.Through every cycle, one thing remained constant:The world moves by sea. pic.twitter.com/sR0QwtTdIA",
         "imageUrl": null,
         "views": null,
         "likes": null,
         "reposts": null,
-        "replies": null
+        "replies": null,
+        "url": "https://x.com/EthraShip/status/2069420209816096932?s=20"
       }
     ]
   },
@@ -821,30 +821,30 @@ const D = {
     },
     "kolPosts": [
       {
-        "url": "https://x.com/NKLinhzk/status/2072498973198397690?s=20",
-        "name": "",
-        "handle": "",
+        "name": "Lynn",
+        "handle": "@NKLinhzk",
         "avatar": null,
-        "text": "",
+        "text": "hey quantum frens.@quipnetwork proof of useful work from that @dwavequantum episode really stood out.they're using real optimization problems for consensus instead of random hashes.quantum annealing delivers higher quality solutions and major energy savngs.30 to 100x… https://t.co/a9gSZalWeA pic.twitter.com/18xqw0EJZb",
         "imageUrl": null,
-        "followers": "284k",
         "views": null,
         "likes": null,
         "reposts": null,
-        "replies": null
+        "replies": null,
+        "url": "https://x.com/NKLinhzk/status/2072498973198397690?s=20",
+        "followers": "284k"
       },
       {
-        "url": "https://x.com/_Pretty_Miraa/status/2072531962481565987?s=20",
-        "name": "",
-        "handle": "",
+        "name": "Pretty Mira",
+        "handle": "@_Pretty_Miraa",
         "avatar": null,
-        "text": "",
+        "text": "Good morning & Happy thursdayI've always believed that the hardest part of building any product isn't getting people to try it for the first timeThe real challenge is giving them a reason to come back tomorrow, next week, and even months laterMany Web3 applications still… https://t.co/b9ZQZlxo9c pic.twitter.com/agQqfUfqzM",
         "imageUrl": null,
-        "followers": "156k",
         "views": null,
         "likes": null,
         "reposts": null,
-        "replies": null
+        "replies": null,
+        "url": "https://x.com/_Pretty_Miraa/status/2072531962481565987?s=20",
+        "followers": "156k"
       }
     ]
   },
@@ -1014,13 +1014,16 @@ function renderPostCards(posts, gridId, isKol){
     let imgH='';
     if(p.imageUrl)imgH=`<div class="${isKol?'kol':'xpost'}-img has-img"><img src="${p.imageUrl}" alt="" onerror="this.parentElement.classList.remove('has-img')"></div>`;
     const card=document.createElement('div');
+    const hasStats=[p.views,p.likes,p.reposts,p.replies].some(v=>v!==null);
     if(isKol){
       const folH=p.followers?`<div class="kol-followers"><span class="kol-followers-dot"></span>${p.followers} followers</div>`:'';
+      const kolStatsH=hasStats?`<div class="kol-stats"><div class="kol-stat"><div class="kol-stat-val">${sv(p.views)}</div><div class="kol-stat-lbl">Views</div></div><div class="kol-stat"><div class="kol-stat-val">${sv(p.likes)}</div><div class="kol-stat-lbl">Likes</div></div><div class="kol-stat"><div class="kol-stat-val">${sv(p.reposts)}</div><div class="kol-stat-lbl">Reposts</div></div></div>`:'';
       card.className='kol-card';
-      card.innerHTML=`<div class="kol-profile"><div class="kol-avatar">${av}</div><div class="kol-info"><div class="kol-name">${p.name||'—'}</div><div class="kol-handle">${p.handle||''}</div>${folH}</div><div class="xpost-x">${X_SVG_LG}</div></div><div class="kol-body"><div class="kol-text">${(p.text||'').replace(/\n/g,'<br>')}</div></div>${imgH}<div class="kol-stats"><div class="kol-stat"><div class="kol-stat-val">${sv(p.views)}</div><div class="kol-stat-lbl">Views</div></div><div class="kol-stat"><div class="kol-stat-val">${sv(p.likes)}</div><div class="kol-stat-lbl">Likes</div></div><div class="kol-stat"><div class="kol-stat-val">${sv(p.reposts)}</div><div class="kol-stat-lbl">Reposts</div></div></div><a href="${p.url||'#'}" target="_blank" class="kol-link">View on ${X_SVG}</a>`;
+      card.innerHTML=`<div class="kol-profile"><div class="kol-avatar">${av}</div><div class="kol-info"><div class="kol-name">${p.name||'—'}</div><div class="kol-handle">${p.handle||''}</div>${folH}</div><div class="xpost-x">${X_SVG_LG}</div></div><div class="kol-body"><div class="kol-text">${(p.text||'').replace(/\n/g,'<br>')}</div></div>${imgH}${kolStatsH}<a href="${p.url||'#'}" target="_blank" class="kol-link">View on ${X_SVG}</a>`;
     } else {
+      const xStatsH=hasStats?`<div class="xpost-stats"><div class="xpost-stat"><div class="xpost-stat-val">${sv(p.views)}</div><div class="xpost-stat-lbl">Views</div></div><div class="xpost-stat"><div class="xpost-stat-val">${sv(p.likes)}</div><div class="xpost-stat-lbl">Likes</div></div><div class="xpost-stat"><div class="xpost-stat-val">${sv(p.reposts)}</div><div class="xpost-stat-lbl">Reposts</div></div><div class="xpost-stat"><div class="xpost-stat-val">${sv(p.replies)}</div><div class="xpost-stat-lbl">Replies</div></div></div>`:'';
       card.className='xpost-card';
-      card.innerHTML=`<div class="xpost-head"><div class="xpost-author"><div class="xpost-avatar">${av}</div><div><div class="xpost-name">${p.name||'—'}</div><div class="xpost-handle">${p.handle||''}</div></div></div><div class="xpost-x">${X_SVG_LG}</div></div><div class="xpost-body"><div class="xpost-text">${(p.text||'').replace(/\n/g,'<br>')}</div></div>${imgH}<div class="xpost-stats"><div class="xpost-stat"><div class="xpost-stat-val">${sv(p.views)}</div><div class="xpost-stat-lbl">Views</div></div><div class="xpost-stat"><div class="xpost-stat-val">${sv(p.likes)}</div><div class="xpost-stat-lbl">Likes</div></div><div class="xpost-stat"><div class="xpost-stat-val">${sv(p.reposts)}</div><div class="xpost-stat-lbl">Reposts</div></div><div class="xpost-stat"><div class="xpost-stat-val">${sv(p.replies)}</div><div class="xpost-stat-lbl">Replies</div></div></div><a href="${p.url||'#'}" target="_blank" class="xpost-link">View on ${X_SVG}</a>`;
+      card.innerHTML=`<div class="xpost-head"><div class="xpost-author"><div class="xpost-avatar">${av}</div><div><div class="xpost-name">${p.name||'—'}</div><div class="xpost-handle">${p.handle||''}</div></div></div><div class="xpost-x">${X_SVG_LG}</div></div><div class="xpost-body"><div class="xpost-text">${(p.text||'').replace(/\n/g,'<br>')}</div></div>${imgH}${xStatsH}<a href="${p.url||'#'}" target="_blank" class="xpost-link">View on ${X_SVG}</a>`;
     }
     if(p.url){card.style.cursor='pointer';card.onclick=e=>{if(!e.target.closest('a'))window.open(p.url,'_blank');};}
     grid.appendChild(card); obs(card);
