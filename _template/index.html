@@ -666,8 +666,13 @@ function renderPostCards(posts, gridId, isKol){
     if(p.url){card.style.cursor='pointer';card.onclick=e=>{if(!e.target.closest('a'))window.open(p.url,'_blank');};}
     grid.appendChild(card); obs(card);
   });
-  // Re-initialise Twitter widgets for any embeds added after widgets.js loaded
-  if(hasEmbeds&&window.twttr&&window.twttr.widgets)window.twttr.widgets.load(grid);
+  // Re-initialise Twitter widgets — poll until widgets.js is ready
+  if(hasEmbeds){
+    (function tryLoad(n){
+      if(window.twttr&&window.twttr.widgets){window.twttr.widgets.load(grid);}
+      else if(n>0){setTimeout(function(){tryLoad(n-1);},300);}
+    })(20);
+  }
 }
 
 // ── BUILD: OVERVIEW ────────────────────────────────────────────
