@@ -313,6 +313,20 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
   .m2,.ov-grid{grid-template-columns:1fr!important}.ps-inner{padding:0 16px}
   .ov-num{font-size:44px}.pin-box{width:44px;height:52px;font-size:24px}.pin-row{gap:8px}
 }
+
+/* ── CUSTOM EXTRAS ───────────────────────────────────────────── */
+.custom-extras{margin-top:28px;display:flex;flex-direction:column;gap:12px}
+.custom-link-card{display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px 20px;opacity:0;transform:translateY(20px)}
+.custom-link-card.in{opacity:1;transform:translateY(0)}
+.custom-link-lbl{font-size:13px;font-weight:600;color:var(--w70)}
+.custom-link-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:var(--green);text-decoration:none;border:1px solid rgba(136,248,2,.3);padding:7px 14px;border-radius:20px;white-space:nowrap;transition:background .2s,border-color .2s}
+.custom-link-btn:hover{background:rgba(136,248,2,.1);border-color:rgba(136,248,2,.6)}
+.page-sec.light .custom-link-btn{color:#4ea800;border-color:rgba(78,168,0,.3)}
+.page-sec.light .custom-link-btn:hover{background:rgba(78,168,0,.1);border-color:rgba(78,168,0,.6)}
+.custom-text-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 20px;opacity:0;transform:translateY(20px)}
+.custom-text-card.in{opacity:1;transform:translateY(0)}
+.custom-text-lbl{font-size:11px;font-weight:700;color:var(--w30);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px}
+.custom-text-val{font-size:14px;color:var(--w70);line-height:1.65}
 </style>
 </head>
 <body>
@@ -541,7 +555,7 @@ const sv  = v => (v===null||v===undefined)?'—': typeof v==='number'? fmt(v) : 
 const pct = (a,b) => b>0?(a-b)/b*100:null;
 const hide = id => { const e=document.getElementById(id); if(e)e.style.display='none'; };
 const show = (id,d='block') => { const e=document.getElementById(id); if(e)e.style.display=d; };
-const extraCards = sec => (sec&&sec.extra||[]).filter(e=>vv(e.now)).map(e=>({label:e.label,data:e}));
+const extraCards = sec => (sec&&sec.extra||[]).filter(e=>(!e.type||e.type==='number')&&vv(e.now)).map(e=>({label:e.label,data:e}));
 
 // ── ANIMATION ──────────────────────────────────────────────────
 function animCount(el){
@@ -1018,6 +1032,55 @@ function buildWebsite(){
 }
 
 // ── DASH INIT ──────────────────────────────────────────────────
+
+// ── CUSTOM EXTRAS RENDERER ─────────────────────────────────────
+function renderCustomExtras(secData, sectionEl) {
+  if (!secData || !secData.extra || !secData.extra.length) return;
+  const items = secData.extra.filter(e => e.type && e.type !== 'number');
+  if (!items.length) return;
+  const wrap = document.createElement('div');
+  wrap.className = 'custom-extras';
+  items.forEach(function(e) {
+    if (e.type === 'link') {
+      const card = document.createElement('div');
+      card.className = 'custom-link-card';
+      card.innerHTML = '<span class="custom-link-lbl">'+e.label+'</span><a href="'+e.now+'" target="_blank" rel="noopener" class="custom-link-btn">'+EXT_SVG+' Open link</a>';
+      wrap.appendChild(card); obs(card);
+    } else if (e.type === 'post' && e.tweet) {
+      const grid = document.createElement('div');
+      grid.className = 'post-grid';
+      wrap.appendChild(grid);
+      renderPostCards([e.tweet], grid, false);
+    } else if (e.type === 'text') {
+      const card = document.createElement('div');
+      card.className = 'custom-text-card';
+      card.innerHTML = '<div class="custom-text-lbl">'+e.label+'</div><div class="custom-text-val">'+e.now+'</div>';
+      wrap.appendChild(card); obs(card);
+    }
+  });
+  if (wrap.children.length) {
+    const inner = sectionEl.querySelector('.ps-inner');
+    if (inner) inner.appendChild(wrap);
+  }
+}
+function renderAllCustomExtras() {
+  var map = [
+    ['secSocial',    D.social],
+    ['secCollabs',   D.collabs],
+    ['secCookie3',   D.cookie3],
+    ['secQuest',     D.quest],
+    ['secNucContrib',D.nucleusContrib],
+    ['secNucRep',    D.nucleusRep],
+    ['secKol',       D.kol],
+    ['secPr',        D.pr],
+    ['secFinance',   D.finance],
+    ['secWebsite',   D.website]
+  ];
+  map.forEach(function(pair) {
+    var el = document.getElementById(pair[0]);
+    if (el) renderCustomExtras(pair[1], el);
+  });
+}
 function buildDash(){
   show('hdr','flex'); show('nav','flex'); show('main'); show('foot');
   document.getElementById('hdrName').textContent=D.client;
