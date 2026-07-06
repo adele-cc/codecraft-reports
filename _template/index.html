@@ -239,33 +239,29 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .pr-sum-val.sm{font-size:19px;letter-spacing:-.5px}
 
 /* ── PR: ARTICLE CARDS ───────────────────────────────────────── */
-.article-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
-.article-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .2s,box-shadow .35s;opacity:0;transform:translateY(20px)}
+.article-grid{display:flex;flex-direction:column;gap:6px}
+.article-card{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:13px 16px;cursor:pointer;transition:border-color .2s,background .2s;opacity:0;transform:translateY(12px)}
 .article-card.in{opacity:1;transform:translateY(0)}
-.article-card.in:hover{transform:translateY(-4px)}
-.page-sec.light .article-card{box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.article-card:hover{border-color:rgba(136,248,2,.3);box-shadow:0 16px 48px rgba(0,0,0,.5)}
-.page-sec.light .article-card:hover{border-color:rgba(78,168,0,.25);box-shadow:0 12px 36px rgba(0,0,0,.11)}
-.article-img{width:100%;aspect-ratio:16/9;overflow:hidden;background:#111;flex-shrink:0;display:none}
-.page-sec.light .article-img{background:#e0deda}
-.article-img.has-img{display:block}
-.article-img img{width:100%;height:100%;object-fit:cover;display:block}
-.article-body{padding:16px 16px 10px;flex:1;display:flex;flex-direction:column}
-.article-pub{display:flex;align-items:center;gap:7px;margin-bottom:10px}
-.article-favicon{width:18px;height:18px;border-radius:4px;background:var(--w15);flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.article-card:hover{border-color:rgba(136,248,2,.25);background:rgba(255,255,255,.03)}
+.page-sec.light .article-card:hover{border-color:rgba(78,168,0,.25);background:rgba(0,0,0,.02)}
+.article-favicon{width:20px;height:20px;border-radius:5px;background:var(--w10);flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .article-favicon img{width:100%;height:100%;object-fit:cover}
-.article-pub-name{font-size:11px;font-weight:700;color:var(--w50);text-transform:uppercase;letter-spacing:.5px}
-.article-pub-date{font-size:10px;color:var(--w30);margin-left:auto}
-.article-headline{font-family:var(--hd);font-size:15px;font-weight:700;color:var(--w);line-height:1.4;letter-spacing:-.3px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:auto}
-.page-sec.light .article-headline{color:#0d0d0d}
-.article-stats{display:flex;border-top:1px solid var(--border);padding:10px 16px;gap:0;margin-top:12px}
-.article-stat{flex:1;text-align:center}
-.article-stat+.article-stat{border-left:1px solid var(--border)}
-.article-stat-val{font-family:var(--hd);font-size:13px;font-weight:800;color:var(--w);line-height:1;margin-bottom:2px}
+.article-text{flex:1;min-width:0}
+.article-pub-row{display:flex;align-items:center;gap:7px;margin-bottom:3px}
+.article-pub-name{font-size:10px;font-weight:700;color:var(--w40);text-transform:uppercase;letter-spacing:.7px}
+.article-pub-date{font-size:10px;color:var(--w25)}
+.article-headline{font-size:13px;font-weight:600;color:var(--w80);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.35}
+.page-sec.light .article-headline{color:#1a1a1a}
+.article-stats{display:flex;gap:16px;flex-shrink:0}
+.article-stat{text-align:right}
+.article-stat-val{font-size:12px;font-weight:700;color:var(--w70);line-height:1.2}
 .article-stat-lbl{font-size:9px;font-weight:600;color:var(--w30);text-transform:uppercase;letter-spacing:.5px}
-.article-link,.pod-link{display:flex;align-items:center;justify-content:center;gap:6px;margin:0 16px 12px;padding:8px 12px;border-radius:8px;background:var(--w08);border:1px solid var(--border);font-size:11px;font-weight:600;color:var(--w30);text-decoration:none;transition:background .2s,border-color .2s,color .2s}
-.article-link:hover,.pod-link:hover{background:rgba(136,248,2,.08);border-color:rgba(136,248,2,.25);color:var(--green)}
-.page-sec.light .article-link:hover,.page-sec.light .pod-link:hover{background:rgba(78,168,0,.08);border-color:rgba(78,168,0,.25);color:#4ea800}
+.article-link{color:var(--w25);flex-shrink:0;text-decoration:none;display:flex;align-items:center;transition:color .2s}
+.article-link:hover{color:var(--green)}
+.page-sec.light .article-link:hover{color:#4ea800}
+.pod-link{display:flex;align-items:center;justify-content:center;gap:6px;margin:0 16px 12px;padding:8px 12px;border-radius:8px;background:var(--w08);border:1px solid var(--border);font-size:11px;font-weight:600;color:var(--w30);text-decoration:none;transition:background .2s,border-color .2s,color .2s}
+.pod-link:hover{background:rgba(136,248,2,.08);border-color:rgba(136,248,2,.25);color:var(--green)}
+.page-sec.light .pod-link:hover{background:rgba(78,168,0,.08);border-color:rgba(78,168,0,.25);color:#4ea800}
 
 /* ── PR: PODCAST CARDS ───────────────────────────────────────── */
 .pod-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
@@ -970,12 +966,11 @@ function buildPr(){
     hasAny=true; show('prArticlesLbl');
     const grid=document.getElementById('articleGrid');
     pr.articles.forEach(a=>{
-      const imgH=a.imgUrl?`<div class="article-img has-img"><img src="${a.imgUrl}" alt="" onerror="this.parentElement.classList.remove('has-img')"></div>`:'';
       const dom=domainOf(a.url);
       const statsH=[{v:a.reach,l:'Reach'},{v:a.views,l:'Views'},{v:a.value,l:'Value'},{v:a.eng,l:'Eng.'}].filter(s=>vv(s.v)).map(s=>`<div class="article-stat"><div class="article-stat-val">${s.v}</div><div class="article-stat-lbl">${s.l}</div></div>`).join('');
       const card=document.createElement('div'); card.className='article-card';
-      card.style.cursor='pointer'; card.onclick=e=>{if(!e.target.closest('a'))window.open(a.url,'_blank');};
-      card.innerHTML=`${imgH}<div class="article-body"><div class="article-pub"><div class="article-favicon"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" alt=""></div><div class="article-pub-name">${a.pub||dom}</div>${a.date?`<div class="article-pub-date">${a.date}</div>`:''}</div><div class="article-headline">${a.headline||a.url}</div></div>${statsH?`<div class="article-stats">${statsH}</div>`:''}<a href="${a.url}" target="_blank" class="article-link">${EXT_SVG} Read article</a>`;
+      card.onclick=e=>{if(!e.target.closest('a'))window.open(a.url,'_blank');};
+      card.innerHTML=`<div class="article-favicon"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" alt=""></div><div class="article-text"><div class="article-pub-row"><span class="article-pub-name">${a.pub||dom}</span>${a.date?`<span class="article-pub-date">${a.date}</span>`:''}</div><div class="article-headline">${a.headline||a.url}</div></div>${statsH?`<div class="article-stats">${statsH}</div>`:''}<a href="${a.url}" target="_blank" rel="noopener" class="article-link" onclick="event.stopPropagation()">${EXT_SVG}</a>`;
       grid.appendChild(card); obs(card);
     });
   }
