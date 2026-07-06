@@ -211,7 +211,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .kol-embed-followers{font-size:11px;font-weight:700;color:var(--green);padding:8px 14px 0;letter-spacing:.3px}
 
 /* ── SCREENSHOT CARD ─────────────────────────────────────────── */
-.score-ss-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:visible;transition:border-color .2s;opacity:0;transform:translateY(20px)}
+.score-ss-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:visible;transition:border-color .2s;opacity:0;transform:translateY(20px);max-width:560px}
 .score-ss-card.in{opacity:1;transform:translateY(0)}
 .score-ss-card:hover{border-color:rgba(136,248,2,.25)}
 .page-sec.light .score-ss-card:hover{border-color:rgba(78,168,0,.25)}
@@ -227,7 +227,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .score-ss-foot{display:flex;align-items:center;gap:7px;padding:11px 20px;border-top:1px solid var(--border);font-size:11px;color:var(--w30)}
 
 /* ── SCREENSHOT GRID (multiple screenshots) ───────────────────── */
-.ss-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:12px}
+.ss-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;max-width:840px}
 
 /* ── PR: SUMMARY STRIP ───────────────────────────────────────── */
 .pr-summary{display:flex;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:28px;opacity:0;transform:translateY(20px)}
@@ -239,26 +239,33 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .pr-sum-val.sm{font-size:19px;letter-spacing:-.5px}
 
 /* ── PR: ARTICLE CARDS ───────────────────────────────────────── */
-.article-grid{display:flex;flex-direction:column;gap:6px}
-.article-card{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:13px 16px;cursor:pointer;transition:border-color .2s,background .2s;opacity:0;transform:translateY(12px)}
+.article-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.article-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .2s,box-shadow .35s;cursor:pointer;opacity:0;transform:translateY(20px)}
 .article-card.in{opacity:1;transform:translateY(0)}
-.article-card:hover{border-color:rgba(136,248,2,.25);background:rgba(255,255,255,.03)}
-.page-sec.light .article-card:hover{border-color:rgba(78,168,0,.25);background:rgba(0,0,0,.02)}
-.article-favicon{width:20px;height:20px;border-radius:5px;background:var(--w10);flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.article-favicon img{width:100%;height:100%;object-fit:cover}
-.article-text{flex:1;min-width:0}
-.article-pub-row{display:flex;align-items:center;gap:7px;margin-bottom:3px}
-.article-pub-name{font-size:10px;font-weight:700;color:var(--w40);text-transform:uppercase;letter-spacing:.7px}
-.article-pub-date{font-size:10px;color:var(--w25)}
-.article-headline{font-size:13px;font-weight:600;color:var(--w80);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.35}
-.page-sec.light .article-headline{color:#1a1a1a}
-.article-stats{display:flex;gap:16px;flex-shrink:0}
-.article-stat{text-align:right}
-.article-stat-val{font-size:12px;font-weight:700;color:var(--w70);line-height:1.2}
+.article-card.in:hover{transform:translateY(-4px)}
+.page-sec.light .article-card{box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.article-card:hover{border-color:rgba(136,248,2,.3);box-shadow:0 16px 48px rgba(0,0,0,.5)}
+.page-sec.light .article-card:hover{border-color:rgba(78,168,0,.25);box-shadow:0 12px 36px rgba(0,0,0,.11)}
+.article-thumb{width:100%;aspect-ratio:16/9;background:var(--w08);overflow:hidden;flex-shrink:0;position:relative;display:flex;align-items:center;justify-content:center}
+.article-thumb-img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
+.article-thumb-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;width:100%;height:100%}
+.article-thumb-fav{width:28px;height:28px;border-radius:7px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--w15)}
+.article-thumb-fav img{width:100%;height:100%;object-fit:cover}
+.article-thumb-pub{font-size:10px;font-weight:700;color:var(--w30);text-transform:uppercase;letter-spacing:.8px}
+.article-body{padding:14px 16px 10px;flex:1;display:flex;flex-direction:column}
+.article-headline{font-family:var(--hd);font-size:14px;font-weight:700;color:var(--w);line-height:1.4;letter-spacing:-.2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:8px}
+.page-sec.light .article-headline{color:#0d0d0d}
+.article-meta{display:flex;align-items:center;gap:8px;margin-top:auto;flex-wrap:wrap}
+.article-pub-name{font-size:11px;font-weight:700;color:var(--w40);text-transform:uppercase;letter-spacing:.5px}
+.article-pub-date{font-size:11px;color:var(--w25)}
+.article-stats{display:flex;border-top:1px solid var(--border);padding:10px 16px;gap:0;margin-top:10px}
+.article-stat{flex:1;text-align:center}
+.article-stat+.article-stat{border-left:1px solid var(--border)}
+.article-stat-val{font-family:var(--hd);font-size:13px;font-weight:800;color:var(--w);line-height:1;margin-bottom:2px}
 .article-stat-lbl{font-size:9px;font-weight:600;color:var(--w30);text-transform:uppercase;letter-spacing:.5px}
-.article-link{color:var(--w25);flex-shrink:0;text-decoration:none;display:flex;align-items:center;transition:color .2s}
-.article-link:hover{color:var(--green)}
-.page-sec.light .article-link:hover{color:#4ea800}
+.article-link{display:flex;align-items:center;justify-content:center;gap:6px;margin:0 16px 12px;padding:8px 12px;border-radius:8px;background:var(--w08);border:1px solid var(--border);font-size:11px;font-weight:600;color:var(--w30);text-decoration:none;transition:background .2s,border-color .2s,color .2s}
+.article-link:hover{background:rgba(136,248,2,.08);border-color:rgba(136,248,2,.25);color:var(--green)}
+.page-sec.light .article-link:hover{background:rgba(78,168,0,.08);border-color:rgba(78,168,0,.25);color:#4ea800}
 .pod-link{display:flex;align-items:center;justify-content:center;gap:6px;margin:0 16px 12px;padding:8px 12px;border-radius:8px;background:var(--w08);border:1px solid var(--border);font-size:11px;font-weight:600;color:var(--w30);text-decoration:none;transition:background .2s,border-color .2s,color .2s}
 .pod-link:hover{background:rgba(136,248,2,.08);border-color:rgba(136,248,2,.25);color:var(--green)}
 .page-sec.light .pod-link:hover{background:rgba(78,168,0,.08);border-color:rgba(78,168,0,.25);color:#4ea800}
@@ -968,9 +975,12 @@ function buildPr(){
     pr.articles.forEach(a=>{
       const dom=domainOf(a.url);
       const statsH=[{v:a.reach,l:'Reach'},{v:a.views,l:'Views'},{v:a.value,l:'Value'},{v:a.eng,l:'Eng.'}].filter(s=>vv(s.v)).map(s=>`<div class="article-stat"><div class="article-stat-val">${s.v}</div><div class="article-stat-lbl">${s.l}</div></div>`).join('');
+      const thumbH=a.imgUrl
+        ?`<div class="article-thumb"><img class="article-thumb-img" src="${a.imgUrl}" alt="" onerror="this.style.display='none'"></div>`
+        :`<div class="article-thumb"><div class="article-thumb-placeholder"><div class="article-thumb-fav"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" alt=""></div><span class="article-thumb-pub">${a.pub||dom}</span></div></div>`;
       const card=document.createElement('div'); card.className='article-card';
       card.onclick=e=>{if(!e.target.closest('a'))window.open(a.url,'_blank');};
-      card.innerHTML=`<div class="article-favicon"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" alt=""></div><div class="article-text"><div class="article-pub-row"><span class="article-pub-name">${a.pub||dom}</span>${a.date?`<span class="article-pub-date">${a.date}</span>`:''}</div><div class="article-headline">${a.headline||a.url}</div></div>${statsH?`<div class="article-stats">${statsH}</div>`:''}<a href="${a.url}" target="_blank" rel="noopener" class="article-link" onclick="event.stopPropagation()">${EXT_SVG}</a>`;
+      card.innerHTML=`${thumbH}<div class="article-body"><div class="article-headline">${a.headline||a.url}</div><div class="article-meta"><span class="article-pub-name">${a.pub||dom}</span>${a.date?`<span class="article-pub-date">${a.date}</span>`:''}</div></div>${statsH?`<div class="article-stats">${statsH}</div>`:''}<a href="${a.url}" target="_blank" rel="noopener" class="article-link" onclick="event.stopPropagation()">${EXT_SVG} Read article</a>`;
       grid.appendChild(card); obs(card);
     });
   }
