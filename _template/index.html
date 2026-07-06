@@ -227,7 +227,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .score-ss-foot{display:flex;align-items:center;gap:7px;padding:11px 20px;border-top:1px solid var(--border);font-size:11px;color:var(--w30)}
 
 /* ── SCREENSHOT GRID (multiple screenshots) ───────────────────── */
-.ss-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;max-width:840px}
+.ss-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:16px}
 
 /* ── PR: SUMMARY STRIP ───────────────────────────────────────── */
 .pr-summary{display:flex;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:28px;opacity:0;transform:translateY(20px)}
@@ -239,7 +239,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .pr-sum-val.sm{font-size:19px;letter-spacing:-.5px}
 
 /* ── PR: ARTICLE CARDS ───────────────────────────────────────── */
-.article-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.article-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,320px));gap:12px}
 .article-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .2s,box-shadow .35s;cursor:pointer;opacity:0;transform:translateY(20px)}
 .article-card.in{opacity:1;transform:translateY(0)}
 .article-card.in:hover{transform:translateY(-4px)}
@@ -323,7 +323,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 /* ── CHART + SCREENSHOT SIDE BY SIDE ──────────────────────────── */
 .chart-ss-row{display:flex;gap:16px;align-items:stretch;margin-bottom:28px}
 .chart-ss-row .chart-card{flex:1;min-width:0;margin-bottom:0!important}
-.chart-ss-row .score-ss-card{width:230px;flex-shrink:0;margin:0}
+.chart-ss-row .score-ss-card{width:340px;flex-shrink:0;margin:0}
 @media(max-width:700px){.chart-ss-row{flex-direction:column}.chart-ss-row .score-ss-card{width:100%}}
 /* ── ARTICLE PUB NAME ─────────────────────────────────────────── */
 .article-pub-block{display:flex;align-items:center;gap:8px;padding:14px 16px 0}
@@ -893,7 +893,7 @@ function buildCookie3(){
     hasAny=true;
     const ssEl=document.getElementById('cookie3SsCard');
     ssEl.innerHTML=`<div class="score-ss-img"><img src="${c.screenshot}" alt="" onerror="this.style.opacity='.3'"></div>`;
-    ssEl.style.display=''; obs(ssEl);
+    ssEl.style.display=''; ssEl.style.maxWidth='520px'; obs(ssEl);
   }
   if(!hasAny)hide('secCookie3');
 }
