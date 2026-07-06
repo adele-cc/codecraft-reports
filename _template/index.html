@@ -211,7 +211,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .kol-embed-followers{font-size:11px;font-weight:700;color:var(--green);padding:8px 14px 0;letter-spacing:.3px}
 
 /* ── SCREENSHOT CARD ─────────────────────────────────────────── */
-.score-ss-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:border-color .2s;opacity:0;transform:translateY(20px)}
+.score-ss-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:border-color .2s;opacity:0;transform:translateY(20px);margin-left:auto;margin-right:auto;display:block}
 .score-ss-card.in{opacity:1;transform:translateY(0)}
 .score-ss-card:hover{border-color:rgba(136,248,2,.25)}
 .page-sec.light .score-ss-card:hover{border-color:rgba(78,168,0,.25)}
@@ -227,7 +227,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .score-ss-foot{display:flex;align-items:center;gap:7px;padding:11px 20px;border-top:1px solid var(--border);font-size:11px;color:var(--w30)}
 
 /* ── SCREENSHOT GRID (multiple screenshots) ───────────────────── */
-.ss-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:16px}
+.ss-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(420px,1fr));gap:16px}
 
 /* ── PR: SUMMARY STRIP ───────────────────────────────────────── */
 .pr-summary{display:flex;background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-bottom:28px;opacity:0;transform:translateY(20px)}
@@ -323,7 +323,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 /* ── CHART + SCREENSHOT SIDE BY SIDE ──────────────────────────── */
 .chart-ss-row{display:flex;gap:16px;align-items:stretch;margin-bottom:28px}
 .chart-ss-row .chart-card{flex:1;min-width:0;margin-bottom:0!important}
-.chart-ss-row .score-ss-card{width:340px;flex-shrink:0;margin:0}
+.chart-ss-row .score-ss-card{width:420px;flex-shrink:0;margin:0}
 @media(max-width:700px){.chart-ss-row{flex-direction:column}.chart-ss-row .score-ss-card{width:100%}}
 /* ── ARTICLE PUB NAME ─────────────────────────────────────────── */
 .article-pub-block{display:flex;align-items:center;gap:8px;padding:14px 16px 0}
