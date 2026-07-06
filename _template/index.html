@@ -211,7 +211,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .kol-embed-followers{font-size:11px;font-weight:700;color:var(--green);padding:8px 14px 0;letter-spacing:.3px}
 
 /* ── SCREENSHOT CARD ─────────────────────────────────────────── */
-.score-ss-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:visible;transition:border-color .2s;opacity:0;transform:translateY(20px);max-width:400px;margin-left:auto;margin-right:auto}
+.score-ss-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:border-color .2s;opacity:0;transform:translateY(20px)}
 .score-ss-card.in{opacity:1;transform:translateY(0)}
 .score-ss-card:hover{border-color:rgba(136,248,2,.25)}
 .page-sec.light .score-ss-card:hover{border-color:rgba(78,168,0,.25)}
@@ -305,6 +305,32 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .cgb-pct{font-family:var(--hd);font-size:20px;font-weight:700;color:var(--green);opacity:.65;flex-shrink:0}
 .page-sec.light .cgb-pct{color:#4ea800}
 
+/* ── LIGHTBOX ─────────────────────────────────────────────────── */
+#lb{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;display:none;align-items:center;justify-content:center;cursor:zoom-out;backdrop-filter:blur(6px)}
+#lb.open{display:flex}
+#lb-img{max-width:92vw;max-height:90vh;object-fit:contain;border-radius:10px;box-shadow:0 24px 80px rgba(0,0,0,.8);cursor:default}
+#lb-close{position:absolute;top:20px;right:28px;color:rgba(255,255,255,.6);font-size:36px;line-height:1;cursor:pointer;transition:color .15s}
+#lb-close:hover{color:#fff}
+.score-ss-img img{cursor:zoom-in}
+/* ── X FOLLOWERS CARD ─────────────────────────────────────────── */
+.xfol-row{display:flex;align-items:flex-end;gap:10px;margin:10px 0 6px}
+.xfol-mini{font-size:9px;font-weight:700;color:var(--w30);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px}
+.xfol-start-num{font-family:var(--hd);font-size:22px;font-weight:800;color:var(--w30);letter-spacing:-1px;line-height:1}
+.xfol-arr{font-size:24px;color:var(--green);margin-bottom:3px;flex-shrink:0}
+.page-sec.light .xfol-arr{color:#4ea800}
+.xfol-now-num{font-family:var(--hd);font-size:44px;font-weight:800;color:var(--green);letter-spacing:-2.5px;line-height:1}
+.page-sec.light .xfol-now-num{color:#4ea800}
+/* ── CHART + SCREENSHOT SIDE BY SIDE ──────────────────────────── */
+.chart-ss-row{display:flex;gap:16px;align-items:stretch;margin-bottom:28px}
+.chart-ss-row .chart-card{flex:1;min-width:0;margin-bottom:0!important}
+.chart-ss-row .score-ss-card{width:230px;flex-shrink:0;margin:0}
+@media(max-width:700px){.chart-ss-row{flex-direction:column}.chart-ss-row .score-ss-card{width:100%}}
+/* ── ARTICLE PUB NAME ─────────────────────────────────────────── */
+.article-pub-block{display:flex;align-items:center;gap:8px;padding:14px 16px 0}
+.article-pub-big{font-family:var(--hd);font-size:15px;font-weight:800;color:var(--w);letter-spacing:-.3px;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.page-sec.light .article-pub-big{color:#111}
+.article-pub-fav{width:18px;height:18px;border-radius:4px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--w10)}
+.article-pub-fav img{width:100%;height:100%;object-fit:cover}
 /* ── CHART SPACING ────────────────────────────────────────────── */
 .chart-card+.chart-card{margin-top:12px}
 
@@ -415,9 +441,12 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
       <div class="sec-hdr"><div class="sec-title">Social Metrics</div><div class="sec-rule"></div></div>
       <div class="sub-lbl" id="socialXLbl" style="display:none">X / Twitter</div>
       <div id="socialXMetrics" style="margin-bottom:12px"></div>
-      <div class="chart-card" id="socialXTrajWrap" style="display:none;margin-bottom:28px">
-        <div class="chart-lbl">X Follower Growth</div>
-        <div class="ch" style="height:180px"><canvas id="socialXTrajCvs"></canvas></div>
+      <div class="chart-ss-row" id="socialChartRow" style="display:none">
+        <div class="chart-card" id="socialXTrajWrap">
+          <div class="chart-lbl">X Follower Growth</div>
+          <div class="ch" style="height:200px"><canvas id="socialXTrajCvs"></canvas></div>
+        </div>
+        <div id="mutualSsInline" class="score-ss-card" style="display:none"></div>
       </div>
       <div class="sub-lbl" id="socialDiscordLbl" style="display:none">Discord &amp; Telegram</div>
       <div id="socialDiscordMetrics" style="margin-bottom:12px"></div>
@@ -444,12 +473,12 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
   <div class="page-sec light" id="secCookie3">
     <div class="ps-inner">
       <div class="sec-hdr"><div class="sec-title">Cookie3</div><div class="sec-rule"></div></div>
+      <div id="cookie3SsCard" class="score-ss-card" style="display:none;margin-bottom:28px"></div>
       <div id="cookie3Metrics" style="margin-bottom:12px"></div>
       <div class="chart-card" id="cookie3TrajWrap" style="display:none;margin-bottom:28px">
         <div class="chart-lbl">Score — Campaign Start → Last Week → This Week</div>
         <div class="ch" style="height:180px"><canvas id="cookie3TrajCvs"></canvas></div>
       </div>
-      <div id="cookie3SsCard" class="score-ss-card" style="display:none"></div>
     </div>
   </div>
 
@@ -717,6 +746,27 @@ function buildOverview(){
   ovEl.querySelectorAll('.ov-card').forEach(obs);
 }
 
+// ── X FOLLOWERS SPECIAL CARD ──────────────────────────────────
+function xFollowersCard(fol){
+  if(!fol||!vv(fol.now))return '';
+  var hasStart=typeof fol.start==='number'&&fol.start>0&&typeof fol.now==='number';
+  if(!hasStart)return mCard('X Followers',fol,'featured');
+  var diff=fol.now-fol.start,pctV=Math.round((diff/fol.start)*100),up=diff>=0;
+  var lwRow='';
+  if(typeof fol.lw==='number'){
+    var lwDiff=fol.now-fol.lw,lwUp=lwDiff>=0;
+    lwRow='<div class="m-grow-row"><span class="m-arrow '+(lwUp?'up':'dn')+'">'+(lwUp?'&#8593;':'&#8595;')+'</span><span class="m-pct '+(lwUp?'up':'dn')+'">'+(lwUp?'+':'')+Math.abs(pct(fol.now,fol.lw)).toFixed(1)+'%</span><span class="m-pct-lbl">'+(lwUp?'+':'')+fmt(Math.abs(lwDiff))+' vs '+(D.lwLabel||'last week').toLowerCase()+'</span></div>';
+  }
+  return '<div class="mcard featured">'
+    +'<div class="m-lbl">X Followers</div>'
+    +'<div class="xfol-row">'
+    +'<div><div class="xfol-mini">Start</div><div class="xfol-start-num" data-count="'+fol.start+'" data-fmt="s">'+fmt(fol.start)+'</div></div>'
+    +'<div class="xfol-arr">&#8594;</div>'
+    +'<div><div class="xfol-mini">Now</div><div class="xfol-now-num" data-count="'+fol.now+'" data-fmt="s">'+fmt(fol.now)+'</div></div>'
+    +'</div>'
+    +'<div class="m-grow-row" style="margin-top:2px"><span class="m-arrow up" style="font-size:15px">&#8593;</span><span class="m-pct up" style="font-size:15px">+'+pctV+'%</span><span class="m-pct-lbl">+'+fmt(diff)+' since campaign start</span></div>'
+    +lwRow+'</div>';
+}
 // ── BUILD: SOCIAL METRICS ──────────────────────────────────────
 function buildSocial(){
   const s=D.social; if(!s){hide('secSocial');return;}
@@ -732,18 +782,11 @@ function buildSocial(){
     hasAny=true; show('socialXLbl');
     const xEl=document.getElementById('socialXMetrics');
     xEl.className='mgrid m'+Math.min(xFields.length,3);
-    xEl.innerHTML=xFields.map(f=>mCard(f.label,f.data,f.cls||'')).join('');
+    xEl.innerHTML=xFields.map(f=>f.label==='X Followers'?xFollowersCard(f.data):mCard(f.label,f.data,f.cls||'')).join('');
     xEl.querySelectorAll('.mcard').forEach(obs);
-    if(fol&&typeof fol.start==='number'&&fol.start>0&&typeof fol.now==='number'){
-      const cgDiff=fol.now-fol.start,cgP=Math.round((cgDiff/fol.start)*100);
-      if(cgDiff>0){
-        const cgEl=document.createElement('div');cgEl.className='campaign-growth-banner';
-        cgEl.innerHTML=`<span class="cgb-arrow">↑</span><span class="cgb-num">+${fmt(cgDiff)}</span><span class="cgb-lbl">followers gained since campaign start</span><span class="cgb-pct">+${cgP}%</span>`;
-        xEl.parentNode.insertBefore(cgEl,xEl.nextSibling);obs(cgEl);
-      }
-    }
     if(fol&&vv(fol.start)&&vv(fol.lw)&&vv(fol.now)){
-      show('socialXTrajWrap'); obs(document.getElementById('socialXTrajWrap'));
+      var chartRow=document.getElementById('socialChartRow');
+      chartRow.style.display='flex'; obs(chartRow);
       setTimeout(()=>{const p=cp('socialXTrajCvs');trajChart('socialXTrajCvs',
         ['Campaign Start',D.lwLabel||'Last Week',D.nowLabel||'This Week'],
         [{label:'X Followers',data:[fol.start,fol.lw,fol.now],borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.38,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
@@ -772,13 +815,20 @@ function buildSocial(){
   } else { hide('socialDiscordLbl'); document.getElementById('socialDiscordMetrics').style.display='none'; }
 
   if(s.mutualScreenshot||(s.mutual&&vv(s.mutual.now))){
-    const mEl=document.getElementById('mutualSsCard');
-    const mNum=(s.mutual&&vv(s.mutual.now))?`<div style="font-family:var(--hd);font-size:40px;font-weight:800;color:var(--green);letter-spacing:-2px;line-height:1;margin-top:10px">${sv(s.mutual.now)}</div>`:'' ;
+    const infoTip='<div class="info-btn" tabindex="0">i<div class="tooltip">Accounts following both this project and <span class="tooltip-hi">@DVerseGTM</span> — our account. These are <span class="tooltip-hi">KOLs and key community members</span> tracking both projects.</div></div>';
+    const mNum=(s.mutual&&vv(s.mutual.now))
+      ?'<div style="font-family:var(--hd);font-size:32px;font-weight:800;color:var(--green);letter-spacing:-1.5px;line-height:1;margin-top:8px">'+sv(s.mutual.now)+'</div>':'';
     const mGrow=s.mutual?mGrowRows(s.mutual):'';
-    const mImg=s.mutualScreenshot?`<div class="score-ss-img"><img src="${s.mutualScreenshot}" alt="Mutual Followers" onerror="this.style.opacity=\'.3\'"></div>`:'';
-    const infoTip=`<div class="info-btn" tabindex="0">i<div class="tooltip">Accounts following both this project and <span class="tooltip-hi">@DVerseGTM</span> — our account. These are <span class="tooltip-hi">KOLs and key community members</span> tracking both projects.</div></div>`;
-    mEl.innerHTML=`<div class="score-ss-head" style="align-items:flex-start"><div><div class="score-ss-title" style="display:flex;align-items:center;gap:7px">Mutual Followers ${infoTip}</div>${mNum}${mGrow?`<div style="margin-top:10px">${mGrow}</div>`:''}</div></div>${mImg}`;
-    mEl.style.display=''; obs(mEl); hasAny=true;
+    const mImg=s.mutualScreenshot
+      ?'<div class="score-ss-img"><img src="'+s.mutualScreenshot+'" alt="Mutual Followers" onclick="openLb(this.src)" style="cursor:zoom-in" onerror="this.style.opacity=\'.3\'"></div>':'';
+    const head='<div class="score-ss-head" style="align-items:flex-start"><div><div class="score-ss-title" style="display:flex;align-items:center;gap:7px">Mutual Followers '+infoTip+'</div>'+mNum+(mGrow?'<div style="margin-top:8px">'+mGrow+'</div>':'')+'</div></div>';
+    const chartRow=document.getElementById('socialChartRow');
+    const inlineEl=document.getElementById('mutualSsInline');
+    const useInline=chartRow&&chartRow.style.display==='flex'&&inlineEl;
+    const target=useInline?inlineEl:document.getElementById('mutualSsCard');
+    target.innerHTML=head+mImg; target.style.display=''; obs(target);
+    if(!useInline)show('mutualSsLbl');
+    hasAny=true;
   }
 
   if(s.posts&&s.posts.length){
@@ -994,7 +1044,8 @@ function buildPr(){
         :`<div class="article-thumb"><div class="article-thumb-placeholder"><div class="article-thumb-fav"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" alt=""></div><span class="article-thumb-pub">${a.pub||dom}</span></div></div>`;
       const card=document.createElement('div'); card.className='article-card';
       card.onclick=e=>{if(!e.target.closest('a'))window.open(a.url,'_blank');};
-      card.innerHTML=`${thumbH}<div class="article-body"><div class="article-headline">${a.headline||a.url}</div><div class="article-meta"><span class="article-pub-name">${a.pub||dom}</span>${a.date?`<span class="article-pub-date">${a.date}</span>`:''}</div></div>${statsH?`<div class="article-stats">${statsH}</div>`:''}<a href="${a.url}" target="_blank" rel="noopener" class="article-link" onclick="event.stopPropagation()">${EXT_SVG} Read article</a>`;
+      const pubH=`<div class="article-pub-block"><div class="article-pub-fav"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" alt=""></div><div class="article-pub-big">${a.pub||dom}</div>${a.date?`<span class="article-pub-date" style="margin-left:auto;flex-shrink:0">${a.date}</span>`:''}</div>`;
+      card.innerHTML=`${thumbH}${pubH}<div class="article-body" style="padding-top:8px"><div class="article-headline">${a.headline||a.url}</div></div>${statsH?`<div class="article-stats">${statsH}</div>`:''}<a href="${a.url}" target="_blank" rel="noopener" class="article-link" onclick="event.stopPropagation()">${EXT_SVG} Read article</a>`;
       grid.appendChild(card); obs(card);
     });
   }
@@ -1100,6 +1151,9 @@ function renderAllCustomExtras() {
     if (el) renderCustomExtras(pair[1], el);
   });
 }
+function openLb(src){var el=document.getElementById("lb");document.getElementById("lb-img").src=src;el.classList.add("open");document.addEventListener("keydown",lbKey);}
+function closeLb(){document.getElementById("lb").classList.remove("open");document.removeEventListener("keydown",lbKey);}
+function lbKey(e){if(e.key==="Escape")closeLb();}
 function buildDash(){
   show('hdr','flex'); show('nav','flex'); show('main'); show('foot');
   document.getElementById('hdrName').textContent=D.client;
@@ -1109,6 +1163,7 @@ function buildDash(){
 
   buildOverview(); buildSocial(); buildCollabs(); buildCookie3(); buildQuest();
   buildNucContrib(); buildNucRep(); buildKol(); buildPr(); buildFinance(); buildWebsite();
+  document.querySelectorAll(".score-ss-img img,.ss-grid img").forEach(function(img){if(!img.onclick)img.onclick=function(){openLb(this.src);};});
 
   const hdrEl=document.getElementById('hdr'), navEl=document.getElementById('nav');
   const setNavTop=()=>{if(hdrEl&&navEl)navEl.style.top=hdrEl.offsetHeight+'px';};
@@ -1153,5 +1208,6 @@ function checkPin(){
   }
 }
 </script>
+<div id="lb" onclick="closeLb()"><img id="lb-img" onclick="event.stopPropagation()" alt=""><div id="lb-close" onclick="closeLb()">&#x2715;</div></div>
 </body>
 </html>
