@@ -1155,8 +1155,11 @@ function buildDash(){
   buildNucContrib(); buildNucRep(); buildKol(); buildPr(); buildFinance(); buildWebsite();
   document.querySelectorAll(".score-ss-img img,.ss-grid img").forEach(function(img){if(!img.onclick)img.onclick=function(){openLb(this.src);};});
   // Re-alternate light/dark on visible sections only
-  var visSecs=Array.from(document.querySelectorAll('.page-sec')).filter(function(s){return s.style.display!=='none';});
-  visSecs.forEach(function(s,i){s.classList.toggle('light',i%2!==0);});
+  var visSecs=Array.from(document.querySelectorAll('.page-sec')).filter(function(s){return getComputedStyle(s).display!=='none';});
+  visSecs.forEach(function(s,i){
+    s.classList.remove('light');
+    if(i%2!==0) s.classList.add('light');
+  });
 
   const hdrEl=document.getElementById('hdr'), navEl=document.getElementById('nav');
   const setNavTop=()=>{if(hdrEl&&navEl)navEl.style.top=hdrEl.offsetHeight+'px';};
