@@ -1155,11 +1155,16 @@ function buildDash(){
   buildNucContrib(); buildNucRep(); buildKol(); buildPr(); buildFinance(); buildWebsite();
   document.querySelectorAll(".score-ss-img img,.ss-grid img").forEach(function(img){if(!img.onclick)img.onclick=function(){openLb(this.src);};});
   // Re-alternate light/dark on visible sections only
-  var visSecs=Array.from(document.querySelectorAll('.page-sec')).filter(function(s){return getComputedStyle(s).display!=='none';});
-  visSecs.forEach(function(s,i){
-    s.classList.remove('light');
-    if(i%2!==0) s.classList.add('light');
-  });
+  setTimeout(function(){
+    var allSecs=Array.from(document.querySelectorAll('.page-sec'));
+    var idx=0;
+    allSecs.forEach(function(s){
+      if(s.style.display==='none') return;
+      s.classList.remove('light');
+      if(idx%2!==0) s.classList.add('light');
+      idx++;
+    });
+  },50);
 
   const hdrEl=document.getElementById('hdr'), navEl=document.getElementById('nav');
   const setNavTop=()=>{if(hdrEl&&navEl)navEl.style.top=hdrEl.offsetHeight+'px';};
