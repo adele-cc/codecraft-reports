@@ -640,9 +640,9 @@ function colChart(canvasId,labels,lwData,nowData,lwLbl,nowLbl,clrs){
 function mGrowRows(d){
   if(!d||!vv(d.now))return '';
   const isNum=typeof d.now==='number'; let rows='';
-  if(isNum&&typeof d.lw==='number'){const p=pct(d.now,d.lw),up=p>=0,diff=d.now-d.lw;rows+=`<div class="m-grow-row"><span class="m-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}">${up?'+':''}${Math.abs(p).toFixed(1)}%</span><span class="m-pct-lbl">${up?'+':''}${fmt(Math.abs(diff))} vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}
+  if(isNum&&typeof d.lw==='number'){const p=pct(d.now,d.lw),clrUp=d.invert?p<0:p>=0,diff=d.now-d.lw;rows+=`<div class="m-grow-row"><span class="m-arrow ${clrUp?'up':'dn'}">${p>=0?'↑':'↓'}</span><span class="m-pct ${clrUp?'up':'dn'}">${p>=0?'+':''}${Math.abs(p).toFixed(1)}%</span><span class="m-pct-lbl">${diff>=0?'+':''}${fmt(Math.abs(diff))} vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}
   else if(typeof d.now==='string'&&vv(d.lw)){const n=parseFloat(d.now),l=parseFloat(d.lw);if(!isNaN(n)&&!isNaN(l)){const up=n>=l;rows+=`<div class="m-grow-row"><span class="m-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}">${d.lw}→${d.now}</span><span class="m-pct-lbl">vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}}
-  if(isNum&&typeof d.start==='number'&&d.start>0){const p=pct(d.now,d.start),up=p>=0,diff=d.now-d.start;rows+=`<div class="m-grow-row" style="margin-top:4px"><span class="m-arrow ${up?'up':'dn'}" style="font-size:14px">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}" style="font-size:14px">${up?'+':''}${Math.round(p)}%</span><span class="m-pct-lbl">${up?'+':''}${fmt(Math.abs(diff))} since campaign start</span></div>`;}
+  if(isNum&&typeof d.start==='number'&&d.start>0){const p=pct(d.now,d.start),clrUp=d.invert?p<0:p>=0,diff=d.now-d.start;rows+=`<div class="m-grow-row" style="margin-top:4px"><span class="m-arrow ${clrUp?'up':'dn'}" style="font-size:14px">${p>=0?'↑':'↓'}</span><span class="m-pct ${clrUp?'up':'dn'}" style="font-size:14px">${p>=0?'+':''}${Math.round(p)}%</span><span class="m-pct-lbl">${diff>=0?'+':''}${fmt(Math.abs(diff))} since campaign start</span></div>`;}
   return rows?`<div>${rows}</div>`:'';
 }
 function mCtxStrip(d){
@@ -961,7 +961,7 @@ function buildKol(){
     {label:'Posts',               data:kol.posts},
     {label:'Smart Followers',     data:kol.smartFollowers},
     {label:'Smart Reach',         data:kol.smartReach},
-    {label:'Smart Reach CPM',     data:kol.smartCPM},
+    {label:'Smart Reach CPM',     data:kol.smartCPM?Object.assign({},kol.smartCPM,{invert:true}):null},
     {label:'Growth since Kickoff',data:kol.growth}
   ].filter(f=>f.data&&vv(f.data.now));
   if(metFields.length){
