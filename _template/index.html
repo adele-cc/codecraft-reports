@@ -816,7 +816,7 @@ function buildSocial(){
       ?'<div class="score-ss-img"><img src="'+s.mutualScreenshot+'" alt="Mutual Followers" onclick="openLb(this.src)" style="cursor:zoom-in" onerror="this.style.opacity=\'.3\'"></div>':'';
     const head='<div class="score-ss-head" style="align-items:flex-start"><div><div class="score-ss-title" style="display:flex;align-items:center;gap:7px">Mutual Followers '+infoTip+'</div>'+mNum+(mGrow?'<div style="margin-top:8px">'+mGrow+'</div>':'')+'</div></div>';
     const target=document.getElementById('mutualSsCard');
-    target.innerHTML=head+mImg; target.style.display=''; obs(target);
+    target.innerHTML=head+mImg; target.style.display=''; target.style.maxWidth='760px'; obs(target);
     show('mutualSsLbl');
     hasAny=true;
   }
