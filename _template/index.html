@@ -892,9 +892,14 @@ function buildCookie3(){
 function buildQuest(){
   const q=D.quest; if(!q){hide('secQuest');return;}
   const all=[
-    {label:'Sign Ups',        data:q.signUps},
-    {label:'DAU',             data:q.dau},
-    {label:'Number of Posts', data:q.numberOfPosts},
+    {label:'Sign Ups',          data:q.signUps},
+    {label:'DAU',               data:q.dau},
+    {label:'Total Users',       data:q.totalUsers},
+    {label:'Wallets Connected', data:q.walletsConnected},
+    {label:'Weekly Joins',      data:q.weeklyJoins},
+    {label:'Quest Completions', data:q.questCompletions},
+    {label:'Points Issued',     data:q.pointsIssued},
+    {label:'Number of Posts',   data:q.numberOfPosts},
     ...extraCards(q)
   ].filter(f=>f.data&&vv(f.data.now));
   if(!all.length){hide('secQuest');return;}
