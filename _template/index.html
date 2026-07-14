@@ -42,9 +42,9 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 /* ── HEADER ──────────────────────────────────────────────────── */
 .hdr{display:flex;justify-content:space-between;align-items:center;padding:20px 52px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(0,0,0,.93);backdrop-filter:blur(16px);z-index:200}
 .hdr-l{display:flex;align-items:center;gap:16px}
-.hdr-cc{height:22px;opacity:.8}
-.hdr-div{width:1px;height:20px;background:var(--border)}
-.hdr-cl{height:24px}
+.hdr-cc{height:28px;opacity:.92}
+.hdr-div{width:1px;height:24px;background:var(--border)}
+.hdr-cl{height:30px}
 .hdr-r{text-align:right}
 .hdr-name{font-family:var(--hd);font-size:17px;font-weight:800;letter-spacing:-.3px}
 .hdr-week{display:flex;align-items:center;justify-content:flex-end;gap:6px;font-size:11px;color:var(--w50);margin-top:2px}
@@ -69,7 +69,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .sec-hdr{margin-bottom:36px}
 .sec-title{font-family:var(--hd);font-size:30px;font-weight:800;letter-spacing:-1.2px;color:var(--w);line-height:1;margin-bottom:20px}
 .sec-rule{width:100%;height:1px;background:var(--border)}
-.sub-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--w30);margin:28px 0 14px}
+.sub-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--w50);margin:28px 0 14px}
 .sub-lbl:first-of-type{margin-top:0}
 
 /* ── OVERVIEW CARDS ──────────────────────────────────────────── */
@@ -78,7 +78,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .ov-card.in{opacity:1;transform:translateY(0)}
 .ov-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1)}
 .ov-card:hover::after{transform:scaleX(1)}
-.ov-lbl{font-size:11px;font-weight:600;color:var(--w50);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:20px}
+.ov-lbl{font-size:11px;font-weight:700;color:var(--w70);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:20px}
 .ov-num{font-family:var(--hd);font-size:58px;font-weight:800;letter-spacing:-3px;line-height:1;margin-bottom:24px;color:var(--w);overflow-wrap:break-word}
 .grow-row{display:flex;align-items:baseline;gap:8px;line-height:1;flex-wrap:wrap;row-gap:2px}
 .grow-row+.grow-row{margin-top:12px}
@@ -104,7 +104,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .page-sec.light .mcard{box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .mcard:hover{border-color:rgba(136,248,2,.35);box-shadow:0 16px 48px rgba(0,0,0,.5)}
 .page-sec.light .mcard:hover{border-color:rgba(78,168,0,.3);box-shadow:0 12px 36px rgba(0,0,0,.11)}
-.m-lbl{font-size:10px;font-weight:600;color:var(--w50);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.m-lbl{font-size:10px;font-weight:700;color:var(--w70);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
 .m-num{font-family:var(--hd);font-size:34px;font-weight:800;letter-spacing:-1.5px;line-height:1;margin-bottom:12px;color:var(--w);overflow-wrap:break-word}
 .m-num.sm{font-size:26px;letter-spacing:-1px}
 .mcard.featured .m-num{font-size:46px;letter-spacing:-2px}
@@ -113,12 +113,12 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .m-arrow.up{color:var(--green)}.m-arrow.dn{color:var(--w30)}
 .m-pct{font-family:var(--hd);font-size:16px;font-weight:800;letter-spacing:-.5px}
 .m-pct.up{color:var(--green)}.m-pct.dn{color:var(--w30)}
-.m-pct-lbl{font-size:11px;color:var(--w50);font-weight:500}
+.m-pct-lbl{font-size:11px;color:var(--w70);font-weight:600}
 .m-ctx{display:flex;padding-top:10px;border-top:1px solid var(--border);margin-top:auto}
 .m-ctx-col{flex:1;text-align:center;padding:0 2px}
 .m-ctx-col+.m-ctx-col{border-left:1px solid var(--border)}
-.m-ctx-lbl{font-size:8px;color:var(--w30);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px;white-space:nowrap}
-.m-ctx-val{font-family:var(--hd);font-size:11px;font-weight:700;color:var(--w70)}
+.m-ctx-lbl{font-size:9px;color:var(--w50);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px;white-space:nowrap}
+.m-ctx-val{font-family:var(--hd);font-size:12px;font-weight:700;color:var(--w)}
 .m-ctx-col.m-ctx-now .m-ctx-val{color:var(--green)}
 
 /* ── COLLAB ACCENT BORDERS ───────────────────────────────────── */
