@@ -43,9 +43,9 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 /* ── HEADER ──────────────────────────────────────────────────── */
 .hdr{display:flex;justify-content:space-between;align-items:center;padding:20px 52px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(0,0,0,.93);backdrop-filter:blur(16px);z-index:200}
 .hdr-l{display:flex;align-items:center;gap:16px}
-.hdr-cc{height:22px;opacity:.8}
-.hdr-div{width:1px;height:20px;background:var(--border)}
-.hdr-cl{height:24px}
+.hdr-cc{height:28px;opacity:.92}
+.hdr-div{width:1px;height:24px;background:var(--border)}
+.hdr-cl{height:30px}
 .hdr-r{text-align:right}
 .hdr-name{font-family:var(--hd);font-size:17px;font-weight:800;letter-spacing:-.3px}
 .hdr-week{display:flex;align-items:center;justify-content:flex-end;gap:6px;font-size:11px;color:var(--w50);margin-top:2px}
@@ -70,7 +70,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .sec-hdr{margin-bottom:36px}
 .sec-title{font-family:var(--hd);font-size:30px;font-weight:800;letter-spacing:-1.2px;color:var(--w);line-height:1;margin-bottom:20px}
 .sec-rule{width:100%;height:1px;background:var(--border)}
-.sub-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--w30);margin:28px 0 14px}
+.sub-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--w50);margin:28px 0 14px}
 .sub-lbl:first-of-type{margin-top:0}
 
 /* ── OVERVIEW CARDS ──────────────────────────────────────────── */
@@ -79,7 +79,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .ov-card.in{opacity:1;transform:translateY(0)}
 .ov-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--green);transform:scaleX(0);transform-origin:left;transition:transform .4s cubic-bezier(.16,1,.3,1)}
 .ov-card:hover::after{transform:scaleX(1)}
-.ov-lbl{font-size:11px;font-weight:600;color:var(--w50);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:20px}
+.ov-lbl{font-size:11px;font-weight:700;color:var(--w70);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:20px}
 .ov-num{font-family:var(--hd);font-size:58px;font-weight:800;letter-spacing:-3px;line-height:1;margin-bottom:24px;color:var(--w);overflow-wrap:break-word}
 .grow-row{display:flex;align-items:baseline;gap:8px;line-height:1;flex-wrap:wrap;row-gap:2px}
 .grow-row+.grow-row{margin-top:12px}
@@ -105,7 +105,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .page-sec.light .mcard{box-shadow:0 1px 4px rgba(0,0,0,.06)}
 .mcard:hover{border-color:rgba(136,248,2,.35);box-shadow:0 16px 48px rgba(0,0,0,.5)}
 .page-sec.light .mcard:hover{border-color:rgba(78,168,0,.3);box-shadow:0 12px 36px rgba(0,0,0,.11)}
-.m-lbl{font-size:10px;font-weight:600;color:var(--w50);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.m-lbl{font-size:10px;font-weight:700;color:var(--w70);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
 .m-num{font-family:var(--hd);font-size:34px;font-weight:800;letter-spacing:-1.5px;line-height:1;margin-bottom:12px;color:var(--w);overflow-wrap:break-word}
 .m-num.sm{font-size:26px;letter-spacing:-1px}
 .mcard.featured .m-num{font-size:46px;letter-spacing:-2px}
@@ -114,12 +114,12 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .m-arrow.up{color:var(--green)}.m-arrow.dn{color:var(--w30)}
 .m-pct{font-family:var(--hd);font-size:16px;font-weight:800;letter-spacing:-.5px}
 .m-pct.up{color:var(--green)}.m-pct.dn{color:var(--w30)}
-.m-pct-lbl{font-size:11px;color:var(--w50);font-weight:500}
+.m-pct-lbl{font-size:11px;color:var(--w70);font-weight:600}
 .m-ctx{display:flex;padding-top:10px;border-top:1px solid var(--border);margin-top:auto}
 .m-ctx-col{flex:1;text-align:center;padding:0 2px}
 .m-ctx-col+.m-ctx-col{border-left:1px solid var(--border)}
-.m-ctx-lbl{font-size:8px;color:var(--w30);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px;white-space:nowrap}
-.m-ctx-val{font-family:var(--hd);font-size:11px;font-weight:700;color:var(--w70)}
+.m-ctx-lbl{font-size:9px;color:var(--w50);text-transform:uppercase;letter-spacing:.8px;margin-bottom:3px;white-space:nowrap}
+.m-ctx-val{font-family:var(--hd);font-size:12px;font-weight:700;color:var(--w)}
 .m-ctx-col.m-ctx-now .m-ctx-val{color:var(--green)}
 
 /* ── COLLAB ACCENT BORDERS ───────────────────────────────────── */
@@ -517,7 +517,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
       </div>
       <div class="sub-lbl" id="kolScoreLbl" style="display:none">Score</div>
       <div class="score-ss-card" id="kolScoreCard" style="display:none"></div>
-      <div class="sub-lbl" id="kolPostsLbl" style="display:none">KOL top posts</div>
+      <div class="sub-lbl" id="kolPostsLbl" style="display:none">KOL Content Highlights</div>
       <div class="kol-grid" id="kolGrid"></div>
     </div>
   </div>
@@ -580,25 +580,25 @@ const D = {
   "overview": {
     "followers": {
       "start": 8336,
-      "lw": 111200,
-      "now": 112900
+      "lw": 112900,
+      "now": 112967
     },
     "discord": {
       "start": 0,
-      "lw": 14500,
-      "now": 14602
+      "lw": 14602,
+      "now": 14876
     },
     "cookie": {
       "start": 1318,
-      "lw": 2461,
-      "now": 2482
+      "lw": 2482,
+      "now": 2515
     },
     "collabs": {
-      "lw": 161,
+      "lw": 200,
       "now": 200
     },
     "collabsTotal": {
-      "lw": 161,
+      "lw": 200,
       "now": 200
     },
     "totalUsers": {
@@ -610,8 +610,8 @@ const D = {
   "social": {
     "xFollowers": {
       "start": 8336,
-      "lw": 111200,
-      "now": 112900
+      "lw": 112900,
+      "now": 112967
     },
     "impressions": {
       "start": null,
@@ -625,72 +625,72 @@ const D = {
     },
     "mutual": {
       "start": null,
-      "lw": 42,
+      "lw": 43,
       "now": 43
     },
     "mutualScreenshot": "https://drive.google.com/thumbnail?id=1vtV4Zn_zu7i6MTVkPEARE7O0VdkGg46W&sz=w1200",
     "discordMembers": {
       "start": 0,
-      "lw": 14500,
-      "now": 14602
+      "lw": 14602,
+      "now": 14876
     },
     "telegram": {
       "start": 0,
-      "lw": 14502,
-      "now": 15656
+      "lw": 15656,
+      "now": 15618
     },
     "posts": [
       {
         "name": "AmericanFortress",
         "handle": "@Americanfort_io",
         "avatar": "data:image/jpeg;base64,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",
-        "text": "Q2 2026 just became the most hacked quarter in crypto history.\n\n83 incidents. \n\nDouble the previous record for attack frequency.\n\nBut the dollar losses weren't record-breaking.\n\nThe shift is the story: not a few giant exploits anymore. A constant stream of smaller ones.\n\nThe attack surface didn't shrink as the industry matured. It multiplied.",
+        "text": "Every operational crypto hack comes down to one missing capability.\n\nThe ability to verify.\n\nVerify who you're transacting with. \nVerify what you're signing.\nVerify the counterparty is who they claim.\n\nBillions are lost every year in the gap between \"looks legitimate\" and \"is provably legitimate.\"\n\nClosing that gap isn't a feature. It's the entire unsolved problem.",
         "imageUrl": null,
-        "views": 9148,
-        "likes": 3587,
-        "reposts": 3841,
-        "replies": 4004,
-        "followers": 112975,
-        "url": "https://x.com/Americanfort_io/status/2074555646838731152"
+        "views": 3942,
+        "likes": 126,
+        "reposts": 42,
+        "replies": 44,
+        "followers": 112970,
+        "url": "https://x.com/Americanfort_io/status/2077046736430972993"
       },
       {
         "name": "AmericanFortress",
         "handle": "@Americanfort_io",
         "avatar": "data:image/jpeg;base64,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",
-        "text": "Crypto impersonation scams grew 1,400% year-over-year.\n\nFake support agents. \nCloned exchange reps. \nStolen data used to make the contact feel legitimate.\n\nThe scam works for one reason: you can't verify who's actually contacting you.\n\nIdentity, on both sides of every interaction, is the unsolved problem underneath almost every scam in the space.",
-        "imageUrl": "https://pbs.twimg.com/media/HMjUWVmbsAAljfy.jpg?name=orig",
-        "views": 15301,
-        "likes": 3690,
-        "reposts": 3816,
-        "replies": 4042,
-        "followers": 112975,
-        "url": "https://x.com/Americanfort_io/status/2074161456929530066"
-      },
-      {
-        "name": "AmericanFortress",
-        "handle": "@Americanfort_io",
-        "avatar": "data:image/jpeg;base64,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",
-        "text": "Traditional finance has a feature crypto rarely talks about: discretion by default.\n\nYour bank doesn't publish your balance. \nYour broker doesn't expose your positions. \nYour employer doesn't broadcast your salary.\n\nNone of this is anonymity. It's privacy, verified parties, confidential details.\n\nCrypto built radical transparency and called it a feature. For institutional capital, it's the single biggest reason to stay out.",
-        "imageUrl": "https://pbs.twimg.com/media/HMTJOntbwAAqvVp.jpg?name=orig",
-        "views": 15024,
-        "likes": 3802,
-        "reposts": 3683,
-        "replies": 3920,
-        "followers": 112975,
-        "url": "https://x.com/Americanfort_io/status/2073799064614064195"
-      },
-      {
-        "name": "AmericanFortress",
-        "handle": "@Americanfort_io",
-        "avatar": "data:image/jpeg;base64,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",
-        "text": "Bridging made chains interchangeable. \n\nMove between them in seconds, as long as everything stays public.\n\nBut leave a private chain, and you expose everything you did there.\n\nThat changes the dynamic completely.\n\nPrivacy doesn't just protect users. \n\nIt creates lock-in, a network effect competing chains can't easily break.\n\nThe moat in crypto's next phase isn't speed. It's what you can't see.",
+        "text": "When funds land in your wallet, what do you actually know about them?\n\nNot who sent them. Not whether they're clean. Not whether they came through a sanctioned entity.\n\nThis is the compliance dead end privacy pools created, and why exchanges keep facing legal trouble.\n\nPrivacy that hides the sender from the recipient isn't privacy. \n\nIt's a liability wearing a privacy label.",
         "imageUrl": null,
-        "views": 4953,
-        "likes": 141,
-        "reposts": 46,
-        "replies": 40,
-        "followers": 112975,
-        "url": "https://x.com/Americanfort_io/status/2073436675368206406"
+        "views": 7601,
+        "likes": 173,
+        "reposts": 54,
+        "replies": 49,
+        "followers": 112970,
+        "url": "https://x.com/Americanfort_io/status/2075611010266800310"
+      },
+      {
+        "name": "AmericanFortress",
+        "handle": "@Americanfort_io",
+        "avatar": "data:image/jpeg;base64,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",
+        "text": "In case you missed @MehowHacks on this Quantum deep-dive, be sure to check it out below:  https://x.com/i/spaces/1AKEmmZndlAKL",
+        "imageUrl": null,
+        "views": 3411,
+        "likes": 85,
+        "reposts": 45,
+        "replies": 42,
+        "followers": 112970,
+        "url": "https://x.com/Americanfort_io/status/2075287468598026353"
+      },
+      {
+        "name": "AmericanFortress",
+        "handle": "@Americanfort_io",
+        "avatar": "data:image/jpeg;base64,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",
+        "text": "For over 20 years, our CEO @MehowHacks has been finding security flaws before they become global problems.\n\nFrom hacking electronic voting machines for the U.S. government to building one of crypto's most ambitious security companies, his mission has stayed the same: fix the infrastructure before it fails.\n\nRead his latest profile by @Entrepreneur UK on why he believes crypto's biggest vulnerability isn't the blockchain, it's how people actually use it.",
+        "imageUrl": "https://pbs.twimg.com/media/HMzLIO9awAATrY2.jpg?name=orig",
+        "views": 11812,
+        "likes": 2964,
+        "reposts": 3081,
+        "replies": 4497,
+        "followers": 112970,
+        "url": "https://x.com/Americanfort_io/status/2075256884463059088"
       }
     ],
     "extra": [
@@ -705,80 +705,80 @@ const D = {
     ]
   },
   "collabs": {
-    "done": 122,
-    "inProgress": 78,
+    "done": 166,
+    "inProgress": 34,
     "raids": 0,
     "extra": []
   },
   "cookie3": {
     "score": {
       "start": 1318,
-      "lw": 2461,
-      "now": 2482
+      "lw": 2482,
+      "now": 2515
     },
     "uniqueEngagers": {
       "start": 12,
-      "lw": 82,
-      "now": 82
+      "lw": 393,
+      "now": 366
     },
     "smartFollowers": {
       "start": 31,
       "lw": 55,
-      "now": 55
+      "now": 56
     },
     "avgViews": {
       "start": 1040,
-      "lw": 12780,
-      "now": 11450
+      "lw": 8590,
+      "now": 9320
     },
     "avgEngagement": {
       "start": 83.33,
-      "lw": 6550,
-      "now": 7970
+      "lw": 4980,
+      "now": 5670
     },
     "smartEngagement": {
       "start": 5,
-      "lw": 3,
-      "now": 1
+      "lw": 18,
+      "now": 18
     },
     "smartReach": {
       "start": 165930,
-      "lw": 105440,
-      "now": 107520
+      "lw": 1860000,
+      "now": 1780000
     },
-    "screenshot": "https://drive.google.com/thumbnail?id=1mKhtWWxkfC4j_ACL0bPm06kmTotrNHtc&sz=w1200",
+    "screenshot": "https://drive.google.com/thumbnail?id=1CWhe6akgy5iE3qtmiPVla5Z3QRdL9TNB&sz=w1200",
     "smart": {
       "start": 31,
       "lw": 55,
-      "now": 55
+      "now": 56
     },
     "reach": {
       "start": 165930,
-      "lw": 105440,
-      "now": 107520
+      "lw": 1860000,
+      "now": 1780000
     },
     "viewsPost": {
       "start": 1040,
-      "lw": 12780,
-      "now": 11450
+      "lw": 8590,
+      "now": 9320
     },
     "engTweet": {
       "start": 83.33,
-      "lw": 6550,
-      "now": 7970
+      "lw": 4980,
+      "now": 5670
     },
     "extra": []
   },
   "quest": {
     "dau": {
       "start": 0,
-      "lw": 16000,
-      "now": 15000
+      "lw": 15000,
+      "now": null
     },
     "signUps": {
       "start": 0,
-      "lw": 104000,
-      "now": 107847
+      "lw": 107847,
+      "now": null
     },
     "walletsConnected": {
       "start": null,
@@ -787,8 +787,8 @@ const D = {
     },
     "weeklyJoins": {
       "start": 0,
-      "lw": 5000,
-      "now": 1658
+      "lw": 1658,
+      "now": null
     },
     "totalUsers": {
       "start": null,
@@ -797,23 +797,21 @@ const D = {
     },
     "questCompletions": {
       "start": 0,
-      "lw": 83005,
-      "now": 75701
+      "lw": 75701,
+      "now": null
     },
     "pointsIssued": {
       "start": 0,
-      "lw": 2823463,
-      "now": 2665380
+      "lw": 2665380,
+      "now": null
     },
     "numberOfPosts": {
       "start": 0,
-      "lw": 18582,
-      "now": 21189
+      "lw": 151512,
+      "now": 166282
     },
     "screenshots": [
-      "https://drive.google.com/thumbnail?id=1NGQC2oz3AvCU0X5nKJJuDXsEMzuIDcXK&sz=w1200",
-      "https://drive.google.com/thumbnail?id=1h-xmAm0x1HebG_oDMqx1yPDG9cTYMQee&sz=w1200",
-      "https://drive.google.com/thumbnail?id=14Oj3KLphSz4svDebZ9zm-O-eBf-BuYlF&sz=w1200"
+      "https://drive.google.com/thumbnail?id=1ow5cXErQrrqXzYGnHsIAyxIDWSTGgIzu&sz=w1200"
     ],
     "extra": [
       {
@@ -947,8 +945,8 @@ const D = {
   "x": {
     "followers": {
       "start": 8336,
-      "lw": 111200,
-      "now": 112900
+      "lw": 112900,
+      "now": 112967
     },
     "impressions": {
       "start": null,
@@ -963,22 +961,22 @@ const D = {
     "verified": null,
     "mutual": {
       "start": null,
-      "lw": 42,
+      "lw": 43,
       "now": 43
     }
   },
   "discord": {
     "members": {
       "start": 0,
-      "lw": 14500,
-      "now": 14602
+      "lw": 14602,
+      "now": 14876
     },
     "messages": null,
     "topEngagers": []
   },
   "growth": {
     "collabs": {
-      "lw": 161,
+      "lw": 200,
       "now": 200
     },
     "registered": {
@@ -988,8 +986,8 @@ const D = {
     },
     "dau": {
       "start": 0,
-      "lw": 16000,
-      "now": 15000
+      "lw": 15000,
+      "now": null
     },
     "mau": null
   },
