@@ -480,6 +480,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
   <div class="page-sec" id="secQuest">
     <div class="ps-inner">
       <div class="sec-hdr"><div class="sec-title">Community Growth: Questing</div><div class="sec-rule"></div></div>
+      <div id="questNote" style="display:none;font-size:12px;color:var(--w50);margin-bottom:20px;margin-top:-16px"></div>
       <div id="questGrid" class="mgrid m4"></div>
       <div class="ss-grid" id="questSsGrid"></div>
     </div>
@@ -903,6 +904,7 @@ function buildQuest(){
     ...extraCards(q)
   ].filter(f=>f.data&&vv(f.data.now));
   if(!all.length){hide('secQuest');return;}
+  if(q.note){const n=document.getElementById('questNote');n.textContent=q.note;n.style.display='block';}
   const el=document.getElementById('questGrid');
   el.className='mgrid m'+smartCols(all.length);
   el.innerHTML=all.map(f=>mCard(f.label,f.data)).join('');
