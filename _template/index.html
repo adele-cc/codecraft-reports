@@ -602,8 +602,9 @@ function animCount(el){
   const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
   (function step(ts){
     if(!t0)t0=ts; const p=Math.min((ts-t0)/1400,1),v=target*ease(p);
+    const sfx=el.dataset.suffix||'';
     let s; if(short){if(target>=1e6)s=(v/1e6).toFixed(1).replace(/\.0$/,'')+'M';else if(target>=1e3)s=(v/1e3).toFixed(1).replace(/\.0$/,'')+'k';else s=Math.round(v).toLocaleString();}else s=Math.round(v).toLocaleString();
-    el.textContent=s; if(p<1)requestAnimationFrame(step);
+    el.textContent=s+sfx; if(p<1)requestAnimationFrame(step);
   })(performance.now());
 }
 const io = new IntersectionObserver(entries=>{
@@ -656,7 +657,8 @@ function mCtxStrip(d){
 function mCard(label,data,extraClass=''){
   if(!data||!vv(data.now))return '';
   const isNum=typeof data.now==='number';
-  const numEl=isNum?`<div class="m-num${data.now>=1e6||String(data.now).length>6?' sm':''}" data-count="${data.now}" data-fmt="s">${fmt(data.now)}</div>`:`<div class="m-num sm">${data.now}</div>`;
+  const sfx=data.suffix||'';
+  const numEl=isNum?`<div class="m-num${data.now>=1e6||String(data.now).length>6?' sm':''}" data-count="${data.now}" data-fmt="s" data-suffix="${sfx}">${fmt(data.now)}${sfx}</div>`:`<div class="m-num sm">${data.now}</div>`;
   return `<div class="mcard${extraClass?' '+extraClass:''}"><div class="m-lbl">${label}</div>${numEl}${mGrowRows(data)}${mCtxStrip(data)}</div>`;
 }
 function ovGrowRows(d){
@@ -969,7 +971,7 @@ function buildKol(){
     {label:'Smart Followers',     data:kol.smartFollowers},
     {label:'Smart Reach',         data:kol.smartReach},
     {label:'Smart Reach CPM',     data:kol.smartCPM?Object.assign({},kol.smartCPM,{invert:true}):null},
-    {label:'Growth since Kickoff',data:kol.growth}
+    {label:'Growth since Kickoff',data:kol.growth?Object.assign({},kol.growth,{suffix:'%'}):null}
   ].filter(f=>f.data&&vv(f.data.now));
   if(metFields.length){
     hasAny=true; show('kolMetricsLbl');
