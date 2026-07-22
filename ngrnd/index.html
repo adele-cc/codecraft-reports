@@ -481,6 +481,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
   <div class="page-sec" id="secQuest">
     <div class="ps-inner">
       <div class="sec-hdr"><div class="sec-title">Community Growth: Questing</div><div class="sec-rule"></div></div>
+      <div id="questNote" style="display:none;font-size:12px;color:var(--w50);margin-bottom:20px;margin-top:-16px"></div>
       <div id="questGrid" class="mgrid m4"></div>
       <div class="ss-grid" id="questSsGrid"></div>
     </div>
@@ -573,25 +574,25 @@ const D = {
   "pin": "1234",
   "published": true,
   "week": 1,
-  "weekDate": "8th July",
+  "weekDate": "22nd July",
   "campaignStart": "1st May",
   "lwLabel": "Last Week",
   "nowLabel": "This Week",
   "overview": {
     "followers": {
       "start": 0,
-      "lw": 59100,
-      "now": 57500
+      "lw": 57500,
+      "now": 55300
     },
     "discord": {
       "start": 0,
-      "lw": 17315,
-      "now": 17299
+      "lw": 17299,
+      "now": 17268
     },
     "cookie": {
       "start": 0,
-      "lw": 1200,
-      "now": 1193
+      "lw": 1193,
+      "now": 1168
     },
     "collabs": {
       "lw": 201,
@@ -610,36 +611,76 @@ const D = {
   "social": {
     "xFollowers": {
       "start": 0,
-      "lw": 59100,
-      "now": 57500
+      "lw": 57500,
+      "now": 55300
     },
     "impressions": {
       "start": 0,
-      "lw": 17900,
-      "now": 19800
+      "lw": 19800,
+      "now": 14600
     },
     "engagements": {
       "start": 0,
-      "lw": 1800,
-      "now": 1700
+      "lw": 1700,
+      "now": 1200
     },
     "mutual": {
       "start": 0,
-      "lw": 32,
+      "lw": 33,
       "now": 33
     },
-    "mutualScreenshot": "https://drive.google.com/thumbnail?id=1DLLS9hoPbuilkuz1alvPTKItCqQc9JRn&sz=w1200",
+    "mutualScreenshot": "https://drive.google.com/thumbnail?id=1l0CRWuHilAXPSnvSWf9MBRyDSB1NBDbm&sz=w1200",
     "discordMembers": {
       "start": 0,
-      "lw": 17315,
-      "now": 17299
+      "lw": 17299,
+      "now": 17268
     },
     "telegram": {
       "start": 0,
-      "lw": 4399,
-      "now": 4374
+      "lw": 4374,
+      "now": 4361
     },
-    "posts": null,
+    "posts": [
+      {
+        "name": "nGRND_io",
+        "handle": "@nGRND_io",
+        "avatar": "data:image/jpeg;base64,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",
+        "text": "Land preceded every financial construct built on top of it.\n\nThe crop yield.\nThe mineral right.\nThe carbon credit.\nThe real estate return.\n\nEverything traces back to the ground.\n\nnGRND begins there too - but with a different model.\n\nGet grounded 🟡",
+        "imageUrl": "https://pbs.twimg.com/media/HNvJjECWYAA9Jbc.jpg?name=orig",
+        "views": 1414,
+        "likes": 136,
+        "reposts": 61,
+        "replies": 97,
+        "followers": 55327,
+        "url": "https://x.com/nGRND_io/status/2079567078827164062"
+      },
+      {
+        "name": "nGRND_io",
+        "handle": "@nGRND_io",
+        "avatar": "data:image/jpeg;base64,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",
+        "text": "Gold in a vault and gold in the ground are both still gold.\n\nSame element. Same atomic number. Same 5,000-year history.\n\nWhat changes isn't the gold, but the structure built around it.\n\nPhysical bars. ETFs. Futures. Royalty funds.\n\nEach follows a different model.\n\nnGRND is building another.",
+        "imageUrl": "https://pbs.twimg.com/media/HNby03VWUAAJigb.jpg?name=orig",
+        "views": 4032,
+        "likes": 139,
+        "reposts": 36,
+        "replies": 96,
+        "followers": 55327,
+        "url": "https://x.com/nGRND_io/status/2078117527574458872"
+      },
+      {
+        "name": "nGRND_io",
+        "handle": "@nGRND_io",
+        "avatar": "data:image/jpeg;base64,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",
+        "text": "nGRND is built around resources measured in geological time. \n\nBuilding around geology changes the questions you ask. \n\nNot only: \n\"What's happening this quarter?\" \n\nBut also: \n\"What still matters decades from now?”",
+        "imageUrl": "https://pbs.twimg.com/media/HNVWFVlWkAA-jPZ.jpg?name=orig",
+        "views": 2651,
+        "likes": 134,
+        "reposts": 32,
+        "replies": 102,
+        "followers": 55327,
+        "url": "https://x.com/nGRND_io/status/2077755128954634479"
+      }
+    ],
     "extra": [
       {
         "key": "highlights_text1",
@@ -660,13 +701,13 @@ const D = {
   "cookie3": {
     "score": {
       "start": 0,
-      "lw": 1200,
-      "now": 1193
+      "lw": 1193,
+      "now": 1168
     },
     "uniqueEngagers": {
       "start": 0,
-      "lw": 599,
-      "now": 601
+      "lw": 601,
+      "now": 609
     },
     "smartFollowers": {
       "start": 0,
@@ -675,25 +716,25 @@ const D = {
     },
     "avgViews": {
       "start": 0,
-      "lw": 8350,
-      "now": 7860
+      "lw": 7860,
+      "now": 7030
     },
     "avgEngagement": {
       "start": 0,
-      "lw": 2370,
-      "now": 2180
+      "lw": 2180,
+      "now": 1870
     },
     "smartEngagement": {
       "start": 0,
-      "lw": 24,
-      "now": 27
+      "lw": 27,
+      "now": 31
     },
     "smartReach": {
       "start": 0,
-      "lw": 313790,
-      "now": 324470
+      "lw": 324470,
+      "now": 343030
     },
-    "screenshot": "https://drive.google.com/thumbnail?id=1VmNJu7touLtuCXJIEBOmvM0oo0nxtGy3&sz=w1200",
+    "screenshot": "https://drive.google.com/thumbnail?id=1f9TEXDQbhjbsGMaADxFazFAh9kq8BHch&sz=w1200",
     "smart": {
       "start": 0,
       "lw": 19,
@@ -701,18 +742,18 @@ const D = {
     },
     "reach": {
       "start": 0,
-      "lw": 313790,
-      "now": 324470
+      "lw": 324470,
+      "now": 343030
     },
     "viewsPost": {
       "start": 0,
-      "lw": 8350,
-      "now": 7860
+      "lw": 7860,
+      "now": 7030
     },
     "engTweet": {
       "start": 0,
-      "lw": 2370,
-      "now": 2180
+      "lw": 2180,
+      "now": 1870
     },
     "extra": []
   },
@@ -757,6 +798,7 @@ const D = {
       "lw": null,
       "now": null
     },
+    "note": null,
     "screenshots": null,
     "extra": [
       {
@@ -890,31 +932,31 @@ const D = {
   "x": {
     "followers": {
       "start": 0,
-      "lw": 59100,
-      "now": 57500
+      "lw": 57500,
+      "now": 55300
     },
     "impressions": {
       "start": 0,
-      "lw": 17900,
-      "now": 19800
+      "lw": 19800,
+      "now": 14600
     },
     "engagements": {
       "start": 0,
-      "lw": 1800,
-      "now": 1700
+      "lw": 1700,
+      "now": 1200
     },
     "verified": null,
     "mutual": {
       "start": 0,
-      "lw": 32,
+      "lw": 33,
       "now": 33
     }
   },
   "discord": {
     "members": {
       "start": 0,
-      "lw": 17315,
-      "now": 17299
+      "lw": 17299,
+      "now": 17268
     },
     "messages": null,
     "topEngagers": []
@@ -970,8 +1012,9 @@ function animCount(el){
   const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
   (function step(ts){
     if(!t0)t0=ts; const p=Math.min((ts-t0)/1400,1),v=target*ease(p);
+    const sfx=el.dataset.suffix||'';
     let s; if(short){if(target>=1e6)s=(v/1e6).toFixed(1).replace(/\.0$/,'')+'M';else if(target>=1e3)s=(v/1e3).toFixed(1).replace(/\.0$/,'')+'k';else s=Math.round(v).toLocaleString();}else s=Math.round(v).toLocaleString();
-    el.textContent=s; if(p<1)requestAnimationFrame(step);
+    el.textContent=s+sfx; if(p<1)requestAnimationFrame(step);
   })(performance.now());
 }
 const io = new IntersectionObserver(entries=>{
@@ -1024,7 +1067,8 @@ function mCtxStrip(d){
 function mCard(label,data,extraClass=''){
   if(!data||!vv(data.now))return '';
   const isNum=typeof data.now==='number';
-  const numEl=isNum?`<div class="m-num${data.now>=1e6||String(data.now).length>6?' sm':''}" data-count="${data.now}" data-fmt="s">${fmt(data.now)}</div>`:`<div class="m-num sm">${data.now}</div>`;
+  const sfx=data.suffix||'';
+  const numEl=isNum?`<div class="m-num${data.now>=1e6||String(data.now).length>6?' sm':''}" data-count="${data.now}" data-fmt="s" data-suffix="${sfx}">${fmt(data.now)}${sfx}</div>`:`<div class="m-num sm">${data.now}</div>`;
   return `<div class="mcard${extraClass?' '+extraClass:''}"><div class="m-lbl">${label}</div>${numEl}${mGrowRows(data)}${mCtxStrip(data)}</div>`;
 }
 function ovGrowRows(d){
@@ -1272,6 +1316,7 @@ function buildQuest(){
     ...extraCards(q)
   ].filter(f=>f.data&&vv(f.data.now));
   if(!all.length){hide('secQuest');return;}
+  if(q.note){const n=document.getElementById('questNote');n.textContent=q.note;n.style.display='block';}
   const el=document.getElementById('questGrid');
   el.className='mgrid m'+smartCols(all.length);
   el.innerHTML=all.map(f=>mCard(f.label,f.data)).join('');
@@ -1336,7 +1381,7 @@ function buildKol(){
     {label:'Smart Followers',     data:kol.smartFollowers},
     {label:'Smart Reach',         data:kol.smartReach},
     {label:'Smart Reach CPM',     data:kol.smartCPM?Object.assign({},kol.smartCPM,{invert:true}):null},
-    {label:'Growth since Kickoff',data:kol.growth}
+    {label:'Growth since Kickoff',data:kol.growth?Object.assign({},kol.growth,{suffix:'%'}):null}
   ].filter(f=>f.data&&vv(f.data.now));
   if(metFields.length){
     hasAny=true; show('kolMetricsLbl');
