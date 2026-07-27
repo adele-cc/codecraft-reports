@@ -126,6 +126,13 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .mcard.clr-amber{border-left:3px solid #F5A623}
 .mcard.clr-blue{border-left:3px solid #4B8EF8}
 
+/* ── COLLAB PFPS ─────────────────────────────────────────────── */
+.collab-pfps{display:flex;flex-wrap:wrap;gap:20px;margin-top:32px;align-items:flex-start}
+.collab-pfp{display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;transform:translateY(12px);transition:opacity .4s,transform .4s}
+.collab-pfp.in{opacity:1;transform:translateY(0)}
+.collab-pfp img{width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--border);background:var(--card)}
+.collab-pfp-name{font-size:11px;font-weight:600;color:var(--w70);text-align:center;max-width:72px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
 /* ── CHART CARDS ─────────────────────────────────────────────── */
 .chart-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 28px 22px;opacity:0;transform:translateY(20px)}
 .chart-card.in{opacity:1;transform:translateY(0)}
@@ -460,6 +467,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
     <div class="ps-inner">
       <div class="sec-hdr"><div class="sec-title">Collaborations</div><div class="sec-rule"></div></div>
       <div id="collabCards" class="mgrid m3"></div>
+      <div id="collabPfps" class="collab-pfps" style="display:none"></div>
     </div>
   </div>
 
@@ -846,6 +854,12 @@ function buildCollabs(){
   el.className='mgrid m'+items.length;
   el.innerHTML=items.map(i=>`<div class="mcard ${i.clr}"><div class="m-lbl">${i.label}</div><div style="font-family:var(--hd);font-size:64px;font-weight:800;letter-spacing:-3px;line-height:1;margin:16px 0 14px;color:${i.numColor}">${i.count}</div><div style="font-size:11px;color:var(--w30)">${i.desc}</div></div>`).join('');
   el.querySelectorAll('.mcard').forEach(obs);
+  if(c.pfps&&c.pfps.length){
+    const pEl=document.getElementById('collabPfps');
+    pEl.innerHTML=c.pfps.map(p=>`<div class="collab-pfp"><img src="${p.avatar}" alt="${p.label}" onerror="this.style.opacity='.3'">${p.label?`<div class="collab-pfp-name">${p.label}</div>`:''}</div>`).join('');
+    pEl.style.display='';
+    pEl.querySelectorAll('.collab-pfp').forEach(obs);
+  }
 }
 
 // ── BUILD: COOKIE3 ─────────────────────────────────────────────
