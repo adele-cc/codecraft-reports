@@ -50,6 +50,9 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .hdr-week{display:flex;align-items:center;justify-content:flex-end;gap:6px;font-size:11px;color:var(--w50);margin-top:2px}
 .hdr-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2.4s ease-in-out infinite}
 
+/* ── BANNER ──────────────────────────────────────────────────── */
+.report-banner{width:100%;display:block;max-height:320px;object-fit:cover;object-position:center}
+
 /* ── NAV ─────────────────────────────────────────────────────── */
 .nav{display:flex;justify-content:center;gap:4px;padding:10px 52px;border-bottom:1px solid var(--border);background:rgba(0,0,0,.97);backdrop-filter:blur(24px);position:sticky;top:0;z-index:100;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .nav a{font-size:11px;font-weight:600;color:rgba(255,255,255,.75);text-decoration:none;padding:6px 14px;border-radius:20px;border:1px solid transparent;white-space:nowrap;transition:all .2s;letter-spacing:.3px}
@@ -429,6 +432,8 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
   <a href="#secFin"        id="navFin">Finance</a>
   <a href="#secWeb"        id="navWeb">Website</a>
 </div>
+
+<img id="reportBanner" class="report-banner" style="display:none" alt="">
 
 <div id="main" style="display:none">
 
@@ -1175,6 +1180,7 @@ function buildDash(){
   document.getElementById('hdrWeek').textContent=D.weekDate;
   document.getElementById('footWeek').textContent=D.weekDate;
   if(D.clientLogo){const cl=document.getElementById('hdrCl');cl.src=D.clientLogo;cl.style.display='block';document.getElementById('hdrDiv').style.display='block';}
+  if(D.banner){const bn=document.getElementById('reportBanner');bn.src=D.banner;bn.style.display='block';}
 
   buildOverview(); buildSocial(); buildCollabs(); buildCookie3(); buildQuest();
   buildNucContrib(); buildNucRep(); buildKol(); buildPr(); buildFinance(); buildWebsite();
