@@ -873,7 +873,7 @@ function buildCollabs(){
   if(c.pfps&&c.pfps.length){
     const pEl=document.getElementById('collabPfps');
     pEl.innerHTML='<div class="sub-lbl" style="width:100%;text-align:center;margin-bottom:4px">Top Communities Activated</div>'
-      +c.pfps.map(p=>`<div class="collab-pfp"><img src="${p.avatar}" alt="${p.label}" onerror="this.style.opacity='.3'">${p.label?`<div class="collab-pfp-name">${p.label}</div>`:''}${p.followers!=null?`<div class="collab-pfp-followers">${fmt(p.followers)}</div>`:''}</div>`).join('');
+      +c.pfps.map(p=>`<div class="collab-pfp"><img src="${p.avatar}" alt="${p.label}" onerror="this.style.opacity='.3'">${p.label?`<div class="collab-pfp-name">${p.label}</div>`:''}${p.followersLabel?`<div class="collab-pfp-followers">${p.followersLabel}</div>`:''}</div>`).join('');
     pEl.style.display='';
     pEl.querySelectorAll('.collab-pfp').forEach(obs);
   }
