@@ -132,6 +132,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .collab-pfp.in{opacity:1;transform:translateY(0)}
 .collab-pfp img{width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid var(--border);background:var(--card)}
 .collab-pfp-name{font-size:11px;font-weight:600;color:var(--w70);text-align:center;max-width:72px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.collab-pfp-followers{font-size:10px;color:var(--w50);text-align:center}
 
 /* ── CHART CARDS ─────────────────────────────────────────────── */
 .chart-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 28px 22px;opacity:0;transform:translateY(20px)}
@@ -856,7 +857,7 @@ function buildCollabs(){
   el.querySelectorAll('.mcard').forEach(obs);
   if(c.pfps&&c.pfps.length){
     const pEl=document.getElementById('collabPfps');
-    pEl.innerHTML=c.pfps.map(p=>`<div class="collab-pfp"><img src="${p.avatar}" alt="${p.label}" onerror="this.style.opacity='.3'">${p.label?`<div class="collab-pfp-name">${p.label}</div>`:''}</div>`).join('');
+    pEl.innerHTML=c.pfps.map(p=>`<div class="collab-pfp"><img src="${p.avatar}" alt="${p.label}" onerror="this.style.opacity='.3'">${p.label?`<div class="collab-pfp-name">${p.label}</div>`:''}${p.followers!=null?`<div class="collab-pfp-followers">${fmt(p.followers)}</div>`:''}</div>`).join('');
     pEl.style.display='';
     pEl.querySelectorAll('.collab-pfp').forEach(obs);
   }
