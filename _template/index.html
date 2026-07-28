@@ -419,7 +419,6 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
     <img class="hdr-cl" id="hdrCl" style="display:none" alt="">
   </div>
   <div class="hdr-r">
-    <div class="hdr-name" id="hdrName"></div>
     <div class="hdr-week"><span class="hdr-dot"></span><span id="hdrWeek"></span></div>
   </div>
 </div>
@@ -1187,7 +1186,6 @@ function closeLb(){document.getElementById("lb").classList.remove("open");docume
 function lbKey(e){if(e.key==="Escape")closeLb();}
 function buildDash(){
   show('hdr','flex'); show('nav','flex'); show('main'); show('foot');
-  document.getElementById('hdrName').textContent=D.client;
   document.getElementById('hdrWeek').textContent=D.weekDate;
   document.getElementById('footWeek').textContent=D.weekDate;
   if(D.clientLogo){const cl=document.getElementById('hdrCl');cl.src=D.clientLogo;cl.style.display='block';document.getElementById('hdrDiv').style.display='block';}
