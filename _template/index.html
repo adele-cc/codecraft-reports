@@ -1200,6 +1200,7 @@ function buildDash(){
 
   buildOverview(); buildSocial(); buildCollabs(); buildCookie3(); buildQuest();
   buildNucContrib(); buildNucRep(); buildKol(); buildPr(); buildFinance(); buildWebsite();
+  renderAllCustomExtras();
   document.querySelectorAll(".score-ss-img img,.ss-grid img").forEach(function(img){if(!img.onclick)img.onclick=function(){openLb(this.src);};});
   // Re-alternate light/dark on visible sections only
   setTimeout(function(){
