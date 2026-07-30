@@ -1156,6 +1156,13 @@ function renderCustomExtras(secData, sectionEl) {
       card.className = 'custom-text-card';
       card.innerHTML = '<div class="custom-text-lbl">'+e.label+'</div><div class="custom-text-val">'+e.now+'</div>';
       wrap.appendChild(card); obs(card);
+    } else if (e.type === 'image' && e.now) {
+      const card = document.createElement('div');
+      card.className = 'score-ss-card';
+      card.style.cssText = 'margin-bottom:20px';
+      card.innerHTML = (e.label?'<div class="score-ss-head"><span class="score-ss-title">'+e.label+'</span></div>':'')
+        +'<div class="score-ss-img"><img src="'+e.now+'" alt="'+e.label+'" onclick="openLb(this.src)" loading="lazy"></div>';
+      wrap.appendChild(card); obs(card);
     }
   });
   if (wrap.children.length) {
