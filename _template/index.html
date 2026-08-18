@@ -1444,7 +1444,7 @@ function buildSmartGrowth(){
   // Top 3 spotlight cards
   var top3=creators.slice().sort(function(a,b){return (b.score||0)-(a.score||0);}).slice(0,3);
   document.getElementById('sgSpotGrid').innerHTML=top3.map(function(c,i){
-    var av=c.avatar?'<img src="'+c.avatar+'" alt="" onerror="this.parentNode.innerHTML=\''+initials(c.username)+'\'">':initials(c.username);
+    var av=c.avatar?'<img src="'+c.avatar+'" alt="">':initials(c.username);
     return '<div class="spot-card">'
       +'<div class="spot-rank">#'+(i+1)+'</div>'
       +'<div class="spot-head">'
