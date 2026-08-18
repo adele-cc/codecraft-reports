@@ -1417,6 +1417,10 @@ function renderCustomExtras(secData, sectionEl) {
     if (inner) inner.appendChild(wrap);
   }
 }
+function initials(name){
+  var s=(name||'').replace(/^@/,'').substring(0,2).toUpperCase()||'?';
+  return '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:rgba(136,248,2,.15);color:#88F802;font-weight:700;font-size:20px">'+s+'</div>';
+}
 function buildSmartGrowth(){
   var sg=D.smartGrowth; if(!sg){hide('secSmartGrowth');return;}
   var creators=sg.creators;
