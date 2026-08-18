@@ -130,6 +130,19 @@ If the markers are missing, deploy fails with a clear error.
 
 ---
 
+## KOL Creator Leaderboard (within the KOL Campaign section)
+
+`secKol` now supports an optional full creator leaderboard — KPI row (avg score, avg followers, replies/post, etc.), a top-5 spotlight grid with a Cookie Score bar chart, and a sortable/searchable table of every creator. It's rendered by `buildKolLeaderboard()` and is purely additive: it only appears when `D.kol.leaderboard` is a non-empty array, so clients without it are unaffected.
+
+**This is not yet wired to the Sheet.** The sheet's row-per-field schema (Section/Key/Start/Last Week/Now) doesn't fit a many-row table like 85 creators well, so `D.kol.leaderboard` has to be populated as a one-off step rather than through normal columns — e.g. by editing a deployed report's injected `const D = {...}` directly, or building a small script that merges creator data into `D.kol.leaderboard` before deploy (see `ethra-smart-growth/index.html` for the standalone version this was adapted from, and `xquik_api.md`-style notes for pulling avatars). If this needs to become sheet-driven for every client, that's a separate, larger change to `buildDObject()` and the sheet schema — flag it before starting since it touches the shared deploy script.
+
+Each leaderboard row shape:
+```js
+{ rank: 1, username: "handle", url: "https://x.com/handle", score: 7400, followers: 2880, posts: 23, replies: 1670, avatar: "data:image/jpeg;base64,..." /* optional */ }
+```
+
+---
+
 ## Image uploads
 
 The upload dialog (`📷 Upload Screenshot` menu):
