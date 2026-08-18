@@ -1084,9 +1084,9 @@ function buildKol(){
   if(metFields.length){
     hasAny=true; show('kolMetricsLbl');
     const el=document.getElementById('kolMetrics');
-    el.className='mgrid'; el.style.gridTemplateColumns='repeat(4,1fr)'; el.style.display='';
+    el.className='mgrid'; el.style.display='flex'; el.style.flexWrap='wrap'; el.style.justifyContent='center';
     el.innerHTML=metFields.map(f=>mCard(f.label,f.data)).join('');
-    el.querySelectorAll('.mcard').forEach(obs);
+    el.querySelectorAll('.mcard').forEach(c=>{c.style.flex='0 0 calc(33.333% - 8px)';obs(c);});
   }
   const ms=kol.mindshare||{};
   const msFields=[
