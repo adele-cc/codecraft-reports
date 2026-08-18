@@ -594,23 +594,13 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
       <div class="score-ss-card" id="kolScoreCard" style="display:none"></div>
       <div class="sub-lbl" id="kolPostsLbl" style="display:none">KOL Content Highlights</div>
       <div class="kol-grid" id="kolGrid"></div>
-      <div class="sub-lbl" id="kolLbKpiLbl" style="display:none">Creator Leaderboard — Campaign Snapshot</div>
-      <div id="kolLbKpis" class="mgrid" style="display:none;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));margin-bottom:0"></div>
-      <div class="sub-lbl" id="kolLbSpotLbl" style="display:none">Top Performers</div>
+      <div class="sub-lbl" id="kolLbSpotLbl" style="display:none">Top Performers This Week</div>
       <div id="kolLbSpotGrid" class="spot-grid" style="display:none"></div>
       <div class="chart-card" id="kolLbChartWrap" style="display:none;margin-top:12px">
         <div class="chart-lbl">Cookie Score — Top 5 Creators</div>
         <div class="ch" style="height:220px"><canvas id="kolLbChartCvs"></canvas></div>
       </div>
-      <div class="sub-lbl" id="kolLbTblLbl" style="display:none">Full Creator Leaderboard</div>
       <div id="kolLbTblSection" style="display:none">
-        <div class="lb-filter-row">
-          <div class="lb-search-box">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            <input type="text" id="kolLbSearchInput" placeholder="Search creator handle...">
-          </div>
-          <div class="lb-result-count" id="kolLbResultCount"></div>
-        </div>
         <div class="lb-tbl-wrap" id="kolLbTblWrap">
           <div class="lb-tbl-scroll">
             <table class="lb">
@@ -1094,7 +1084,7 @@ function buildKol(){
   if(metFields.length){
     hasAny=true; show('kolMetricsLbl');
     const el=document.getElementById('kolMetrics');
-    el.className='mgrid'; el.style.gridTemplateColumns='repeat(auto-fit,minmax(200px,1fr))'; el.style.maxWidth='900px'; el.style.display='';
+    el.className='mgrid'; el.style.gridTemplateColumns='repeat(4,1fr)'; el.style.display='';
     el.innerHTML=metFields.map(f=>mCard(f.label,f.data)).join('');
     el.querySelectorAll('.mcard').forEach(obs);
   }
@@ -1144,25 +1134,6 @@ function buildKol(){
 function buildKolLeaderboard(creators){
   const lbInitials = u => String(u||'').replace(/^0x/i,'').replace(/[^A-Za-z]/g,'').slice(0,2).toUpperCase() || String(u||'').slice(0,2).toUpperCase() || '?';
 
-  // KPI row
-  show('kolLbKpiLbl');
-  const totalCreators=creators.length;
-  const totalPosts=creators.reduce((s,c)=>s+(c.posts||0),0);
-  const totalReplies=creators.reduce((s,c)=>s+(c.replies||0),0);
-  const avgScore=creators.reduce((s,c)=>s+(c.score||0),0)/totalCreators;
-  const avgFollowers=creators.reduce((s,c)=>s+(c.followers||0),0)/totalCreators;
-  const kpis=[
-    {lbl:'Total Creators',val:fmt(totalCreators)},
-    {lbl:'Avg Cookie Score',val:fmt(Math.round(avgScore))},
-    {lbl:'Avg Smart Followers',val:fmt(Math.round(avgFollowers))},
-    {lbl:'Total Posts',val:fmt(totalPosts)},
-    {lbl:'Total Replies',val:fmt(totalReplies)},
-    {lbl:'Replies per Post',val:totalPosts?(totalReplies/totalPosts).toFixed(1):'—'}
-  ];
-  const kpiEl=document.getElementById('kolLbKpis');
-  kpiEl.innerHTML=kpis.map(k=>`<div class="mcard"><div class="m-lbl">${k.lbl}</div><div class="m-num">${k.val}</div></div>`).join('');
-  kpiEl.style.display=''; kpiEl.querySelectorAll('.mcard').forEach(obs);
-
   // Top-5 spotlight
   show('kolLbSpotLbl');
   const top5=[...creators].sort((a,b)=>(b.score||0)-(a.score||0)).slice(0,5);
@@ -1211,8 +1182,8 @@ function buildKolLeaderboard(creators){
     });
   },450);
 
-  // Sortable/searchable full table
-  show('kolLbTblLbl'); show('kolLbTblSection');
+  // Sortable full table
+  show('kolLbTblSection');
   let sortKey='rank', sortDir=1, searchTerm='';
   function renderLbTable(){
     let rows=creators.filter(c=>String(c.username||'').toLowerCase().includes(searchTerm));
@@ -1234,7 +1205,6 @@ function buildKolLeaderboard(creators){
         </tr>
       `).join('');
     }
-    document.getElementById('kolLbResultCount').textContent=`${rows.length} of ${creators.length} creators`;
     document.querySelectorAll('#kolLbTblWrap thead th').forEach(th=>{
       const arrow=th.querySelector('.arrow');
       arrow.textContent = th.dataset.key===sortKey ? (sortDir===1?'▲':'▼') : '';
@@ -1248,10 +1218,6 @@ function buildKolLeaderboard(creators){
       if(sortKey===key){sortDir*=-1;}else{sortKey=key;sortDir=key==='username'?1:-1;}
       renderLbTable();
     });
-  });
-  document.getElementById('kolLbSearchInput').addEventListener('input',e=>{
-    searchTerm=e.target.value.trim().toLowerCase();
-    renderLbTable();
   });
 }
 
