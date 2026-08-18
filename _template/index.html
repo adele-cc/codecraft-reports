@@ -664,8 +664,6 @@ table.lb td.score{font-weight:800;color:var(--w)}
                 <th data-key="score" class="num">Cookie Score<span class="arrow"></span></th>
                 <th data-key="followers" class="num">Smart Followers<span class="arrow"></span></th>
                 <th data-key="posts" class="num">Posts<span class="arrow"></span></th>
-                <th data-key="postCount" class="num">Original<span class="arrow"></span></th>
-                <th data-key="quoteCount" class="num">Quote Posts<span class="arrow"></span></th>
               </tr>
             </thead>
             <tbody id="sgTblBody"></tbody>
@@ -1429,15 +1427,11 @@ function buildSmartGrowth(){
 
   // KPI tiles
   var totalPosts=creators.reduce(function(s,c){return s+(c.posts||0);},0);
-  var totalOrig=creators.reduce(function(s,c){return s+(c.postCount||0);},0);
-  var totalQuote=creators.reduce(function(s,c){return s+(c.quoteCount||0);},0);
   var kpis=[
     {lbl:'Creators in Campaign',val:fmt(sg.total||creators.length)},
     {lbl:'Avg Cookie Score',val:fmt(sg.avgScore)},
     {lbl:'Avg Smart Followers',val:fmt(sg.avgFollowers?Math.round(sg.avgFollowers):null)},
-    {lbl:'Total Posts',val:fmt(totalPosts)},
-    {lbl:'Original Posts',val:fmt(totalOrig)},
-    {lbl:'Quote Posts',val:fmt(totalQuote)}
+    {lbl:'Total Posts',val:fmt(totalPosts)}
   ].filter(function(k){return k.val&&k.val!=='—';});
   var kpiGrid=document.getElementById('sgKpiGrid');
   kpiGrid.innerHTML=kpis.map(function(k){return '<div class="mcard"><div class="m-lbl">'+k.lbl+'</div><div class="m-num">'+k.val+'</div></div>';}).join('');
@@ -1472,7 +1466,7 @@ function buildSmartGrowth(){
     rows.sort(function(a,b){var av=a[sgSortKey]??'',bv=b[sgSortKey]??'',n=typeof av==='number';return sgSortAsc?(n?av-bv:String(av).localeCompare(String(bv))):(n?bv-av:String(bv).localeCompare(String(av)));});
     document.getElementById('sgResultCount').textContent=rows.length+' creator'+(rows.length!==1?'s':'');
     var tbody=document.getElementById('sgTblBody');
-    if(!rows.length){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:32px;color:var(--w30)">No creators found</td></tr>';return;}
+    if(!rows.length){tbody.innerHTML='<tr><td colspan="5" style="text-align:center;padding:32px;color:var(--w30)">No creators found</td></tr>';return;}
     tbody.innerHTML=rows.map(function(c){
       return '<tr class="'+(c.rank<=3?'top3':'')+'">'
         +'<td class="rank">'+c.rank+'</td>'
@@ -1482,8 +1476,6 @@ function buildSmartGrowth(){
         +'<td class="num score">'+fmt(c.score)+'</td>'
         +'<td class="num">'+fmt(c.followers)+'</td>'
         +'<td class="num">'+(c.posts||0)+'</td>'
-        +'<td class="num">'+(c.postCount>0?'<span class="sg-pill sg-pill-post">'+c.postCount+'</span>':'—')+'</td>'
-        +'<td class="num">'+(c.quoteCount>0?'<span class="sg-pill sg-pill-quote">'+c.quoteCount+'</span>':'—')+'</td>'
       +'</tr>';
     }).join('');
     document.querySelectorAll('#sgTblWrap thead th').forEach(function(th){th.querySelector('.arrow').textContent=th.dataset.key===sgSortKey?(sgSortAsc?' ↑':' ↓'):'';});
