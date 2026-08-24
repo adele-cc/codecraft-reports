@@ -1002,6 +1002,10 @@ function buildCookie3(){
 // ── BUILD: QUESTING ────────────────────────────────────────────
 function buildQuest(){
   const q=D.quest; if(!q){hide('secQuest');return;}
+  if(q.sectionTitle){
+    const t=document.querySelector('#secQuest .sec-title');if(t)t.textContent=q.sectionTitle;
+    const n=document.getElementById('navQuest');if(n)n.textContent=q.sectionTitle;
+  }
   const all=[
     {label:'Sign Ups',          data:q.signUps},
     {label:'DAU',               data:q.dau},
