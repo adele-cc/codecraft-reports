@@ -481,6 +481,7 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
   <a href="#secSocial"     id="navSocial">Social Metrics</a>
   <a href="#secCollabs"    id="navCollabs">Collaborations</a>
   <a href="#secCookie3"    id="navCookie3">Cookie3</a>
+  <a href="#secProduct"    id="navProduct">Product</a>
   <a href="#secQuest"      id="navQuest">Questing</a>
   <a href="#secNucContrib" id="navNucContrib">Contributors' LB</a>
   <a href="#secNucRep"     id="navNucRep">Reputation LB</a>
@@ -548,6 +549,15 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
         <div class="chart-lbl">Score — Campaign Start → Last Week → This Week</div>
         <div class="ch" style="height:180px"><canvas id="cookie3TrajCvs"></canvas></div>
       </div>
+    </div>
+  </div>
+
+  <!-- 3b. PRODUCT METRICS (light) -->
+  <div class="page-sec light" id="secProduct">
+    <div class="ps-inner">
+      <div class="sec-hdr"><div class="sec-title">Product Metrics</div><div class="sec-rule"></div></div>
+      <div id="productHeroGrid" class="mgrid m2" style="margin-bottom:16px;display:none"></div>
+      <div id="productGrid" class="mgrid" style="display:none"></div>
     </div>
   </div>
 
@@ -999,6 +1009,40 @@ function buildCookie3(){
   if(!hasAny)hide('secCookie3');
 }
 
+// ── BUILD: PRODUCT METRICS ─────────────────────────────────────
+function buildProduct(){
+  const p=D.product; if(!p){hide('secProduct');return;}
+  const heroFields=[
+    {label:'Daily Active Users',    data:p.dau},
+    {label:'On-chain Transactions', data:p.transactions||p.executions}
+  ].filter(f=>f.data&&vv(f.data.now));
+  const restFields=[
+    {label:'MAU',                data:p.mau},
+    {label:'Product DAU',        data:p.productDau},
+    {label:'Agents Created',     data:p.agentsCreated},
+    {label:'Agents Deployed',    data:p.agentsDeployed},
+    {label:'On-chain Wallets',   data:p.onChainWallets},
+    {label:'EAV (USD)',          data:p.eav},
+    {label:'Autonomous EAV (USD)',data:p.autonomousEav},
+    ...extraCards(p)
+  ].filter(f=>f.data&&vv(f.data.now));
+  if(!heroFields.length&&!restFields.length){hide('secProduct');return;}
+  if(heroFields.length){
+    const hg=document.getElementById('productHeroGrid');
+    hg.className='mgrid m'+heroFields.length;
+    hg.innerHTML=heroFields.map(f=>mCard(f.label,f.data,'featured')).join('');
+    hg.querySelectorAll('.mcard').forEach(obs);
+    hg.style.display='';
+  }
+  if(restFields.length){
+    const rg=document.getElementById('productGrid');
+    rg.className='mgrid m'+smartCols(restFields.length);
+    rg.innerHTML=restFields.map(f=>mCard(f.label,f.data)).join('');
+    rg.querySelectorAll('.mcard').forEach(obs);
+    rg.style.display='';
+  }
+}
+
 // ── BUILD: QUESTING ────────────────────────────────────────────
 function buildQuest(){
   const q=D.quest; if(!q){hide('secQuest');return;}
@@ -1354,6 +1398,7 @@ function renderAllCustomExtras() {
     ['secSocial',    D.social],
     ['secCollabs',   D.collabs],
     ['secCookie3',   D.cookie3],
+    ['secProduct',   D.product],
     ['secQuest',     D.quest],
     ['secNucContrib',D.nucleusContrib],
     ['secNucRep',    D.nucleusRep],
@@ -1377,7 +1422,7 @@ function buildDash(){
   if(D.clientLogo){const cl=document.getElementById('hdrCl');cl.src=D.clientLogo;cl.style.display='block';document.getElementById('hdrDiv').style.display='block';}
   if(D.banner){document.getElementById('reportBanner').src=D.banner;document.getElementById('reportBannerWrap').style.display='block';}
 
-  buildOverview(); buildSocial(); buildCollabs(); buildCookie3(); buildQuest();
+  buildOverview(); buildSocial(); buildCollabs(); buildCookie3(); buildProduct(); buildQuest();
   buildNucContrib(); buildNucRep(); buildKol(); buildPr(); buildFinance(); buildWebsite();
   renderAllCustomExtras();
   document.querySelectorAll(".score-ss-img img,.ss-grid img").forEach(function(img){if(!img.onclick)img.onclick=function(){openLb(this.src);};});
@@ -1399,7 +1444,7 @@ function buildDash(){
 
   const navMap=[
     {a:'navOv',s:'secOv'},{a:'navSocial',s:'secSocial'},{a:'navCollabs',s:'secCollabs'},
-    {a:'navCookie3',s:'secCookie3'},{a:'navQuest',s:'secQuest'},{a:'navNucContrib',s:'secNucContrib'},
+    {a:'navCookie3',s:'secCookie3'},{a:'navProduct',s:'secProduct'},{a:'navQuest',s:'secQuest'},{a:'navNucContrib',s:'secNucContrib'},
     {a:'navNucRep',s:'secNucRep'},{a:'navKol',s:'secKol'},{a:'navPr',s:'secPr'},
     {a:'navFin',s:'secFin'},{a:'navWeb',s:'secWeb'}
   ];
