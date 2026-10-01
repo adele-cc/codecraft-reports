@@ -1014,10 +1014,10 @@ function buildProduct(){
   const p=D.product; if(!p){hide('secProduct');return;}
   const heroFields=[
     {label:'Total DAU',             data:p.dau},
-    {label:'Product DAU',           data:p.productDau},
-    {label:'On-chain Transactions', data:p.transactions||p.executions}
+    {label:'Product DAU',           data:p.productDau}
   ].filter(f=>f.data&&vv(f.data.now));
   const restFields=[
+    {label:'On-chain Transactions', data:p.transactions||p.executions},
     {label:'MAU',                   data:p.mau},
     {label:'Agents Created',        data:p.agentsCreated},
     {label:'Agents Deployed',       data:p.agentsDeployed},
