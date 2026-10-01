@@ -1028,17 +1028,18 @@ function buildProduct(){
     ...extraCards(p)
   ].filter(f=>f.data&&vv(f.data.now));
   if(!heroFields.length&&!restFields.length){hide('secProduct');return;}
+  const nowOnly=d=>d?{now:d.now}:d;
   if(heroFields.length){
     const hg=document.getElementById('productHeroGrid');
     hg.className='mgrid m'+heroFields.length;
-    hg.innerHTML=heroFields.map(f=>mCard(f.label,f.data,'clr-green')).join('');
+    hg.innerHTML=heroFields.map(f=>mCard(f.label,nowOnly(f.data),'clr-green')).join('');
     hg.querySelectorAll('.mcard').forEach(c=>{c.style.padding='18px 22px';obs(c);});
     hg.style.display='';
   }
   if(restFields.length){
     const rg=document.getElementById('productGrid');
     rg.className='mgrid m'+smartCols(restFields.length);
-    rg.innerHTML=restFields.map(f=>mCard(f.label,f.data)).join('');
+    rg.innerHTML=restFields.map(f=>mCard(f.label,nowOnly(f.data))).join('');
     rg.querySelectorAll('.mcard').forEach(c=>{c.style.padding='16px 20px';obs(c);});
     rg.style.display='';
   }
