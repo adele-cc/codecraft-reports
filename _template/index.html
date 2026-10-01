@@ -1013,17 +1013,18 @@ function buildCookie3(){
 function buildProduct(){
   const p=D.product; if(!p){hide('secProduct');return;}
   const heroFields=[
-    {label:'Daily Active Users',    data:p.dau},
+    {label:'Total DAU',             data:p.dau},
+    {label:'Product DAU',           data:p.productDau},
     {label:'On-chain Transactions', data:p.transactions||p.executions}
   ].filter(f=>f.data&&vv(f.data.now));
   const restFields=[
-    {label:'MAU',                data:p.mau},
-    {label:'Product DAU',        data:p.productDau},
-    {label:'Agents Created',     data:p.agentsCreated},
-    {label:'Agents Deployed',    data:p.agentsDeployed},
-    {label:'On-chain Wallets',   data:p.onChainWallets},
-    {label:'EAV (USD)',          data:p.eav},
-    {label:'Autonomous EAV (USD)',data:p.autonomousEav},
+    {label:'MAU',                   data:p.mau},
+    {label:'Agents Created',        data:p.agentsCreated},
+    {label:'Agents Deployed',       data:p.agentsDeployed},
+    {label:'On-chain Wallets',      data:p.onChainWallets},
+    {label:'Weekly EAV (USD)',      data:p.weeklyEav||p.eav},
+    {label:'Inception EAV (USD)',   data:p.inceptionEav},
+    {label:'Autonomous EAV (USD)',  data:p.autonomousEav},
     ...extraCards(p)
   ].filter(f=>f.data&&vv(f.data.now));
   if(!heroFields.length&&!restFields.length){hide('secProduct');return;}
