@@ -45,7 +45,9 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .hdr-cc{height:28px;opacity:.92}
 .hdr-div{width:1px;height:24px;background:var(--border)}
 .hdr-cl{height:30px}
-.hdr-r{text-align:right}
+.hdr-r{text-align:right;display:flex;align-items:center;gap:18px}
+.pdf-btn{display:inline-flex;align-items:center;gap:7px;font-family:var(--bd,'Montserrat'),sans-serif;font-size:11px;font-weight:700;letter-spacing:.3px;color:#000;background:var(--green);border:0;border-radius:20px;padding:7px 14px;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.pdf-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(136,248,2,.25)}
 .hdr-name{font-family:var(--hd);font-size:17px;font-weight:800;letter-spacing:-.3px}
 .hdr-week{display:flex;align-items:center;justify-content:flex-end;gap:6px;font-size:11px;color:var(--w50);margin-top:2px}
 .hdr-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2.4s ease-in-out infinite}
@@ -414,8 +416,8 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
 .cm-kpis .ov-lbl{white-space:nowrap}
 .cm-kpis .ov-num{font-size:48px;letter-spacing:-2px;white-space:nowrap;margin-bottom:18px}
 .cm-kpis .cm-kpi-sub+div{margin-top:14px}
-@media(max-width:1100px){.cm-kpis{grid-template-columns:repeat(2,1fr)!important}}
-@media(max-width:600px){.cm-kpis{grid-template-columns:1fr!important}.cm-kpis .ov-num{font-size:42px}}
+@media screen and (max-width:1100px){.cm-kpis{grid-template-columns:repeat(2,1fr)!important}}
+@media screen and (max-width:600px){.cm-kpis{grid-template-columns:1fr!important}.cm-kpis .ov-num{font-size:42px}}
 .cm-kpi-sub{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;row-gap:4px}
 .cm-kpi-sub .grow-pct{font-size:19px;letter-spacing:-.5px}
 .cm-sub{font-size:12px;color:var(--w70);font-weight:500;line-height:1.5;margin-bottom:12px}
@@ -440,10 +442,35 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
 .spot-card .kk-link{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:11px;font-weight:700;color:var(--green);text-decoration:none}
 .spot-card .kk-link:hover{text-decoration:underline}
 
+/* ── PRINT / PDF (portrait A4, same alternating dark/light bands as screen) ── */
+/* .cc-print-layout is applied just before printing so the page can be measured
+   at exactly the print width (1280px × 0.62 zoom = A4 width) and paginated by JS. */
+@page{size:A4 portrait;margin:0}
+html.cc-print-layout body{width:1280px!important;min-width:1280px!important;margin:0!important}
+html.cc-print-layout #gate,html.cc-print-layout #np,html.cc-print-layout #nav,html.cc-print-layout #lb,html.cc-print-layout .pdf-btn,html.cc-print-layout .tooltip{display:none!important}
+html.cc-print-layout .hdr{position:static!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:#000!important}
+html.cc-print-layout :is(.article-card,.campaign-growth-banner,.chart-card,.collab-pfp,.custom-link-card,.custom-text-card,.fol-card,.kol-card,.lb-tbl-wrap,.mcard,.ov-card,.pod-card,.pr-summary,.score-ss-card,.spot-card,.tweet-embed-wrap,.xpost-card){opacity:1!important;transform:none!important;transition:none!important;box-shadow:none!important}
+html.cc-print-layout .report-banner{animation:none!important}
+html.cc-print-layout :is(.score-ss-img img,.ss-grid img){max-height:680px;object-fit:contain}
+#ccPages{display:none}
+html.cc-composed #ccPages{display:block}
+html.cc-composed #main{display:none!important}
+.cc-page{position:relative;overflow:hidden;display:flex;flex-direction:column;background:#000;break-after:page;page-break-after:always}
+.cc-page:last-child{break-after:auto;page-break-after:auto}
+.cc-page>*{flex:none}
+.cc-page>.page-sec{margin-top:0}
+.cc-page>.page-sec.after-banner{margin-top:-100px}
+.cc-page>.cc-fill,.cc-page>.cc-fill-black{flex:1 1 auto}
+@media print{
+  html{zoom:.62}
+  html,body{background:#000!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  :is(.mcard,.ov-card,.chart-card,.article-card,.spot-card,.pod-card,.kol-card,.score-ss-card,.custom-link-card,.custom-text-card,.collab-pfp,.fol-card,.pr-summary,.tweet-embed-wrap,.xpost-card,.ov-grid,.cc-grid-row,table.lb tr){break-inside:avoid;page-break-inside:avoid}
+}
+
 /* ── RESPONSIVE ──────────────────────────────────────────────── */
-@media(max-width:1100px){.ps-inner{padding:0 36px}.nav{padding:10px 36px}.article-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
-@media(max-width:860px){.article-grid{grid-template-columns:1fr!important}}
-@media(max-width:860px){
+@media screen and (max-width:1100px){.ps-inner{padding:0 36px}.nav{padding:10px 36px}.article-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media screen and (max-width:860px){.article-grid{grid-template-columns:1fr!important}}
+@media screen and (max-width:860px){
   .ov-grid{grid-template-columns:repeat(2,1fr)!important}
   .m3,.m4,.m5,.posts-grid,.kol-grid,.pod-grid,.ss-grid{grid-template-columns:1fr!important}
   .m2{grid-template-columns:1fr 1fr}.hdr{flex-direction:column;gap:8px;padding:16px 20px;text-align:center}
@@ -451,7 +478,7 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
   .pr-summary{flex-wrap:wrap}.pr-sum-item{min-width:50%}
   .fol-card{grid-column:span 1!important}
 }
-@media(max-width:600px){
+@media screen and (max-width:600px){
   .m2,.ov-grid{grid-template-columns:1fr!important}.ps-inner{padding:0 16px}
   .ov-num{font-size:44px}.pin-box{width:44px;height:52px;font-size:24px}.pin-row{gap:8px}
 }
@@ -507,6 +534,7 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
     <img class="hdr-cl" id="hdrCl" style="display:none" alt="">
   </div>
   <div class="hdr-r">
+    <button class="pdf-btn" id="pdfBtn" type="button" onclick="ccPrint()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>Download PDF</button>
     <div class="hdr-week"><span class="hdr-dot"></span><span id="hdrWeek"></span></div>
   </div>
 </div>
@@ -772,12 +800,15 @@ const extraCards = sec => (sec&&sec.extra||[]).filter(e=>(!e.type||e.type==='num
 // ── ANIMATION ──────────────────────────────────────────────────
 function animCount(el){
   const target=parseFloat(el.dataset.count),short=el.dataset.fmt==='s';
+  if(!el.dataset.final)el.dataset.final=el.textContent;
+  if(window.CC_PRINTING)return;
   let t0=null;
   const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
   (function step(ts){
     if(!t0)t0=ts; const p=Math.max(0,Math.min((ts-t0)/1400,1)),v=target*ease(p);
     const sfx=el.dataset.suffix||'';
     let s; if(short){if(target>=1e6)s=(v/1e6).toFixed(1).replace(/\.0$/,'')+'M';else if(target>=1e3)s=(v/1e3).toFixed(1).replace(/\.0$/,'')+'k';else s=Math.round(v).toLocaleString();}else s=Math.round(v).toLocaleString();
+    if(window.CC_PRINTING){el.textContent=el.dataset.final;return;}
     el.textContent=s+sfx; if(p<1)requestAnimationFrame(step);
   })(performance.now());
 }
@@ -1630,6 +1661,187 @@ function renderAllCustomExtras() {
     if (el) renderCustomExtras(pair[1], el);
   });
 }
+// ── PDF EXPORT ─────────────────────────────────────────────────
+// Prepares the page for the browser's Save as PDF: reveals every card,
+// settles count-ups at their final values and redraws charts at page size.
+function ccPrepPrint(){
+  if(window.CC_PRINTING)return; window.CC_PRINTING=true;
+  document.documentElement.classList.add('cc-print-layout');
+  document.querySelectorAll('.article-card,.campaign-growth-banner,.chart-card,.collab-pfp,.custom-link-card,.custom-text-card,.fol-card,.kol-card,.xpost-card,.lb-tbl-wrap,.mcard,.ov-card,.pod-card,.pr-summary,.score-ss-card,.spot-card,.tweet-embed-wrap').forEach(e=>e.classList.add('in'));
+  // Safety net: anything in the report still faded out (a component added later) is revealed too
+  document.querySelectorAll('#main *').forEach(e=>{if(e.offsetParent!==null&&getComputedStyle(e).opacity==='0'&&!e.closest('.tooltip')){e.classList.add('in');if(getComputedStyle(e).opacity==='0'){e.dataset.ccOp='1';e.style.opacity='1';e.style.transform='none';}}});
+  document.querySelectorAll('[data-count]').forEach(e=>{if(e.dataset.final)e.textContent=e.dataset.final;});
+  // Charts: taller for the page, then swapped for a sharp image so print can't blank the canvas
+  if(window.Chart)Object.values(Chart.instances).forEach(c=>{
+    const cv=c.canvas; if(!cv||cv.dataset.printSnap)return;
+    const box=cv.parentNode; box.dataset.printH=box.style.height||''; const h=box.getBoundingClientRect().height;
+    box.style.height=Math.round(h*(h<=240?1.6:1.25))+'px';
+    c.stop(); c.options.animation=false; c.options.devicePixelRatio=3; c.resize(); c.update('none'); c.render();
+    const img=new Image(); img.src=cv.toDataURL('image/png'); img.className='cc-print-snap';
+    img.style.cssText='display:block;width:100%;height:'+cv.clientHeight+'px';
+    cv.dataset.printSnap='1'; cv.style.display='none'; box.insertBefore(img,cv);
+  });
+  ccComposePages();
+}
+// Keep every heading / sub-label together with the block that follows it, so the
+// browser's own page breaking never strands a title at the bottom of a page.
+const CC_PAGE_H=1122.5/.62;   // A4 page height in print-layout px (zoom .62)
+// Split multi-row card grids into one container per row, so pages can break
+// between rows instead of pushing a whole grid onto the next page.
+function ccSplitGridRows(){
+  document.querySelectorAll('#main .mgrid,#main .article-grid,#main .spot-grid,#main .posts-grid,#main .kol-grid,#main .ss-grid,#main .pod-grid').forEach(g=>{
+    if(g.closest('.cc-grid-row')||getComputedStyle(g).display!=='grid'||!g.offsetHeight)return;
+    const kids=[...g.children].filter(k=>k.offsetHeight); if(kids.length<2)return;
+    const rows=[]; kids.forEach(k=>{const t=Math.round(k.offsetTop);let r=rows.find(r=>Math.abs(r.t-t)<4);if(!r)rows.push(r={t,items:[]});r.items.push(k);});
+    if(rows.length<2)return;
+    const gap=getComputedStyle(g).rowGap; g.classList.add('cc-grid-row'); let prev=g;
+    rows.slice(1).forEach(r=>{const c=g.cloneNode(false);c.removeAttribute('id');c.dataset.ccRowOf='1';c.style.marginTop=gap;
+      r.items.forEach(k=>c.appendChild(k));prev.after(c);prev=c;});
+    g.dataset.ccRowHead='1';
+  });
+}
+function ccJoinGridRows(){
+  document.querySelectorAll('[data-cc-row-head]').forEach(g=>{
+    let n=g.nextElementSibling; while(n&&n.dataset&&n.dataset.ccRowOf){const nx=n.nextElementSibling;while(n.firstChild)g.appendChild(n.firstChild);n.remove();n=nx;}
+    g.classList.remove('cc-grid-row'); delete g.dataset.ccRowHead;
+  });
+}
+// ── PAGE COMPOSER ──────────────────────────────────────────────
+// Lays the report out as fixed A4 pages: blocks (headings glued to their content,
+// card rows, charts, screenshots) are measured at print width and packed page by
+// page. Screenshots shrink to use leftover space, remaining space is spread between
+// blocks, and the last section on each page runs its background to the page edge.
+const CC_PAGE_BOX=Math.floor(CC_PAGE_H)-4, CC_PACK_CAP=CC_PAGE_BOX-24;
+let CC_MOVED=[];
+function ccMove(node,dest){ if(!node.__ccPh){const ph=document.createComment('cc');node.parentNode.insertBefore(ph,node);node.__ccPh=ph;CC_MOVED.push(node);} dest.appendChild(node); }
+function ccMeasureModel(){
+  const docTop=el=>el.getBoundingClientRect().top+window.scrollY, docBot=el=>el.getBoundingClientRect().bottom+window.scrollY;
+  const secs=[...document.querySelectorAll('#main>.page-sec')].filter(sc=>sc.style.display!=='none'&&sc.offsetHeight);
+  const glue=el=>el.matches('.sec-hdr,.sub-lbl,.kk-sub,.chart-lbl,.section-sub');
+  const model=secs.map(sc=>{
+    const inner=sc.querySelector('.ps-inner')||sc, atoms=[];
+    const walk=el=>[...el.children].forEach(ch=>{const cs=getComputedStyle(ch);if(cs.display==='none'||!ch.offsetHeight)return;
+      if(ch.matches('#cmBody,#kkBody,.kk-group,.cm-group,.custom-extras'))walk(ch);else atoms.push(ch);});
+    walk(inner);
+    const groups=[];
+    for(let i=0;i<atoms.length;i++){let j=i;while(j<atoms.length-1&&glue(atoms[j]))j++;groups.push({atoms:atoms.slice(i,j+1)});i=j;}
+    const cs=getComputedStyle(sc), padT=parseFloat(cs.paddingTop)||0, padB=parseFloat(cs.paddingBottom)||0;
+    const sTop=docTop(sc), cBot=docBot(sc)-padB;
+    groups.forEach(g=>{g.top=docTop(g.atoms[0]);});
+    groups.forEach((g,i)=>{g.slot=(i<groups.length-1?groups[i+1].top:cBot)-g.top;
+      g.imgs=[...g.atoms].flatMap(a=>[...a.querySelectorAll('.score-ss-img img,.ss-grid img')]).filter(im=>im.offsetHeight>120);
+      g.imgHs=g.imgs.map(im=>im.offsetHeight); g.imgH=g.imgHs.reduce((t,h)=>Math.max(t,h),0);});
+    return {sc,inner,groups,padT,padB,startPad:groups.length?groups[0].top-sTop:padT};
+  });
+  return {model,firstTop:secs.length?docTop(secs[0]):0};
+}
+// Simulate packing with screenshots capped at `cap` px; returns the page plan
+function ccPack(M,cap,footH){
+  const pages=[]; let pg=null;
+  const newPage=()=>{pg={frags:[],used:0,prefix:false};pages.push(pg);};
+  newPage(); pg.prefix=true; pg.used=M.firstTop;
+  const plan=new Map();   // group -> {f: image scale factor}
+  M.model.forEach(m=>{
+    if(!m.groups.length)return;
+    const gH=g=>{const capped=Math.min(g.imgH,cap);return {slot:g.slot-(g.imgH-capped),imgH:capped};};
+    const total=m.startPad+m.groups.reduce((t,g)=>t+gH(g).slot,0)+m.padB;
+    if(total<CC_PACK_CAP*.5&&pg.used+total>CC_PACK_CAP&&pg.frags.length)newPage();
+    let frag=null, firstFrag=true;
+    m.groups.forEach(g=>{
+      const {slot,imgH}=gH(g); let shrink=0;
+      const open=()=>frag?0:(firstFrag?m.startPad:m.padT);
+      let need=open()+slot+m.padB, room=CC_PACK_CAP-pg.used;
+      const shrinkable=g.imgs.length&&g.atoms.length<=2;
+      if(need>room){
+        const short=need-room;
+        if(shrinkable&&imgH-short>=imgH*.5&&room>open()+m.padB+160){shrink=short;}
+        else if(pg.frags.length||pg.prefix){ if(frag){pg.used+=m.padB;frag=null;} newPage(); need=open()+slot+m.padB; room=CC_PACK_CAP; }
+        if(need-shrink>room&&shrinkable){shrink=Math.min(need-room,imgH*.5);}
+      }
+      if(!frag){frag={m,first:firstFrag,groups:[]};pg.frags.push(frag);pg.used+=firstFrag?m.startPad:m.padT;firstFrag=false;}
+      frag.groups.push(g); pg.used+=slot-shrink;
+      if(g.imgH)plan.set(g,{f:Math.max(.5,(imgH-shrink)/imgH)});   // relative to the capped height
+    });
+    if(frag)pg.used+=m.padB;
+  });
+  if(footH){ if(pg.used+footH>CC_PACK_CAP)newPage(); pg.foot=true; pg.used+=footH; }
+  return {pages,plan};
+}
+function ccComposePages(){
+  ccSplitGridRows();
+  const M=ccMeasureModel(); if(!M.model.length)return;
+  const prefix=[document.getElementById('hdr'),document.getElementById('reportBannerWrap')].filter(e=>e&&e.style.display!=='none'&&e.offsetHeight);
+  const foot=document.getElementById('foot'), footH=foot&&foot.offsetHeight||0;
+  // Try smaller screenshot caps; keep the largest one that gives the fewest pages,
+  // and avoid ending on a page that is mostly empty when a smaller cap fixes it.
+  const maxImg=M.model.reduce((t,m)=>m.groups.reduce((u,g)=>Math.max(u,g.imgH),t),0);
+  let best=null;
+  [Infinity,620,580,540,500,460].forEach(cap=>{
+    if(cap!==Infinity&&cap>=maxImg)return;
+    const r=ccPack(M,cap,footH), n=r.pages.length, lastFill=r.pages[n-1].used/CC_PACK_CAP;
+    const score=n*10-(lastFill>=.45?1:0);
+    if(!best||score<best.score)best={...r,cap,score};
+  });
+  const {pages,plan}=best;
+  // Build the pages
+  const host=document.createElement('div'); host.id='ccPages'; document.body.appendChild(host);
+  pages.forEach(P=>{
+    const page=document.createElement('div'); page.className='cc-page'; page.style.height=CC_PAGE_BOX+'px'; host.appendChild(page);
+    if(P.prefix)prefix.forEach(n=>ccMove(n,page));
+    const nGroups=P.frags.reduce((t,f)=>t+f.groups.length,0);
+    const left=Math.max(0,CC_PAGE_BOX-P.used-8), extra=nGroups>1?Math.min(90,left*.85/(nGroups-1)):0;
+    let gi=0;
+    P.frags.forEach((f,fi)=>{
+      const sec=f.m.sc.cloneNode(false); sec.removeAttribute('id');
+      if(!f.first)sec.classList.remove('after-banner');
+      if(fi===P.frags.length-1&&!P.foot)sec.classList.add('cc-fill');
+      const inner=f.m.inner===f.m.sc?sec:f.m.inner.cloneNode(false); if(inner!==sec){inner.removeAttribute('id');sec.appendChild(inner);}
+      page.appendChild(sec);
+      const clones=new Map();
+      const holder=a=>{const chain=[];let n=a.parentNode;while(n&&n!==f.m.inner&&n!==f.m.sc){chain.unshift(n);n=n.parentNode;}
+        let parent=inner; chain.forEach(anc=>{let c=clones.get(anc);if(!c){c=anc.cloneNode(false);c.removeAttribute('id');parent.appendChild(c);clones.set(anc,c);}parent=c;});return parent;};
+      f.groups.forEach(g=>{
+        g.atoms.forEach((a,ai)=>{const h=holder(a);
+          if(ai===0&&gi>0&&extra>0){a.dataset.ccMt=a.style.marginTop||'';a.style.marginTop=(parseFloat(getComputedStyle(a).marginTop)||0)+extra+'px';}
+          ccMove(a,h);});
+        const pl=plan.get(g);
+        if(pl&&pl.f<.999||g.imgH>best.cap){const f2=pl?pl.f:1;g.imgs.forEach((im,k)=>{im.dataset.ccMh=im.style.maxHeight||'';im.style.maxHeight=Math.round(Math.min(g.imgHs[k],best.cap===Infinity?g.imgHs[k]:best.cap*g.imgHs[k]/g.imgH)*f2)+'px';});}
+        gi++;
+      });
+    });
+    if(P.foot){const fw=document.createElement('div');fw.className='cc-fill-black';page.appendChild(fw);ccMove(foot,page);}
+  });
+  document.documentElement.classList.add('cc-composed');
+  window.CC_PRINT_INFO={pages:pages.length,cap:best.cap,fills:pages.map(P=>Math.round(P.used/CC_PACK_CAP*100))};
+}
+function ccDecompose(){
+  document.documentElement.classList.remove('cc-composed');
+  CC_MOVED.reverse().forEach(n=>{const ph=n.__ccPh;if(ph&&ph.parentNode){ph.parentNode.insertBefore(n,ph);ph.remove();}delete n.__ccPh;
+    if(n.dataset&&'ccMt' in n.dataset){n.style.marginTop=n.dataset.ccMt;delete n.dataset.ccMt;}});
+  CC_MOVED=[];
+  document.querySelectorAll('[data-cc-mt]').forEach(n=>{n.style.marginTop=n.dataset.ccMt;delete n.dataset.ccMt;});
+  document.querySelectorAll('img[data-cc-mh]').forEach(im=>{im.style.maxHeight=im.dataset.ccMh;delete im.dataset.ccMh;});
+  const host=document.getElementById('ccPages'); if(host)host.remove();
+  ccJoinGridRows();
+}
+function ccAfterPrint(){
+  if(!window.CC_PRINTING)return; window.CC_PRINTING=false;
+  ccDecompose();
+  document.querySelectorAll('[data-cc-op]').forEach(e=>{e.style.opacity='';e.style.transform='';delete e.dataset.ccOp;});
+  document.querySelectorAll('img.cc-print-snap').forEach(i=>i.remove());
+  document.querySelectorAll('canvas[data-print-snap]').forEach(cv=>{cv.style.display='';delete cv.dataset.printSnap;const box=cv.parentNode;box.style.height=box.dataset.printH||'';delete box.dataset.printH;});
+  document.documentElement.classList.remove('cc-print-layout');
+  if(window.Chart)Object.values(Chart.instances).forEach(c=>{c.options.devicePixelRatio=undefined;c.resize();});
+  if(window.CC_TITLE){document.title=window.CC_TITLE;window.CC_TITLE=null;}
+}
+function ccPrint(){
+  window.CC_TITLE=document.title;
+  document.title=[D.client,'Weekly Report',D.weekDate].filter(Boolean).join(' — ');
+  ccPrepPrint();
+  setTimeout(()=>window.print(),120);
+}
+window.addEventListener('beforeprint',ccPrepPrint);
+window.addEventListener('afterprint',ccAfterPrint);
 function openLb(src){var el=document.getElementById("lb");document.getElementById("lb-img").src=src;el.classList.add("open");document.addEventListener("keydown",lbKey);}
 function closeLb(){document.getElementById("lb").classList.remove("open");document.removeEventListener("keydown",lbKey);}
 function lbKey(e){if(e.key==="Escape")closeLb();}
