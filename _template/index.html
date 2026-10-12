@@ -421,6 +421,23 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
 .cm-feat .m-num{color:var(--green)}
 .page-sec:not(.light) .cm-feat{border-color:rgba(136,248,2,.35)!important}
 
+/* ── KOREA KOL CAMPAIGN (per-client config) ─────────────────── */
+.kk-sub{font-size:13px;color:var(--w70);font-weight:500;margin:-14px 0 28px}
+.kk-group{margin-top:32px}
+.kk-group .sub-lbl{margin-top:0;display:flex;align-items:center;gap:10px}
+.kk-group .sub-lbl span{font-weight:600;letter-spacing:.5px;text-transform:none;color:var(--w50)}
+.kk-plat{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.3px;padding:3px 8px 3px 6px;border-radius:20px;background:var(--w08);color:var(--w70);white-space:nowrap;flex-shrink:0}
+.kk-plat svg{width:12px;height:12px;flex-shrink:0}
+.kk-av{width:30px;height:30px;border-radius:50%;object-fit:cover;flex-shrink:0;background:var(--w15)}
+.kk-post-head{display:flex;align-items:center;gap:10px;padding:16px 18px 0}
+.kk-post-name{font-family:var(--hd);font-size:14px;font-weight:800;color:var(--w);line-height:1.2;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.kk-post-title{font-size:13px;font-weight:600;line-height:1.5;color:var(--w);padding:12px 18px 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.kk-post-meta{display:flex;gap:14px;padding:12px 18px 0;margin-top:auto;font-size:11px;color:var(--w50);font-weight:600}
+.kk-post-meta b{font-family:var(--hd);color:var(--w);font-weight:800}
+.kk-spot-plat{margin-top:4px}
+.spot-card .kk-link{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:11px;font-weight:700;color:var(--green);text-decoration:none}
+.spot-card .kk-link:hover{text-decoration:underline}
+
 /* ── RESPONSIVE ──────────────────────────────────────────────── */
 @media(max-width:1100px){.ps-inner{padding:0 36px}.nav{padding:10px 36px}.article-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:860px){.article-grid{grid-template-columns:1fr!important}}
@@ -503,6 +520,7 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
   <a href="#secNucContrib" id="navNucContrib">Contributors' LB</a>
   <a href="#secNucRep"     id="navNucRep">Reputation LB</a>
   <a href="#secKol"          id="navKol">KOL Campaign</a>
+  <a href="#secKoreaKol"   id="navKoreaKol">Korea KOLs</a>
   <a href="#secPr"          id="navPr">PR &amp; Comms</a>
   <a href="#secCommunity"  id="navCommunity">Community Management</a>
   <a href="#secFin"        id="navFin">Finance</a>
@@ -650,6 +668,14 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
     </div>
   </div>
 
+  <!-- 8c. KOREA KOL CAMPAIGN (per-client config, hidden unless configured) -->
+  <div class="page-sec" id="secKoreaKol" style="display:none">
+    <div class="ps-inner">
+      <div class="sec-hdr"><div class="sec-title">Korea KOL Campaign Progress</div><div class="sec-rule"></div></div>
+      <div id="kkBody"></div>
+    </div>
+  </div>
+
   <!-- 9. PR & COMMS (dark) -->
   <div class="page-sec" id="secPr">
     <div class="ps-inner">
@@ -747,7 +773,7 @@ function animCount(el){
   let t0=null;
   const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
   (function step(ts){
-    if(!t0)t0=ts; const p=Math.min((ts-t0)/1400,1),v=target*ease(p);
+    if(!t0)t0=ts; const p=Math.max(0,Math.min((ts-t0)/1400,1)),v=target*ease(p);
     const sfx=el.dataset.suffix||'';
     let s; if(short){if(target>=1e6)s=(v/1e6).toFixed(1).replace(/\.0$/,'')+'M';else if(target>=1e3)s=(v/1e3).toFixed(1).replace(/\.0$/,'')+'k';else s=Math.round(v).toLocaleString();}else s=Math.round(v).toLocaleString();
     el.textContent=s+sfx; if(p<1)requestAnimationFrame(step);
@@ -919,6 +945,103 @@ function xFollowersCard(fol){
     +'<div class="m-grow-row" style="margin-top:2px"><span class="m-arrow up" style="font-size:15px">&#8593;</span><span class="m-pct up" style="font-size:15px">+'+pctV+'%</span><span class="m-pct-lbl">+'+fmt(diff)+' since campaign start</span></div>'
     +lwRow+'</div>';
 }
+// ── PER-CLIENT REPORT CONFIG ───────────────────────────────────
+// Optional hand-edited extras at client-assets/{slug}/report_config.json
+// (section title overrides, Korea KOL campaign). Missing file = no change.
+let RC=null, RC_BASE='';
+function loadReportConfig(){
+  const slug=location.pathname.split('/').filter(s=>s&&!/\.html?$/i.test(s)).pop()||'';
+  RC_BASE=window.CC_RC_BASE||('../client-assets/'+slug+'/');
+  if(!slug&&!window.CC_RC_BASE)return Promise.resolve();
+  const ctl=new AbortController(), t=setTimeout(()=>ctl.abort(),3000);
+  return fetch(RC_BASE+'report_config.json',{signal:ctl.signal,cache:'no-store'})
+    .then(r=>r.ok?r.json():null).then(j=>{RC=j;}).catch(()=>{}).finally(()=>clearTimeout(t));
+}
+function applyReportConfigTitles(){
+  const t=RC&&RC.titles, nl=(RC&&RC.navLabels)||{}; if(!t)return;
+  Object.keys(t).forEach(id=>{
+    const h=document.querySelector('#'+id+' .sec-title'); if(h)h.textContent=t[id];
+    const a=document.querySelector('#nav a[href="#'+id+'"]'); if(a)a.textContent=nl[id]||t[id];
+  });
+}
+const KK_TG=`<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#29A9EB"/><path d="M5.4 11.8l11.2-4.3c.5-.2 1 .1.8.9l-1.9 9c-.1.6-.5.8-1 .5l-2.9-2.1-1.4 1.3c-.2.2-.3.3-.6.3l.2-2.9 5.4-4.9c.2-.2 0-.3-.4-.1l-6.6 4.2-2.8-.9c-.6-.2-.6-.6.1-.9z" fill="#fff"/></svg>`;
+const KK_NV=`<svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#03C75A"/><path d="M13.6 12.4L10.2 7.5H7.5v9h2.9v-4.9l3.4 4.9h2.7v-9h-2.9z" fill="#fff"/></svg>`;
+function kkPlat(p){ return `<span class="kk-plat">${p==='Telegram'?KK_TG:p==='Naver Blog'?KK_NV:''}${cmEsc(p)}</span>`; }
+function kkDate(d){ if(!d)return ''; const m=String(d).match(/^(\d{4})-(\d{2})-(\d{2})/); return m?['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m[2]-1]+' '+(+m[3]):String(d); }
+function buildKoreaKol(){
+  const k=RC&&RC.koreaKol, P=k&&k.posts||[];
+  if(!P.length){hide('secKoreaKol');return;}
+  const sec=document.getElementById('secKoreaKol'); sec.style.display='';
+  if(k.title)sec.querySelector('.sec-title').textContent=k.title;
+  const A=u=>!u?'':/^(https?:|data:)/.test(u)?u:RC_BASE+u;
+  const tg=P.filter(p=>p.platform==='Telegram'&&p.followers>0), reach=tg.reduce((s,p)=>s+p.followers,0);
+  const kols=new Set(P.map(p=>p.channelUrl||p.name)).size;
+  const plats={}; P.forEach(p=>plats[p.platform]=(plats[p.platform]||0)+1);
+  const platLine=Object.keys(plats).map(x=>plats[x]+' '+x).join(' · ');
+
+  // Headline row
+  const kpis=[
+    ['Posts Live',P.length,`<span class="grow-lbl">${cmEsc(platLine)}</span>`],
+    ['KOLs Activated',kols,'<span class="grow-lbl">Korean crypto creators</span>'],
+    tg.length?['Telegram Reach',reach,'<span class="grow-lbl">Combined channel subscribers</span>']:null,
+    tg.length?['Avg. Channel Size',Math.round(reach/tg.length),'<span class="grow-lbl">Per Telegram KOL</span>']:null
+  ].filter(Boolean);
+  let h=(k.subtitle?`<div class="kk-sub">${cmEsc(k.subtitle)}${k.since?' · since '+cmEsc(k.since):''}</div>`:'')
+    +`<div class="ov-grid cm-kpis" style="grid-template-columns:repeat(${kpis.length},1fr)">${kpis.map(([l,v,sub])=>
+      `<div class="ov-card"><div class="ov-lbl">${l}</div><div class="ov-num" data-count="${v}" data-fmt="s">${fmt(v)}</div><div class="cm-kpi-sub">${sub}</div></div>`).join('')}</div>`;
+
+  // Top KOLs by reach
+  const top=[...tg].sort((a,b)=>b.followers-a.followers).slice(0,5);
+  if(top.length){
+    h+=`<div class="kk-group"><div class="sub-lbl">Top KOLs by Reach</div><div class="spot-grid">${top.map((p,i)=>`
+      <div class="spot-card">
+        <div class="spot-rank">#${i+1}</div>
+        <div class="spot-head">
+          <div class="spot-avatar">${p.avatar?`<img src="${A(p.avatar)}" alt="">`:cmEsc(String(p.name).slice(0,1))}</div>
+          <div><div class="spot-handle"><a href="${p.channelUrl||p.url}" target="_blank" rel="noopener">${cmEsc(p.name)}</a></div><div class="kk-spot-plat">${kkPlat(p.platform)}</div></div>
+        </div>
+        <div class="spot-score-lbl">Subscribers</div>
+        <div class="spot-score">${fmt(p.followers)}</div>
+        <div class="spot-stats">
+          <div class="spot-stat"><div class="spot-stat-val">${cmEsc(String(p.week||'').replace(/^W/,'Week '))}</div><div class="spot-stat-lbl">Campaign</div></div>
+          ${p.date?`<div class="spot-stat"><div class="spot-stat-val">${kkDate(p.date)}</div><div class="spot-stat-lbl">Posted</div></div>`:''}
+        </div>
+        <a class="kk-link" href="${p.url}" target="_blank" rel="noopener">${EXT_SVG} View post</a>
+      </div>`).join('')}</div></div>`;
+  }
+  if(tg.length>1){
+    h+=`<div class="chart-card" id="kkChartWrap" style="margin-top:12px"><div class="chart-lbl">Telegram Reach by KOL — Channel Subscribers</div><div class="ch" style="height:${Math.max(180,tg.length*30)}px"><canvas id="kkChartCvs"></canvas></div></div>`;
+  }
+
+  // Every post, grouped by campaign week
+  const weeks=[...new Set(P.map(p=>p.week||''))];
+  weeks.forEach(w=>{
+    const wp=P.filter(p=>(p.week||'')===w);
+    const lbl=w?String(w).replace(/^W/,'Week '):'Posts';
+    h+=`<div class="kk-group"><div class="sub-lbl">${cmEsc(lbl)} <span>${wp.length} post${wp.length===1?'':'s'}</span></div>
+      <div class="article-grid" style="grid-template-columns:repeat(${wp.length<=2?wp.length:4},minmax(0,${wp.length<=2?'360px':'1fr'}))">${wp.map(p=>`
+      <div class="article-card" onclick="if(!event.target.closest('a'))window.open('${p.url}','_blank')">
+        <div class="article-thumb">${p.image?`<img class="article-thumb-img" src="${A(p.image)}" alt="" onerror="this.remove()">`:''}</div>
+        <div class="kk-post-head">${p.avatar?`<img class="kk-av" src="${A(p.avatar)}" alt="">`:''}<div class="kk-post-name">${cmEsc(p.name)}</div>${kkPlat(p.platform)}</div>
+        ${p.title?`<div class="kk-post-title">${cmEsc(p.title)}</div>`:''}
+        <div class="kk-post-meta">${p.followers?`<span><b>${fmt(p.followers)}</b> subscribers</span>`:''}${p.date?`<span>${kkDate(p.date)}</span>`:''}</div>
+        <a href="${p.url}" target="_blank" rel="noopener" class="article-link" onclick="event.stopPropagation()">${EXT_SVG} View post</a>
+      </div>`).join('')}</div></div>`;
+  });
+
+  const el=document.getElementById('kkBody'); el.innerHTML=h;
+  el.querySelectorAll('.ov-card,.spot-card,.article-card,.chart-card').forEach(obs);
+  if(tg.length>1)setTimeout(()=>{
+    const p=cp('kkChartCvs'), g=p===Cl?'#4ea800':'#88F802', srt=[...tg].sort((a,b)=>b.followers-a.followers);
+    new Chart(document.getElementById('kkChartCvs'),{type:'bar',
+      data:{labels:srt.map(x=>x.name),datasets:[{data:srt.map(x=>x.followers),backgroundColor:srt.map((x,i)=>i<5?g:g+'66'),borderRadius:4,barThickness:16}]},
+      options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{right:56}},
+        plugins:{legend:{display:false},tooltip:{...p.tooltip,padding:10,cornerRadius:8,titleFont:{family:'Montserrat',size:12,weight:'700'},bodyFont:{family:'Montserrat',size:11},callbacks:{label:c=>' Subscribers: '+c.parsed.x.toLocaleString()}}},
+        scales:{x:{display:false,grid:{display:false}},y:{grid:{display:false},ticks:{color:p.tc,font:{family:'Montserrat',size:11,weight:'600'}}}}},
+      plugins:[{id:'kkEndLabel',afterDatasetsDraw(chart){const {ctx}=chart;chart.getDatasetMeta(0).data.forEach((bar,i)=>{ctx.save();ctx.font="700 12px 'Montserrat',sans-serif";ctx.fillStyle=getComputedStyle(document.getElementById('kkChartWrap')).getPropertyValue('--w').trim()||'#fff';ctx.textBaseline='middle';ctx.fillText(fmt(chart.data.datasets[0].data[i]),bar.x+8,bar.y);ctx.restore();});}}]});
+  },450);
+}
+
 // ── BUILD: COMMUNITY MANAGEMENT ────────────────────────────────
 // Every card, group and derived metric only renders when its inputs exist,
 // so partial data never shows empty placeholders.
@@ -1516,8 +1639,9 @@ function buildDash(){
   if(D.banner){document.getElementById('reportBanner').src=D.banner;document.getElementById('reportBannerWrap').style.display='block';}
 
   buildOverview(); buildSocial(); buildCollabs(); buildCookie3(); buildProduct(); buildQuest();
-  buildNucContrib(); buildNucRep(); buildKol(); buildPr(); buildCommunity(); buildFinance(); buildWebsite();
+  buildNucContrib(); buildNucRep(); buildKol(); buildKoreaKol(); buildPr(); buildCommunity(); buildFinance(); buildWebsite();
   renderAllCustomExtras();
+  applyReportConfigTitles();
   document.querySelectorAll(".score-ss-img img,.ss-grid img").forEach(function(img){if(!img.onclick)img.onclick=function(){openLb(this.src);};});
   // Re-alternate light/dark on visible sections only
   setTimeout(function(){
@@ -1538,7 +1662,7 @@ function buildDash(){
   const navMap=[
     {a:'navOv',s:'secOv'},{a:'navProduct',s:'secProduct'},{a:'navSocial',s:'secSocial'},{a:'navCollabs',s:'secCollabs'},
     {a:'navCookie3',s:'secCookie3'},{a:'navProduct',s:'secProduct'},{a:'navQuest',s:'secQuest'},{a:'navNucContrib',s:'secNucContrib'},
-    {a:'navNucRep',s:'secNucRep'},{a:'navKol',s:'secKol'},{a:'navPr',s:'secPr'},{a:'navCommunity',s:'secCommunity'},
+    {a:'navNucRep',s:'secNucRep'},{a:'navKol',s:'secKol'},{a:'navKoreaKol',s:'secKoreaKol'},{a:'navPr',s:'secPr'},{a:'navCommunity',s:'secCommunity'},
     {a:'navFin',s:'secFin'},{a:'navWeb',s:'secWeb'}
   ];
   navMap.forEach(({a,s})=>{const sec=document.getElementById(s);if(sec&&sec.style.display==='none')document.getElementById(a).style.display='none';});
@@ -1566,7 +1690,7 @@ function checkPin(){
   if(pins.map(p=>p.value).join('')===String(D.pin)){
     const g=document.getElementById('gate'); g.classList.add('gone'); setTimeout(()=>g.style.display='none',400);
     if(!D.published){document.getElementById('np').classList.add('show');return;}
-    buildDash();
+    loadReportConfig().then(buildDash);
   } else {
     document.getElementById('pinErr').textContent='Incorrect code — please try again.';
     pins.forEach(p=>{p.value='';p.style.borderColor='var(--red)';setTimeout(()=>p.style.borderColor='',900);});

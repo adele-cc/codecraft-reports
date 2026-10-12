@@ -1,0 +1,196 @@
+{
+ "_note": "Per-client report extras loaded by _template/index.html. Edit by hand; not driven by the Sheet.",
+ "titles": {
+  "secPr": "PR & Communications (Korea Focus)"
+ },
+ "koreaKol": {
+  "title": "Korea KOL Campaign Progress",
+  "subtitle": "Every Korean KOL post published for AmericanFortress so far",
+  "since": "Sep 30",
+  "posts": [
+   {
+    "week": "W1",
+    "name": "크립토하는 라쿤",
+    "platform": "Telegram",
+    "followers": 12469,
+    "url": "https://t.me/Kooncrypto/2432",
+    "channelUrl": "https://t.me/Kooncrypto",
+    "avatar": "korea-kol/av_kooncrypto.jpg",
+    "image": "korea-kol/post_01.jpg",
+    "title": "AmericanFortress, 포스트퀀텀 기반 동일 소유자 지갑 검증 기술 공개",
+    "date": "2026-10-01"
+   },
+   {
+    "week": "W1",
+    "name": "CEN",
+    "platform": "Telegram",
+    "followers": 36742,
+    "url": "https://t.me/emperorcoin/61416",
+    "channelUrl": "https://t.me/emperorcoin",
+    "avatar": "korea-kol/av_emperorcoin.jpg",
+    "image": "korea-kol/post_02.jpg",
+    "title": "AmericanFortress, 포스트퀀텀 기반 동일 소유자 지갑 검증 기술 공개 AmericanFortress는 블록체인·DeFi·디지털 신원을 위한 프라이버시·포스트퀀텀 암호화 인프라로, @na",
+    "date": "2026-10-01"
+   },
+   {
+    "week": "W1",
+    "name": "Waiting For Happiness",
+    "platform": "Naver Blog",
+    "followers": null,
+    "url": "https://m.blog.naver.com/arale83/224429757137",
+    "channelUrl": "https://blog.naver.com/arale83",
+    "avatar": "korea-kol/av_arale83.jpg",
+    "image": "korea-kol/post_04.jpg",
+    "title": "아메리칸포트리스 AmericanFortress 주소도 믹서도 없는 송금",
+    "date": null
+   },
+   {
+    "week": "W1",
+    "name": "파도의 크립토일기",
+    "platform": "Telegram",
+    "followers": 13217,
+    "url": "https://t.me/padocrypto/3374",
+    "channelUrl": "https://t.me/padocrypto",
+    "avatar": "korea-kol/av_padocrypto.jpg",
+    "image": "korea-kol/post_05.jpg",
+    "title": "AmericanFortress, 포스트퀀텀 기반 동일 소유자 지갑 검증 기술 공개 AmericanFortress는 포스트퀀텀 기반 ‘동일 소유자 지갑 검증’ 기술 ZK-POSP를 공개했습니다.",
+    "date": "2026-10-02"
+   },
+   {
+    "week": "W1",
+    "name": "이도진 메타버스",
+    "platform": "Telegram",
+    "followers": 15620,
+    "url": "https://t.me/leedogin2/24213",
+    "channelUrl": "https://t.me/leedogin2",
+    "avatar": "korea-kol/av_leedogin2.jpg",
+    "image": "korea-kol/post_06.jpg",
+    "title": "또 하나 뭔가 재밌는 컨셉의 토큰이 나오려나봄.",
+    "date": "2026-10-03"
+   },
+   {
+    "week": "W1",
+    "name": "경제를 깨워주는 머니알람",
+    "platform": "Naver Blog",
+    "followers": null,
+    "url": "https://m.blog.naver.com/moneyalarm/224431922651",
+    "channelUrl": "https://blog.naver.com/moneyalarm",
+    "avatar": "korea-kol/av_moneyalarm.jpg",
+    "image": "korea-kol/post_07.jpg",
+    "title": "아메리칸포트리스 AF 코인 멀티체인 프라이버시 프로젝트",
+    "date": null
+   },
+   {
+    "week": "W1",
+    "name": "코인 갤러리",
+    "platform": "Telegram",
+    "followers": 21093,
+    "url": "https://t.me/dogeland01/44320",
+    "channelUrl": "https://t.me/dogeland01",
+    "avatar": "korea-kol/av_dogeland01.jpg",
+    "image": "korea-kol/post_08.jpg",
+    "title": "AmericanFortress, 서로 다른 체인의 ‘내 지갑’을 검증하는 ZK 기술 공개 ✅시드·개인키 공개 없이 지갑 간 소유 관계만 증명하는 ZK-POSP 🗂 AmericanFortress는 어",
+    "date": "2026-10-05"
+   },
+   {
+    "week": "W2",
+    "name": "잼민123",
+    "platform": "Telegram",
+    "followers": 26053,
+    "url": "https://t.me/mujammin123/30141",
+    "channelUrl": "https://t.me/mujammin123",
+    "avatar": "korea-kol/av_mujammin123.jpg",
+    "image": "korea-kol/post_09.jpg",
+    "title": "지갑 주소 대신 @user name으로 송금 가능한 AmericanFortress 아메리칸포트레스는 지갑 주소 없이 여러 체인의 송금을 가능하게끔 만드는 프라이버시 인프라 - @JAMMIN123 같",
+    "date": "2026-10-07"
+   },
+   {
+    "week": "W2",
+    "name": "청년열정마라",
+    "platform": "Telegram",
+    "followers": 15291,
+    "url": "https://t.me/minchoisfuture/54516",
+    "channelUrl": "https://t.me/minchoisfuture",
+    "avatar": "korea-kol/av_minchoisfuture.jpg",
+    "image": "korea-kol/post_10.jpg",
+    "title": "FortressNames, 지갑 주소 대신 간단도메인으로 기밀송금가능 이게 무엇이냐?",
+    "date": "2026-10-07"
+   },
+   {
+    "week": "W2",
+    "name": "당신의 눈동자에 건배를~~~",
+    "platform": "Naver Blog",
+    "followers": null,
+    "url": "https://m.blog.naver.com/ohstinpower/224435284798",
+    "channelUrl": "https://blog.naver.com/ohstinpower",
+    "avatar": "korea-kol/av_ohstinpower.jpg",
+    "image": "korea-kol/post_11.jpg",
+    "title": "AmericanFortress의 멀티체인 프라이버시 인프라, @name 하나로 암호화폐를 보내는 시대",
+    "date": null
+   },
+   {
+    "week": "W2",
+    "name": "폐지줍는 츄카피",
+    "platform": "Telegram",
+    "followers": 10900,
+    "url": "https://t.me/chukapikachu/11883",
+    "channelUrl": "https://t.me/chukapikachu",
+    "avatar": "korea-kol/av_chukapikachu.jpg",
+    "image": "korea-kol/post_12.jpg",
+    "title": "너무나도 긴 지갑주소 대신 @이름으로 코인을 보낼 수 있다?!",
+    "date": "2026-10-08"
+   },
+   {
+    "week": "W2",
+    "name": "가상화폐 따라잡기",
+    "platform": "Naver Blog",
+    "followers": null,
+    "url": "https://m.blog.naver.com/earn2airdrop/224435663147",
+    "channelUrl": "https://blog.naver.com/earn2airdrop",
+    "avatar": "korea-kol/av_earn2airdrop.jpg",
+    "image": "korea-kol/post_13.jpg",
+    "title": "크립토 지갑도 프라이버시가 필요하다. AmericanFortres",
+    "date": null
+   },
+   {
+    "week": "W2",
+    "name": "폐지줍기 연구소",
+    "platform": "Telegram",
+    "followers": 20648,
+    "url": "https://t.me/airdr0p_lab/20776",
+    "channelUrl": "https://t.me/airdr0p_lab",
+    "avatar": "korea-kol/av_airdr0p-lab.jpg",
+    "image": "korea-kol/post_14.jpg",
+    "title": "FortressNames, 프라이버시를 결합한 Web3 네이밍 서비스",
+    "date": "2026-10-11"
+   },
+   {
+    "week": "W2",
+    "name": "비화랑의 블록체인 삼매경",
+    "platform": "Naver Blog",
+    "followers": null,
+    "url": "https://m.blog.naver.com/kwt82/224436281384",
+    "channelUrl": "https://blog.naver.com/kwt82",
+    "avatar": "korea-kol/av_kwt82.jpg",
+    "image": "korea-kol/post_15.jpg",
+    "title": "아메리칸포트리스(AmericanFortress)란? @name으로 지갑 프라이버시를 바꾸는 방법",
+    "date": null
+   },
+   {
+    "week": "W2",
+    "name": "윤로그",
+    "platform": "Telegram",
+    "followers": 10944,
+    "url": "https://t.me/yunlog_official/17410",
+    "channelUrl": "https://t.me/yunlog_official",
+    "avatar": "korea-kol/av_yunlog-official.jpg",
+    "image": "korea-kol/post_16.jpg",
+    "title": "지갑 주소 없이 닉네임으로 송금하는 AmericanFortress AmericanFortress는 자체 Send-to-Name™ 기술을 통해 복잡한 지갑 주소 대신 FortressName(@name",
+    "date": "2026-10-12"
+   }
+  ]
+ },
+ "navLabels": {
+  "secPr": "PR & Comms (Korea)"
+ }
+}
