@@ -729,6 +729,16 @@ const sv  = v => (v===null||v===undefined)?'—': typeof v==='number'? fmt(v) : 
 const pct = (a,b) => b>0?(a-b)/b*100:null;
 const hide = id => { const e=document.getElementById(id); if(e)e.style.display='none'; };
 const show = (id,d='block') => { const e=document.getElementById(id); if(e)e.style.display=d; };
+// Last-week values are only surfaced when the metric improved on them (lower is better when invert is set)
+const lwNum = v => typeof v==='number'?v:parseFloat(String(v).replace(/[^0-9.\-]/g,''));
+const lwImproved = d => { if(!d||!vv(d.lw)||!vv(d.now))return false; const n=lwNum(d.now),l=lwNum(d.lw); if(isNaN(n)||isNaN(l))return true; return d.invert?n<l:n>l; };
+function trajPts(d,conv=x=>x){
+  const l=[],v=[];
+  if(vv(d.start)){l.push('Campaign Start');v.push(conv(d.start));}
+  if(lwImproved(d)){l.push(D.lwLabel||'Last Week');v.push(conv(d.lw));}
+  l.push(D.nowLabel||'This Week');v.push(conv(d.now));
+  return {l,v};
+}
 const extraCards = sec => (sec&&sec.extra||[]).filter(e=>(!e.type||e.type==='number')&&vv(e.now)).map(e=>({label:e.label,data:e}));
 
 // ── ANIMATION ──────────────────────────────────────────────────
@@ -778,8 +788,8 @@ function colChart(canvasId,labels,lwData,nowData,lwLbl,nowLbl,clrs){
 function mGrowRows(d){
   if(!d||!vv(d.now))return '';
   const isNum=typeof d.now==='number'; let rows='';
-  if(isNum&&typeof d.lw==='number'){const p=pct(d.now,d.lw),clrUp=d.invert?p<0:p>=0,diff=d.now-d.lw;rows+=`<div class="m-grow-row"><span class="m-arrow ${clrUp?'up':'dn'}">${p>=0?'↑':'↓'}</span><span class="m-pct ${clrUp?'up':'dn'}">${p>=0?'+':''}${Math.abs(p).toFixed(1)}%</span><span class="m-pct-lbl">${diff>=0?'+':''}${fmt(Math.abs(diff))} vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}
-  else if(typeof d.now==='string'&&vv(d.lw)){const n=parseFloat(d.now),l=parseFloat(d.lw);if(!isNaN(n)&&!isNaN(l)){const up=n>=l;rows+=`<div class="m-grow-row"><span class="m-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}">${d.lw}→${d.now}</span><span class="m-pct-lbl">vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}}
+  if(isNum&&typeof d.lw==='number'&&(d.invert?d.now<d.lw:d.now>d.lw)){const p=pct(d.now,d.lw),clrUp=d.invert?p<0:p>=0,diff=d.now-d.lw;rows+=`<div class="m-grow-row"><span class="m-arrow ${clrUp?'up':'dn'}">${p>=0?'↑':'↓'}</span><span class="m-pct ${clrUp?'up':'dn'}">${p>=0?'+':''}${Math.abs(p).toFixed(1)}%</span><span class="m-pct-lbl">${diff>=0?'+':''}${fmt(Math.abs(diff))} vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}
+  else if(typeof d.now==='string'&&vv(d.lw)){const n=parseFloat(d.now),l=parseFloat(d.lw);if(!isNaN(n)&&!isNaN(l)&&n>l){const up=n>=l;rows+=`<div class="m-grow-row"><span class="m-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}">${d.lw}→${d.now}</span><span class="m-pct-lbl">vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}}
   if(isNum&&typeof d.start==='number'&&d.start>0){const p=pct(d.now,d.start),clrUp=d.invert?p<0:p>=0,diff=d.now-d.start;rows+=`<div class="m-grow-row" style="margin-top:4px"><span class="m-arrow ${clrUp?'up':'dn'}" style="font-size:14px">${p>=0?'↑':'↓'}</span><span class="m-pct ${clrUp?'up':'dn'}" style="font-size:14px">${p>=0?'+':''}${Math.round(p)}%</span><span class="m-pct-lbl">${diff>=0?'+':''}${fmt(Math.abs(diff))} since campaign start</span></div>`;}
   return rows?`<div>${rows}</div>`:'';
 }
@@ -787,7 +797,7 @@ function mCtxStrip(d){
   if(!d)return ''; const c=[];
   const sfx=d.suffix||'';
   if(vv(d.start))c.push(`<div class="m-ctx-col"><div class="m-ctx-lbl">Start</div><div class="m-ctx-val">${fmt(d.start)}${sfx}</div></div>`);
-  if(vv(d.lw))c.push(`<div class="m-ctx-col"><div class="m-ctx-lbl">${D.lwLabel||'Last Week'}</div><div class="m-ctx-val">${fmt(d.lw)}${sfx}</div></div>`);
+  if(lwImproved(d))c.push(`<div class="m-ctx-col"><div class="m-ctx-lbl">${D.lwLabel||'Last Week'}</div><div class="m-ctx-val">${fmt(d.lw)}${sfx}</div></div>`);
   if(vv(d.now))c.push(`<div class="m-ctx-col m-ctx-now"><div class="m-ctx-lbl">${D.nowLabel||'This Week'}</div><div class="m-ctx-val">${fmt(d.now)}${sfx}</div></div>`);
   return c.length>=2?`<div class="m-ctx">${c.join('')}</div>`:'';
 }
@@ -802,13 +812,13 @@ function ovGrowRows(d){
   if(!d||!vv(d.now))return '';
   const isNum=typeof d.now==='number'; let rows='';
   if(isNum&&typeof d.start==='number'&&d.start>0){const p=pct(d.now,d.start),up=p>=0,diff=d.now-d.start;rows+=`<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}">${up?'+':''}${Math.round(p)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(diff))}</span><span class="grow-lbl">since start</span></div>`;}
-  if(isNum&&typeof d.lw==='number'){const p=pct(d.now,d.lw),up=p>=0,diff=d.now-d.lw;rows+=`<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}" style="font-size:19px">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}" style="font-size:19px">${up?'+':''}${Math.abs(p).toFixed(1)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(diff))}</span><span class="grow-lbl">vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}
+  if(isNum&&typeof d.lw==='number'&&d.now>d.lw){const p=pct(d.now,d.lw),up=p>=0,diff=d.now-d.lw;rows+=`<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}" style="font-size:19px">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}" style="font-size:19px">${up?'+':''}${Math.abs(p).toFixed(1)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(diff))}</span><span class="grow-lbl">vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}
   return rows?`<div style="margin-bottom:4px">${rows}</div>`:'';
 }
 function ctxStrip(d){
   if(!d)return ''; const c=[];
   if(vv(d.start))c.push(`<div class="ov-ctx-col"><div class="ov-ctx-lbl">Start</div><div class="ov-ctx-val">${fmt(d.start)}</div></div>`);
-  if(vv(d.lw))c.push(`<div class="ov-ctx-col"><div class="ov-ctx-lbl">${D.lwLabel||'Last Week'}</div><div class="ov-ctx-val">${fmt(d.lw)}</div></div>`);
+  if(lwImproved(d))c.push(`<div class="ov-ctx-col"><div class="ov-ctx-lbl">${D.lwLabel||'Last Week'}</div><div class="ov-ctx-val">${fmt(d.lw)}</div></div>`);
   if(vv(d.now))c.push(`<div class="ov-ctx-col ctx-now"><div class="ov-ctx-lbl">${D.nowLabel||'This Week'}</div><div class="ov-ctx-val">${fmt(d.now)}</div></div>`);
   return c.length?`<div class="ov-ctx">${c.join('')}</div>`:'';
 }
@@ -887,7 +897,7 @@ function xFollowersCard(fol){
   if(!hasStart)return mCard('X Followers',fol,'featured');
   var diff=fol.now-fol.start,pctV=Math.round((diff/fol.start)*100),up=diff>=0;
   var lwRow='';
-  if(typeof fol.lw==='number'){
+  if(typeof fol.lw==='number'&&fol.now>fol.lw){
     var lwDiff=fol.now-fol.lw,lwUp=lwDiff>=0;
     lwRow='<div class="m-grow-row"><span class="m-arrow '+(lwUp?'up':'dn')+'">'+(lwUp?'&#8593;':'&#8595;')+'</span><span class="m-pct '+(lwUp?'up':'dn')+'">'+(lwUp?'+':'')+Math.abs(pct(fol.now,fol.lw)).toFixed(1)+'%</span><span class="m-pct-lbl">'+(lwUp?'+':'')+fmt(Math.abs(lwDiff))+' vs '+(D.lwLabel||'last week').toLowerCase()+'</span></div>';
   }
@@ -924,10 +934,10 @@ function buildCommunity(){
 
   // Headline row
   const kpis=[
-    ['Total Members',c.totalMembers, nm!==null?`<span class="grow-arrow up" style="font-size:19px">↑</span><span class="grow-pct up">+${cmFull(nm)}</span><span class="grow-lbl">new this week</span>`:'<span class="grow-lbl">in the community</span>'],
-    ['Weekly Active',c.weeklyActive,'<span class="grow-lbl">members active in the past week</span>'],
-    ['Monthly Active',c.monthlyActive,'<span class="grow-lbl">members active in the past month</span>'],
-    ['Weekly Messages',c.weeklyMessages,(c.newPeak?'<span class="grow-pct up">New peak</span>':'')+'<span class="grow-lbl">sent this week</span>']
+    ['Total Members',c.totalMembers, nm!==null?`<span class="grow-arrow up" style="font-size:19px">↑</span><span class="grow-pct up">+${cmFull(nm)}</span><span class="grow-lbl">New this week</span>`:'<span class="grow-lbl">In the community</span>'],
+    ['Weekly Active',c.weeklyActive,'<span class="grow-lbl">Members active in the past week</span>'],
+    ['Monthly Active',c.monthlyActive,'<span class="grow-lbl">Members active in the past month</span>'],
+    ['Weekly Messages',c.weeklyMessages,(c.newPeak?'<span class="grow-pct up">New peak</span>':'')+'<span class="grow-lbl">Sent this week</span>']
   ].filter(k=>has(k[1]));
   const kpiHtml=kpis.length?`<div class="ov-grid cm-kpis" style="grid-template-columns:repeat(${kpis.length},1fr)">${kpis.map(([l,d,sub])=>
     `<div class="ov-card"><div class="ov-lbl">${l}</div><div class="ov-num">${cmShow(d.now)}</div><div class="cm-kpi-sub">${sub}</div>${ovGrowRows(d)}</div>`).join('')}</div>`:'';
@@ -964,9 +974,9 @@ function buildSocial(){
     xEl.querySelectorAll('.mcard').forEach(obs);
     if(fol&&vv(fol.start)&&vv(fol.lw)&&vv(fol.now)){
       show('socialXTrajWrap'); obs(document.getElementById('socialXTrajWrap'));
-      setTimeout(()=>{const p=cp('socialXTrajCvs');trajChart('socialXTrajCvs',
-        ['Campaign Start',D.lwLabel||'Last Week',D.nowLabel||'This Week'],
-        [{label:'X Followers',data:[fol.start,fol.lw,fol.now],borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.38,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
+      setTimeout(()=>{const p=cp('socialXTrajCvs'),xt=trajPts(fol);trajChart('socialXTrajCvs',
+        xt.l,
+        [{label:'X Followers',data:xt.v,borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.38,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
       },450);
     }
   }
@@ -986,7 +996,8 @@ function buildSocial(){
       show('socialDcBarWrap'); obs(document.getElementById('socialDcBarWrap'));
       const colors=['#4B8EF8','#1DB954'];
       setTimeout(()=>{const p=cp('socialDcBarCvs');
-        new Chart(document.getElementById('socialDcBarCvs'),{type:'line',data:{labels:['Campaign Start',D.lwLabel||'Last Week',D.nowLabel||'This Week'],datasets:dcChart.map((f,i)=>({label:f.label,data:[f.data.start,f.data.lw,f.data.now],borderColor:colors[i]||'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:colors[i]||'#88F802',tension:.38,fill:false}))},options:baseOpts(p)});
+        const dcLw=dcChart.some(f=>lwImproved(f.data));
+        new Chart(document.getElementById('socialDcBarCvs'),{type:'line',data:{labels:dcLw?['Campaign Start',D.lwLabel||'Last Week',D.nowLabel||'This Week']:['Campaign Start',D.nowLabel||'This Week'],datasets:dcChart.map((f,i)=>({label:f.label,data:dcLw?[f.data.start,lwImproved(f.data)?f.data.lw:null,f.data.now]:[f.data.start,f.data.now],spanGaps:true,borderColor:colors[i]||'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:colors[i]||'#88F802',tension:.38,fill:false}))},options:baseOpts(p)});
       },500);
     }
   } else { hide('socialDiscordLbl'); document.getElementById('socialDiscordMetrics').style.display='none'; }
@@ -1065,9 +1076,9 @@ function buildCookie3(){
   const sc=c.score;
   if(sc&&vv(sc.start)&&vv(sc.lw)&&vv(sc.now)){
     hasAny=true; show('cookie3TrajWrap'); obs(document.getElementById('cookie3TrajWrap'));
-    setTimeout(()=>{const p=cp('cookie3TrajCvs');
-      trajChart('cookie3TrajCvs',['Campaign Start',D.lwLabel||'Last Week',D.nowLabel||'This Week'],
-        [{label:'Score',data:[parseInt(sc.start),parseInt(sc.lw),parseInt(sc.now)],borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:6,pointHoverRadius:9,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.3,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
+    setTimeout(()=>{const p=cp('cookie3TrajCvs'),ct=trajPts(sc,x=>parseInt(x));
+      trajChart('cookie3TrajCvs',ct.l,
+        [{label:'Score',data:ct.v,borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:6,pointHoverRadius:9,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.3,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
     },500);
   }
   if(c.screenshot){
@@ -1225,9 +1236,9 @@ function buildKol(){
   const sf=kol.smartFollowers;
   if(sf&&vv(sf.start)&&vv(sf.lw)&&vv(sf.now)){
     hasAny=true;show('kolBarWrap');obs(document.getElementById('kolBarWrap'));
-    setTimeout(()=>{const p=cp('kolBarCvs');
-      trajChart('kolBarCvs',['Campaign Start',D.lwLabel||'Last Week',D.nowLabel||'This Week'],
-        [{label:'Smart Followers',data:[sf.start,sf.lw,sf.now],borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.38,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
+    setTimeout(()=>{const p=cp('kolBarCvs'),kt=trajPts(sf);
+      trajChart('kolBarCvs',kt.l,
+        [{label:'Smart Followers',data:kt.v,borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.38,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
     },450);
   }
   if(kol.scoreImg){
@@ -1402,11 +1413,9 @@ function buildFinance(){
   el.innerHTML=fields.map(f=>mCard(f.label,f.data)).join('');
   el.querySelectorAll('.mcard').forEach(obs);
   const aumD=fin.aum;
-  if(aumD&&typeof aumD.now==='number'&&vv(aumD.lw)){
-    const pts=[],lbs=[];
-    if(vv(aumD.start)){pts.push(aumD.start);lbs.push('Campaign Start');}
-    pts.push(aumD.lw);lbs.push(D.lwLabel||'Last Week');
-    pts.push(aumD.now);lbs.push(D.nowLabel||'This Week');
+  const aumT=aumD?trajPts(aumD):null;
+  if(aumD&&typeof aumD.now==='number'&&vv(aumD.lw)&&aumT.v.length>1){
+    const pts=aumT.v,lbs=aumT.l;
     show('finTrajWrap');obs(document.getElementById('finTrajWrap'));
     setTimeout(()=>{const p=cp('finTrajCvs');trajChart('finTrajCvs',lbs,[{label:'AUM',data:pts,borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.38,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);},450);
   }
@@ -1425,7 +1434,7 @@ function buildWebsite(){
   el.className='mgrid m'+Math.min(Math.max(fields.length,1),4);
   el.innerHTML=fields.map(f=>mCard(f.label,f.data)).join('');
   el.querySelectorAll('.mcard').forEach(obs);
-  const wBar=fields.filter(f=>vv(f.data.lw));
+  const wBar=fields.filter(f=>lwImproved(f.data));
   if(wBar.length){show('webBarWrap');obs(document.getElementById('webBarWrap'));setTimeout(()=>{colChart('webBarCvs',wBar.map(f=>f.label),wBar.map(f=>f.data.lw),wBar.map(f=>f.data.now));},450);}
 }
 
