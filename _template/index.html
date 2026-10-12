@@ -422,10 +422,11 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
 .page-sec:not(.light) .cm-feat{border-color:rgba(136,248,2,.35)!important}
 
 /* ── RESPONSIVE ──────────────────────────────────────────────── */
-@media(max-width:1100px){.ps-inner{padding:0 36px}.nav{padding:10px 36px}}
+@media(max-width:1100px){.ps-inner{padding:0 36px}.nav{padding:10px 36px}.article-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:860px){.article-grid{grid-template-columns:1fr!important}}
 @media(max-width:860px){
   .ov-grid{grid-template-columns:repeat(2,1fr)!important}
-  .m3,.m4,.m5,.posts-grid,.kol-grid,.article-grid,.pod-grid,.ss-grid{grid-template-columns:1fr!important}
+  .m3,.m4,.m5,.posts-grid,.kol-grid,.pod-grid,.ss-grid{grid-template-columns:1fr!important}
   .m2{grid-template-columns:1fr 1fr}.hdr{flex-direction:column;gap:8px;padding:16px 20px;text-align:center}
   .hdr-r,.hdr-week{justify-content:center}.page-sec{padding:56px 0;scroll-margin-top:150px}.ps-inner{padding:0 20px}.nav{padding:10px 20px}
   .pr-summary{flex-wrap:wrap}.pr-sum-item{min-width:50%}
@@ -1360,12 +1361,15 @@ function buildPr(){
   if(pr.articles&&pr.articles.length){
     hasAny=true; show('prArticlesLbl');
     const grid=document.getElementById('articleGrid');
+    const nArt=pr.articles.length;
+    grid.style.gridTemplateColumns=nArt<=2?`repeat(${nArt},minmax(0,360px))`:`repeat(${smartCols(nArt)},minmax(0,1fr))`;
     pr.articles.forEach(a=>{
       const dom=domainOf(a.url);
       const statsH=[{v:a.reach,l:'Reach'},{v:a.views,l:'Views'},{v:a.value,l:'Value'},{v:a.eng,l:'Eng.'}].filter(s=>vv(s.v)).map(s=>`<div class="article-stat"><div class="article-stat-val">${s.v}</div><div class="article-stat-lbl">${s.l}</div></div>`).join('');
+      const phH=`<div class="article-thumb-placeholder"><div class="article-thumb-fav"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" alt=""></div><span class="article-thumb-pub">${a.pub||dom}</span></div>`;
       const thumbH=a.imgUrl
-        ?`<div class="article-thumb"><img class="article-thumb-img" src="${a.imgUrl}" alt="" onerror="this.style.display='none'"></div>`
-        :`<div class="article-thumb"><div class="article-thumb-placeholder"><div class="article-thumb-fav"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" alt=""></div><span class="article-thumb-pub">${a.pub||dom}</span></div></div>`;
+        ?`<div class="article-thumb">${phH}<img class="article-thumb-img" src="${a.imgUrl}" alt="" onerror="this.remove()"></div>`
+        :`<div class="article-thumb">${phH}</div>`;
       const card=document.createElement('div'); card.className='article-card';
       card.onclick=e=>{if(!e.target.closest('a'))window.open(a.url,'_blank');};
       const pubH=`<div class="article-pub-block"><div class="article-pub-fav"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" alt=""></div><div class="article-pub-big">${a.pub||dom}</div>${a.date?`<span class="article-pub-date" style="margin-left:auto;flex-shrink:0">${a.date}</span>`:''}</div>`;
