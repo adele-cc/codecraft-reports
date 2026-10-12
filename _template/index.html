@@ -64,7 +64,8 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .nav a.active{color:#000;background:var(--green);border-color:var(--green);font-weight:700}
 
 /* ── PAGE SECTIONS ───────────────────────────────────────────── */
-.page-sec{padding:80px 0;scroll-margin-top:120px}
+.page-sec{padding:56px 0;scroll-margin-top:120px}
+body.has-banner #main>.page-sec:first-child{padding-top:24px}
 .page-sec.light{
   background:#f3f1ed;
   --bg:#f3f1ed;--card:#fff;--border:#e4e2dd;
@@ -73,7 +74,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
   --green:#4ea800;--red:#c0392b;
 }
 .ps-inner{max-width:1400px;margin:0 auto;padding:0 52px}
-.sec-hdr{margin-bottom:36px}
+.sec-hdr{margin-bottom:28px}
 .sec-title{font-family:var(--hd);font-size:30px;font-weight:800;letter-spacing:-1.2px;color:var(--w);line-height:1;margin-bottom:20px}
 .sec-rule{width:100%;height:1px;background:var(--border)}
 .sub-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--w50);margin:28px 0 14px}
@@ -445,7 +446,7 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
   .ov-grid{grid-template-columns:repeat(2,1fr)!important}
   .m3,.m4,.m5,.posts-grid,.kol-grid,.pod-grid,.ss-grid{grid-template-columns:1fr!important}
   .m2{grid-template-columns:1fr 1fr}.hdr{flex-direction:column;gap:8px;padding:16px 20px;text-align:center}
-  .hdr-r,.hdr-week{justify-content:center}.page-sec{padding:56px 0;scroll-margin-top:150px}.ps-inner{padding:0 20px}.nav{padding:10px 20px}
+  .hdr-r,.hdr-week{justify-content:center}.page-sec{padding:40px 0;scroll-margin-top:150px}.ps-inner{padding:0 20px}.nav{padding:10px 20px}
   .pr-summary{flex-wrap:wrap}.pr-sum-item{min-width:50%}
   .fol-card{grid-column:span 1!important}
 }
@@ -847,7 +848,7 @@ function ctxStrip(d){
   if(vv(d.start))c.push(`<div class="ov-ctx-col"><div class="ov-ctx-lbl">Start</div><div class="ov-ctx-val">${fmt(d.start)}</div></div>`);
   if(lwImproved(d))c.push(`<div class="ov-ctx-col"><div class="ov-ctx-lbl">${D.lwLabel||'Last Week'}</div><div class="ov-ctx-val">${fmt(d.lw)}</div></div>`);
   if(vv(d.now))c.push(`<div class="ov-ctx-col ctx-now"><div class="ov-ctx-lbl">${D.nowLabel||'This Week'}</div><div class="ov-ctx-val">${fmt(d.now)}</div></div>`);
-  return c.length?`<div class="ov-ctx">${c.join('')}</div>`:'';
+  return c.length>=2?`<div class="ov-ctx">${c.join('')}</div>`:'';
 }
 
 // ── PLATFORM HELPER ────────────────────────────────────────────
@@ -1636,7 +1637,7 @@ function buildDash(){
   document.getElementById('hdrWeek').textContent=D.weekDate;
   document.getElementById('footWeek').textContent=D.weekDate;
   if(D.clientLogo){const cl=document.getElementById('hdrCl');cl.src=D.clientLogo;cl.style.display='block';document.getElementById('hdrDiv').style.display='block';}
-  if(D.banner){document.getElementById('reportBanner').src=D.banner;document.getElementById('reportBannerWrap').style.display='block';}
+  if(D.banner){document.getElementById('reportBanner').src=D.banner;document.getElementById('reportBannerWrap').style.display='block';document.body.classList.add('has-banner');}
 
   buildOverview(); buildSocial(); buildCollabs(); buildCookie3(); buildProduct(); buildQuest();
   buildNucContrib(); buildNucRep(); buildKol(); buildKoreaKol(); buildPr(); buildCommunity(); buildFinance(); buildWebsite();
