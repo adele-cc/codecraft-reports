@@ -46,7 +46,9 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .hdr-cc{height:28px;opacity:.92}
 .hdr-div{width:1px;height:24px;background:var(--border)}
 .hdr-cl{height:30px}
-.hdr-r{text-align:right}
+.hdr-r{text-align:right;display:flex;align-items:center;gap:18px}
+.pdf-btn{display:inline-flex;align-items:center;gap:7px;font-family:var(--bd,'Montserrat'),sans-serif;font-size:11px;font-weight:700;letter-spacing:.3px;color:#000;background:var(--green);border:0;border-radius:20px;padding:7px 14px;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.pdf-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(136,248,2,.25)}
 .hdr-name{font-family:var(--hd);font-size:17px;font-weight:800;letter-spacing:-.3px}
 .hdr-week{display:flex;align-items:center;justify-content:flex-end;gap:6px;font-size:11px;color:var(--w50);margin-top:2px}
 .hdr-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2.4s ease-in-out infinite}
@@ -65,7 +67,9 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .nav a.active{color:#000;background:var(--green);border-color:var(--green);font-weight:700}
 
 /* ── PAGE SECTIONS ───────────────────────────────────────────── */
-.page-sec{padding:80px 0;scroll-margin-top:120px}
+.page-sec{padding:40px 0;scroll-margin-top:120px}
+/* First visible section rises into the banner's fade-to-black */
+body.has-banner .page-sec.after-banner{margin-top:-100px;padding-top:0;position:relative;z-index:1}
 .page-sec.light{
   background:#f3f1ed;
   --bg:#f3f1ed;--card:#fff;--border:#e4e2dd;
@@ -74,7 +78,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
   --green:#4ea800;--red:#c0392b;
 }
 .ps-inner{max-width:1400px;margin:0 auto;padding:0 52px}
-.sec-hdr{margin-bottom:36px}
+.sec-hdr{margin-bottom:28px}
 .sec-title{font-family:var(--hd);font-size:30px;font-weight:800;letter-spacing:-1.2px;color:var(--w);line-height:1;margin-bottom:20px}
 .sec-rule{width:100%;height:1px;background:var(--border)}
 .sub-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--w50);margin:28px 0 14px}
@@ -406,17 +410,76 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
 .foot img{height:18px;opacity:.16}
 .foot p{font-size:11px;color:var(--w30);margin-top:6px}
 
+/* ── COMMUNITY MANAGEMENT ────────────────────────────────────── */
+.cm-group .sub-lbl{margin-top:0}
+.cm-kpis{margin-bottom:36px}
+.cm-kpis .ov-card{padding:32px 28px 28px}
+.cm-kpis .ov-lbl{white-space:nowrap}
+.cm-kpis .ov-num{font-size:48px;letter-spacing:-2px;white-space:nowrap;margin-bottom:18px}
+.cm-kpis .cm-kpi-sub+div{margin-top:14px}
+@media screen and (max-width:1100px){.cm-kpis{grid-template-columns:repeat(2,1fr)!important}}
+@media screen and (max-width:600px){.cm-kpis{grid-template-columns:1fr!important}.cm-kpis .ov-num{font-size:42px}}
+.cm-kpi-sub{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;row-gap:4px}
+.cm-kpi-sub .grow-pct{font-size:19px;letter-spacing:-.5px}
+.cm-sub{font-size:12px;color:var(--w70);font-weight:500;line-height:1.5;margin-bottom:12px}
+.cm-feat{background:#0d0d0d!important;border-color:#0d0d0d!important;--w:#fff;--w70:rgba(255,255,255,.75);--w50:rgba(255,255,255,.6);--w08:rgba(255,255,255,.14);--border:rgba(255,255,255,.12);--green:#88F802}
+.cm-feat .m-num{color:var(--green)}
+.page-sec:not(.light) .cm-feat{border-color:rgba(136,248,2,.35)!important}
+
+/* ── KOREA KOL CAMPAIGN (per-client config) ─────────────────── */
+.kk-sub{font-size:13px;color:var(--w70);font-weight:500;margin:-14px 0 28px}
+.kk-group{margin-top:32px}
+.kk-group .sub-lbl{margin-top:0;display:flex;align-items:center;gap:10px}
+.kk-group .sub-lbl span{font-weight:600;letter-spacing:.5px;text-transform:none;color:var(--w50)}
+.kk-plat{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.3px;padding:3px 8px 3px 6px;border-radius:20px;background:var(--w08);color:var(--w70);white-space:nowrap;flex-shrink:0}
+.kk-plat svg{width:12px;height:12px;flex-shrink:0}
+.kk-av{width:30px;height:30px;border-radius:50%;object-fit:cover;flex-shrink:0;background:var(--w15)}
+.kk-post-head{display:flex;align-items:center;gap:10px;padding:16px 18px 0}
+.kk-post-name{font-family:var(--hd);font-size:14px;font-weight:800;color:var(--w);line-height:1.2;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.kk-post-title{font-size:13px;font-weight:600;line-height:1.5;color:var(--w);padding:12px 18px 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.kk-post-meta{display:flex;gap:14px;padding:12px 18px 0;margin-top:auto;font-size:11px;color:var(--w50);font-weight:600}
+.kk-post-meta b{font-family:var(--hd);color:var(--w);font-weight:800}
+.kk-spot-plat{margin-top:4px}
+.spot-card .kk-link{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:11px;font-weight:700;color:var(--green);text-decoration:none}
+.spot-card .kk-link:hover{text-decoration:underline}
+
+/* ── PRINT / PDF (portrait A4, same alternating dark/light bands as screen) ── */
+/* .cc-print-layout is applied just before printing so the page can be measured
+   at exactly the print width (1280px × 0.62 zoom = A4 width) and paginated by JS. */
+@page{size:A4 portrait;margin:0}
+html.cc-print-layout body{width:1280px!important;min-width:1280px!important;margin:0!important}
+html.cc-print-layout #gate,html.cc-print-layout #np,html.cc-print-layout #nav,html.cc-print-layout #lb,html.cc-print-layout .pdf-btn,html.cc-print-layout .tooltip{display:none!important}
+html.cc-print-layout .hdr{position:static!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:#000!important}
+html.cc-print-layout :is(.article-card,.campaign-growth-banner,.chart-card,.collab-pfp,.custom-link-card,.custom-text-card,.fol-card,.kol-card,.lb-tbl-wrap,.mcard,.ov-card,.pod-card,.pr-summary,.score-ss-card,.spot-card,.tweet-embed-wrap,.xpost-card){opacity:1!important;transform:none!important;transition:none!important;box-shadow:none!important}
+html.cc-print-layout .report-banner{animation:none!important}
+html.cc-print-layout :is(.score-ss-img img,.ss-grid img){max-height:680px;object-fit:contain}
+#ccPages{display:none}
+html.cc-composed #ccPages{display:block}
+html.cc-composed #main{display:none!important}
+.cc-page{position:relative;overflow:hidden;display:flex;flex-direction:column;background:#000;break-after:page;page-break-after:always}
+.cc-page:last-child{break-after:auto;page-break-after:auto}
+.cc-page>*{flex:none}
+.cc-page>.page-sec{margin-top:0}
+.cc-page>.page-sec.after-banner{margin-top:-100px}
+.cc-page>.cc-fill,.cc-page>.cc-fill-black{flex:1 1 auto}
+@media print{
+  html{zoom:.62}
+  html,body{background:#000!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  :is(.mcard,.ov-card,.chart-card,.article-card,.spot-card,.pod-card,.kol-card,.score-ss-card,.custom-link-card,.custom-text-card,.collab-pfp,.fol-card,.pr-summary,.tweet-embed-wrap,.xpost-card,.ov-grid,.cc-grid-row,table.lb tr){break-inside:avoid;page-break-inside:avoid}
+}
+
 /* ── RESPONSIVE ──────────────────────────────────────────────── */
-@media(max-width:1100px){.ps-inner{padding:0 36px}.nav{padding:10px 36px}}
-@media(max-width:860px){
+@media screen and (max-width:1100px){.ps-inner{padding:0 36px}.nav{padding:10px 36px}.article-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media screen and (max-width:860px){.article-grid{grid-template-columns:1fr!important}}
+@media screen and (max-width:860px){
   .ov-grid{grid-template-columns:repeat(2,1fr)!important}
-  .m3,.m4,.m5,.posts-grid,.kol-grid,.article-grid,.pod-grid,.ss-grid{grid-template-columns:1fr!important}
+  .m3,.m4,.m5,.posts-grid,.kol-grid,.pod-grid,.ss-grid{grid-template-columns:1fr!important}
   .m2{grid-template-columns:1fr 1fr}.hdr{flex-direction:column;gap:8px;padding:16px 20px;text-align:center}
-  .hdr-r,.hdr-week{justify-content:center}.page-sec{padding:56px 0;scroll-margin-top:150px}.ps-inner{padding:0 20px}.nav{padding:10px 20px}
+  .hdr-r,.hdr-week{justify-content:center}.page-sec{padding:32px 0;scroll-margin-top:150px}.ps-inner{padding:0 20px}.nav{padding:10px 20px}
   .pr-summary{flex-wrap:wrap}.pr-sum-item{min-width:50%}
   .fol-card{grid-column:span 1!important}
 }
-@media(max-width:600px){
+@media screen and (max-width:600px){
   .m2,.ov-grid{grid-template-columns:1fr!important}.ps-inner{padding:0 16px}
   .ov-num{font-size:44px}.pin-box{width:44px;height:52px;font-size:24px}.pin-row{gap:8px}
 }
@@ -472,6 +535,7 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
     <img class="hdr-cl" id="hdrCl" style="display:none" alt="">
   </div>
   <div class="hdr-r">
+    <button class="pdf-btn" id="pdfBtn" type="button" onclick="ccPrint()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>Download PDF</button>
     <div class="hdr-week"><span class="hdr-dot"></span><span id="hdrWeek"></span></div>
   </div>
 </div>
@@ -487,7 +551,9 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
   <a href="#secNucContrib" id="navNucContrib">Contributors' LB</a>
   <a href="#secNucRep"     id="navNucRep">Reputation LB</a>
   <a href="#secKol"          id="navKol">KOL Campaign</a>
+  <a href="#secKoreaKol"   id="navKoreaKol">Korea KOLs</a>
   <a href="#secPr"          id="navPr">PR &amp; Comms</a>
+  <a href="#secCommunity"  id="navCommunity">Community Management</a>
   <a href="#secFin"        id="navFin">Finance</a>
   <a href="#secWeb"        id="navWeb">Website</a>
 </div>
@@ -633,6 +699,14 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
     </div>
   </div>
 
+  <!-- 8c. KOREA KOL CAMPAIGN (per-client config, hidden unless configured) -->
+  <div class="page-sec" id="secKoreaKol" style="display:none">
+    <div class="ps-inner">
+      <div class="sec-hdr"><div class="sec-title">Korea KOL Campaign Progress</div><div class="sec-rule"></div></div>
+      <div id="kkBody"></div>
+    </div>
+  </div>
+
   <!-- 9. PR & COMMS (dark) -->
   <div class="page-sec" id="secPr">
     <div class="ps-inner">
@@ -642,6 +716,14 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
       <div class="article-grid" id="articleGrid"></div>
       <div class="sub-lbl" id="prPodsLbl" style="display:none;margin-top:36px">Podcast &amp; interview features</div>
       <div class="pod-grid" id="podGrid"></div>
+    </div>
+  </div>
+
+  <!-- 8b. COMMUNITY MANAGEMENT -->
+  <div class="page-sec" id="secCommunity">
+    <div class="ps-inner">
+      <div class="sec-hdr"><div class="sec-title">Community Management</div><div class="sec-rule"></div></div>
+      <div id="cmBody"></div>
     </div>
   </div>
 
@@ -685,33 +767,33 @@ const D = {
   "pin": "8461",
   "published": true,
   "week": 1,
-  "weekDate": "6th October",
+  "weekDate": "13th October",
   "campaignStart": "15th September",
   "lwLabel": "Last Week",
   "nowLabel": "This Week",
   "overview": {
     "followers": {
       "start": 3213,
-      "lw": 50822,
-      "now": 50640
+      "lw": 50640,
+      "now": 43467
     },
     "discord": {
       "start": 0,
-      "lw": 1838,
-      "now": 2056
+      "lw": 2056,
+      "now": 2694
     },
     "cookie": {
       "start": null,
-      "lw": 1349,
-      "now": 1453
+      "lw": 1453,
+      "now": 1588
     },
     "collabs": {
-      "lw": 63,
-      "now": 176
+      "lw": 176,
+      "now": 201
     },
     "collabsTotal": {
-      "lw": 63,
-      "now": 176
+      "lw": 176,
+      "now": 201
     },
     "totalUsers": {
       "start": null,
@@ -722,12 +804,12 @@ const D = {
   "social": {
     "xFollowers": {
       "start": 3213,
-      "lw": 50822,
-      "now": 50640
+      "lw": 50640,
+      "now": 43467
     },
     "impressions": {
       "start": 428,
-      "lw": 67300,
+      "lw": null,
       "now": null
     },
     "engagements": {
@@ -737,17 +819,44 @@ const D = {
     },
     "mutual": {
       "start": 7,
-      "lw": 69,
-      "now": 75
+      "lw": 75,
+      "now": 81
     },
-    "mutualScreenshot": "https://drive.google.com/thumbnail?id=1eSAn1b1JEcTYjnFDzCRinm088YkTFmEB&sz=w1200",
+    "mutualScreenshot": "https://drive.google.com/thumbnail?id=1UNpoO6H17oPtnUEtjPle4UBBr9OYG_Cm&sz=w1200",
     "discordMembers": {
       "start": 0,
-      "lw": 1838,
-      "now": 2056
+      "lw": 2056,
+      "now": 2694
     },
     "telegram": null,
-    "posts": null,
+    "posts": [
+      {
+        "name": "Agentics Credit",
+        "handle": "@agenticscredit",
+        "avatar": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gKgSUNDX1BST0ZJTEUAAQEAAAKQbGNtcwQwAABtbnRyUkdCIFhZWiAAAAAAAAAAAAAAAABhY3NwQVBQTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWxjbXMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtkZXNjAAABCAAAADhjcHJ0AAABQAAAAE53dHB0AAABkAAAABRjaGFkAAABpAAAACxyWFlaAAAB0AAAABRiWFlaAAAB5AAAABRnWFlaAAAB+AAAABRyVFJDAAACDAAAACBnVFJDAAACLAAAACBiVFJDAAACTAAAACBjaHJtAAACbAAAACRtbHVjAAAAAAAAAAEAAAAMZW5VUwAAABwAAAAcAHMAUgBHAEIAIABiAHUAaQBsAHQALQBpAG4AAG1sdWMAAAAAAAAAAQAAAAxlblVTAAAAMgAAABwATgBvACAAYwBvAHAAeQByAGkAZwBoAHQALAAgAHUAcwBlACAAZgByAGUAZQBsAHkAAAAAWFlaIAAAAAAAAPbWAAEAAAAA0y1zZjMyAAAAAAABDEoAAAXj///zKgAAB5sAAP2H///7ov///aMAAAPYAADAlFhZWiAAAAAAAABvlAAAOO4AAAOQWFlaIAAAAAAAACSdAAAPgwAAtr5YWVogAAAAAAAAYqUAALeQAAAY3nBhcmEAAAAAAAMAAAACZmYAAPKnAAANWQAAE9AAAApbcGFyYQAAAAAAAwAAAAJmZgAA8qcAAA1ZAAAT0AAACltwYXJhAAAAAAADAAAAAmZmAADypwAADVkAABPQAAAKW2Nocm0AAAAAAAMAAAAAo9cAAFR7AABMzQAAmZoAACZmAAAPXP/bAEMABQMEBAQDBQQEBAUFBQYHDAgHBwcHDwsLCQwRDxISEQ8RERMWHBcTFBoVEREYIRgaHR0fHx8TFyIkIh4kHB4fHv/bAEMBBQUFBwYHDggIDh4UERQeHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHv/CABEIAMgAyAMBIgACEQEDEQH/xAAbAAEBAQADAQEAAAAAAAAAAAAAAQIFBgcEA//EABgBAQEBAQEAAAAAAAAAAAAAAAABAgQD/9oADAMBAAIQAxAAAAHyMemAGlSVUloi1MtQilk1DM1DKrqCAAGpUtVBUmlSLTLUSTRczUXM1FkpczWVAWUtlZtVFVFVCkiiTUMzUXM1GszUXMpci1rOpLZUupWbZUtVFVmNQzNRczWVmdRrMsWSxcqulzqS2VNXOktlZ1c1Ndq+T0vPn1nhfQU6PFJ6N5/rz/CXNSWNZliyWLBdSyyauamrKl1rm5OJ9L1yGddK7/0Dvzi0id/y8Ty3znnHFeq9V1jqU+j59SRGkRYLQjVzU12PrfaJOxcx1nWddk+jqn7Jx3fvL+0OTtTqqdnP/hwX42djdbLyfXfu+azpkTURFBoEWDVhNXsHCp+N+iH4Xlfzk45+6vnbkmZv6D459/wVIl2EoAADWaeu/j5RzWXrvF+TfOew58hJ6jrywnZs9bl5u376bGe29W/JfaB7gAACgqSgstBIAIoEBFEWWhAoKgpKIKRRFEURYSahFLARVoSUFCKAoCARRFixYRYqUQKoigoigCUAEABAsBAsB//EACkQAAICAgECBQMFAAAAAAAAAAMEAgUBBjYwNAAREhM1FEBwFRYjJlD/2gAIAQEAAQUC/KZaVgdQpSrF1utpWXkftXVhDUf4VXcL1H4DUqtN5Y8fQb7FeOJn3NBRVWz7F/hNdwrUOP6F2OrqLNWVsKALPrDhMk69WcLrbwhFYb72Nn2L/Ca7hWocf0LsdM+QpxCLuGxrf2FgJVy9PXq+FlY1yUa/c77l2697vvY2fYv8IruE6fx/Qex0z5Ci5hDn2zrfV7Ts1WOrY6WtPir7Mlwvnare4XYv9lt13mtpuVbJdxsZVWrtUmsqXaotZoLtVGo1W4Vrl9at10XKm3XBsEbhf902FwuXZNrs17Jn/ERqTt1wgmLjC58lwE2ZKVzjLJFJDUKA4vBgHD4jCcseiXlmE8RAuQssKzl4z54z04M19aUwZrotyjltlmUIJMyyxXSyAQ/1VeV4E06+ODe0QvpCeXlj+T6qE8+4X14J1ErNtMTJysn/AB//AP/EACYRAAICAAQEBwAAAAAAAAAAAAABAhEDEiAxBBRBUAUQITAzUWH/2gAIAQMBAT8B7zgTjixckZUV7NFUmeH/ABM6i6GXWvJvc4KLhhtSLE9iz010UUUWhyilZGSltrsssexy/wBnK/phYWR94//EAB0RAAIBBAMAAAAAAAAAAAAAAAARARASIFAwQFH/2gAIAQIBAT8B3MyPm9HnNIiiEIjqItLRCELcf//EADYQAAIBAwIDBQQJBQEAAAAAAAECAwAEERIhEzFBBSJyc8EwMmFxQEJRcIGCobGyFVBSwtHw/9oACAEBAAY/AvvTHaJdNJAOnrg018zPxtDON9tqkuo3QBc4B+t9GV1HeoeRH6UfIk9abxNU8l0hchtI3xinQfVYj6EiHkWAq3e3gSI6tPdHPah8xQ8iP0o+RJ603jarjzfSr83EKy6DsGGeZNXMUYwiSEAe3EcalmbYAdatra7hK5lXUjiuz2jjVCx3wMdRUHm+lD5ih5EfpR8iT1p/G1XHm+ldpeIfuav+Iivp1kZHXUKmt7WH3iMIg64oxTRtG45hh7QW8jlE0ljjnUVqrl1GSCfAa7N/J/I12b4j+61b+b6UPmKHkR+lHyJPWm8bVceb6V2l4vU12j+f+QpvB/pVtbatPEjUE/iajWGRnSRc97mPZiefVoKlTjpS9pBX4I2+Pu4q2vYVYxQafmd81avbBisO5yMZ5f8AKgjtw+zam1DGKWNc6utLYBX4+hUO223X9KawZX4+hkG22/X9altpVfiZJXA55qeO4D946l0jOfhV1Jchgs24wM4q5vZVYRT6vmMnNHtLS/BO3x93Gagv41cwxYHxP/s1EbbVpjXGSMf2Wa9RlCx57p5tgb4omOJ3C89K5xXCEEpf/HSc0y8GTK8xp5UbdIWWQLqIcYxSzMSHL6OGUIIocWGRNXLUuM0ONDJHnlqXGayqkj5VnScVqKkD7cVjGkYzkiu53u5qO1YO3tLC0mlmEluvfCAFCX55prKxvI7aSG5LOTJo1L9U567V2hFEGa6IjOI5eG7Ljoav2GIriO0RSRLrbOep+2uy2efvy2rqxLe8ematB2m44ovG1F21b6Nqi/qF1b73IMaTvnPxB6CmDySxM8+0M0iuD8VPMCoBbuFCe/v1qHv90yHXp6jNSswzG3LMm34CnfWOAU7u9IqvjNttv1phJ73X2pihdeGTq0sgYZ+3emmncvI3Mn7wP//EACkQAQACAQIGAwABBQEAAAAAAAEAESExURAgQWGh8DCBsUBQYHBxkcH/2gAIAQEAAT8h/t1+A5TlrhX8E/hPwHA5n4mHAhxOBzvK8jDgQ4nK/wDtTdEofJMo3QwXcV9RW3i/aC3/AFweV5GEIchwODIwILetz128+v3n3+xBUiz9C7x1hvrAV7PK8jzHHUFZXdllc3gpu304A9NvPp959LsTwn4mMtNUMjH1O0eni9OL8juep7VFZwKCxfyOfiVrVT+s8t+uGPfbz6/efc7E8d+OAPKuR3BQvyzqA6mUVoJ0BRonxHAAEb1qrB/2CCMLmlMzx+Ceec/XBPtt59vvPrdieG/E8RHxYvU7YDNJCaEVuQGNg06cjynAsLVG21Zr6iBW3yNWvMyCOWVSlR9y/wA62YVVFxbddAqofOYbGlTA6gcFzVGERMZLuqFJSbYVb9JhTVugVGSTtmBWvMpbcKLpRZ9QjO1dPQeYTQc5QC2h6xCObVnFdv6Lhv63E/4QBeW0o71pMWRuuLvWsEKMBK04ztFECQ1d8dZfHyxIu7SvqIlXq/0XAFuN/VcUB2qWgta7qhJd0WEygRhFNSjv3IV2hQCjUfjO0w5Y6Fr33mSSmsl7AIx2gNtRKnqm+pF1I35DQDE2j4SmOjebq7XMTkr0edbe0Nom1K9hcrsM1VqMKsMGmFsruSvpekh/4Jd2LIlbYIaxKrp06EyGDBh2/cKQpc1vPytFYLDYBhiDVvrv8gf/2gAMAwEAAgADAAAAEARo6ZOdSBf6AwQbw3YWBWHPChgRncfPFPBfaMKjaxITcKQMZWPTcC1CNXKTCxaPeQMTcIjpT9iuXDsEgCyrejhepXzwAVtqYKyamnfYQQQaqzs65dSYgQQWm6KM8JPLOxA2mep2MIAJd/L8H3hpGAQcRJNmDoIIInQAfYQIPPf/xAAhEQEBAQABBAMAAwAAAAAAAAABABEQICExcTBBYVGBof/aAAgBAwEBPxCbbbbbbeNh6F4ZbbbYbbeWZZZbbYY4IbZmZmW2GIiOGZmbwIWyGfUsB/mI4OWbTJFf7GPD1Ae6ezY7RHDJA3vaZn7EkHDHWBp6ggMPc61joSSVw1au9m2oPaWxR1njSoPMHTX3vj39/wBwcz08ev3z2hZHzHxZxvG87xvTsfBvO9TPDw9Zf//EACARAAMAAQQDAQEAAAAAAAAAAAABESEQIDAxQXGBQFH/2gAIAQIBAT8QFwLR7LwXXr9/QUhOucLcG60Px7H0/YwvDatKmCO/BmBp4Kn0bZG1foRqb6jBUUpULO/HowMj+9VRuouGazhuq47sfF//xAAjEAEAAgMAAgICAwEAAAAAAAABABEQITFBUSBhcYEwkfCh/9oACAEBAAE/EPgEBn4lQ14gepUrW5UplfUqJElfUSJ9fwBuEqBKcVipUSVKiFRElSokTXyCHYGAlQJRKwmKiRImokSJEifA7CBuHIGAIECASiJKJUT1GVBUYxjHPEIdhAglQIEC8KwqVEjE1qJKiFYcHYQ7CGB2BAgYplMpwhGJhCPYxwYQ7CHYQwDKiVKlQYS2N+oxjGMchh1DsOZcQlQJUSPcGPI8jzB5GPMhh1Ds8ZEMN8JqnLVUvQ8XA6K2AwjpsTdu9/W1GpVSQCFdAL59dj7weR8xjydR5GeJxOp1gQs7DkpBuKDFxItupux1/U6iP1SXPiyoIYtxsXsds1yL874EQF/qPI8jyPMGMeYHYMMHMCDLPG81NCNfplhwyW6TToene2L/AG+Phn01totriSjaa2r0343N0Vautht4DUWPcGPYxjg5CEIQnTUrnADaxTrOabpHqP0xwv0Yd6AGv+mPX+b6YvivtjJnNIaEWqAdXQX9wxUs3j4KK1XWuxa0Fpe2NPhOMexjGPY9wQyqb2HQhYiCo2jq4eLWmrSmlLqyrqVEotsfeB1rKv8Ac9ZDvXFncOW/H3QN4a0uDsbjB3SHlo1+ob2qsoBYBGxNe4uHnxDgMbm3xwR7C6a3uIyorUukbe1pfD3KqumRXCc1QuueI0S+DRA715e36lwdqSSwdtu201o96NaQlBV78w+znorduxNDtu+XG5NpgpNugNjutdmrED5oDbYTa+OXyCnO0ELlsp0bdbd62lSyzbGBvfn9ferNkSuIA7qrV1fmD+XVrSrs9ml3X3EuqqUio66oe+ly1gQJfIdUUbfb62sW4se/A1BwMuXBly5cuXLlxbjyLLiy4vyIMH1LaF7+u1NNL+5Qehu9yDT7Zrwe7eTSaV5qJSMbcoCrS6L86lKTRECm1ho1fYzI/BlICvWm9jU4nsp/qF/qCphb/qgX+p2+yQPyk0BhauqOt/U6iZIX4eQBRDwQuh8xCnr1E/mbfVdioyoFI+ki1F/gHcstWV8RlotjaCWQ9DRXeQR04V2qKARe1pQgxpRysGqCyFWJKjzBiMRdyltWm5zz1JII6FVbWqbYplsBJK8aWremuVGUMIAj2/hGqFNFzdDBNBSFAvTRWq3vXmFgPQ37P1EvGd7M0eW9cj0IkU/IrCev++Y3TlEb60WdN3qHSjFUgfbi2oqGpZ3ytvcXf8NYNTlQoX6sGitlclkSNbVUc0AAAaAmrNSiAHAIfjNxjvD6/hCE1j84vFsuXizHiJmvkZDDAlQ+FfefGdSsOQgX8KlYplSolfFLifBwkqGAwGKle/nr1inDNesuDeDAYM18dSpWKw4cV8gwGaZTKlfBMJhKw5MEMBg7glSpWa+Tn//Z",
+        "text": "If you have a strategy in simple English or Pine Script, you can turn it into a trading agent without knowing how to code. Just describe what you want to do and Agentics Credit will execute.\n\nStart today and build up your Agentics Credit Score (ACS):  https://agentics.credit",
+        "imageUrl": "https://pbs.twimg.com/media/HUbeO3mbEAA13VZ.jpg?name=orig",
+        "views": 2929,
+        "likes": 79,
+        "reposts": 16,
+        "replies": 57,
+        "followers": 43439,
+        "url": "https://x.com/agenticscredit/status/2109645263220670819"
+      },
+      {
+        "name": "Agentics Credit",
+        "handle": "@agenticscredit",
+        "avatar": "data:image/jpeg;base64,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",
+        "text": "The top performer on the Agentics Credit leaderboard is up $6,782 on paper since going public in September. 11 others are up $1,000+.\n\nEvery trade updates your Agentics Credit Score. A credit opens when it crosses 580.\n\nCan you compete? Launch the app at https://agentics.credit",
+        "imageUrl": "https://pbs.twimg.com/media/HUB0znbbwAAAQhc.jpg?name=orig",
+        "views": 23819,
+        "likes": 156,
+        "reposts": 18,
+        "replies": 95,
+        "followers": 43439,
+        "url": "https://x.com/agenticscredit/status/2107833326585147845"
+      }
+    ],
     "extra": [
       {
         "key": "twitterscore_image",
@@ -755,73 +864,74 @@ const D = {
         "type": "image",
         "start": null,
         "lw": null,
-        "now": "https://raw.githubusercontent.com/adele-cc/codecraft-reports/main/client-assets/quip-network/social_twitterscore_image.png"
+        "now": "https://raw.githubusercontent.com/adele-cc/codecraft-reports/main/client-assets/agentics/social_twitterscore_image.png"
       }
     ]
   },
+  "community": null,
   "collabs": {
-    "done": 46,
-    "inProgress": 130,
-    "raids": 30,
+    "done": 147,
+    "inProgress": 54,
+    "raids": 29,
     "pfps": null,
     "extra": []
   },
   "cookie3": {
     "score": {
       "start": null,
-      "lw": 1349,
-      "now": 1453
+      "lw": 1453,
+      "now": 1588
     },
     "uniqueEngagers": {
       "start": null,
-      "lw": 356,
-      "now": 373
+      "lw": 373,
+      "now": 520
     },
     "smartFollowers": {
       "start": null,
-      "lw": 50,
-      "now": 53
+      "lw": 53,
+      "now": 56
     },
     "avgViews": {
       "start": null,
-      "lw": 8160,
-      "now": 10260
+      "lw": 10260,
+      "now": 11400
     },
     "avgEngagement": {
       "start": null,
-      "lw": 162,
-      "now": 189
+      "lw": 189,
+      "now": 197
     },
     "smartEngagement": {
       "start": null,
-      "lw": 15,
+      "lw": 16,
       "now": 16
     },
     "smartReach": {
       "start": null,
-      "lw": 6160000,
-      "now": 8280000
+      "lw": 8280000,
+      "now": 10170000
     },
-    "screenshot": "https://drive.google.com/thumbnail?id=1PzE9rb3sFY3JYylN2Qys9fJTPZ0ZmRLv&sz=w1200",
+    "screenshot": "https://drive.google.com/thumbnail?id=1kHW5Iepo2QZc-has4YndLuliSMyIA2z8&sz=w1200",
     "smart": {
       "start": null,
-      "lw": 50,
-      "now": 53
+      "lw": 53,
+      "now": 56
     },
     "reach": {
       "start": null,
-      "lw": 6160000,
-      "now": 8280000
+      "lw": 8280000,
+      "now": 10170000
     },
     "viewsPost": {
       "start": null,
-      "lw": 8160,
-      "now": 10260
+      "lw": 10260,
+      "now": 11400
     },
     "engTweet": {
       "start": null,
-      "lw": 162,
-      "now": 189
+      "lw": 189,
+      "now": 197
     },
     "extra": []
   },
@@ -833,8 +943,8 @@ const D = {
     },
     "signUps": {
       "start": null,
-      "lw": null,
-      "now": 2220
+      "lw": 2220,
+      "now": 3222
     },
     "walletsConnected": {
       "start": null,
@@ -869,29 +979,29 @@ const D = {
     "note": null,
     "sectionTitle": null,
     "screenshots": [
-      "https://drive.google.com/thumbnail?id=1XxwIC3JkAJpXLYvguFi90wHHHYVi_9gU&sz=w1200"
+      "https://drive.google.com/thumbnail?id=1eC4Y2mv9k_1jbE0IBLzeV-b71sYdumej&sz=w1200"
     ],
     "extra": []
   },
   "nucleusContrib": {
     "contributors": {
       "start": null,
-      "lw": 10236,
-      "now": 11950
+      "lw": 11950,
+      "now": 13546
     },
     "posts": {
       "start": null,
-      "lw": 3110,
-      "now": 4379
+      "lw": 4379,
+      "now": 5639
     },
     "views": {
       "start": null,
-      "lw": 9964081,
-      "now": 13598967
+      "lw": 13598967,
+      "now": 17834519
     },
     "cpmViews": null,
     "cpmPost": null,
-    "screenshot": "https://drive.google.com/thumbnail?id=1m9-qQVA4dEKOn2t9S8mAPjO-oYpdVjmL&sz=w1200",
+    "screenshot": "Screenshot 2026-10-13 151528.png",
     "extra": []
   },
   "nucleusRep": {
@@ -970,12 +1080,12 @@ const D = {
   "x": {
     "followers": {
       "start": 3213,
-      "lw": 50822,
-      "now": 50640
+      "lw": 50640,
+      "now": 43467
     },
     "impressions": {
       "start": 428,
-      "lw": 67300,
+      "lw": null,
       "now": null
     },
     "engagements": {
@@ -986,23 +1096,23 @@ const D = {
     "verified": null,
     "mutual": {
       "start": 7,
-      "lw": 69,
-      "now": 75
+      "lw": 75,
+      "now": 81
     }
   },
   "discord": {
     "members": {
       "start": 0,
-      "lw": 1838,
-      "now": 2056
+      "lw": 2056,
+      "now": 2694
     },
     "messages": null,
     "topEngagers": []
   },
   "growth": {
     "collabs": {
-      "lw": 63,
-      "now": 176
+      "lw": 176,
+      "now": 201
     },
     "registered": {
       "start": null,
@@ -1041,17 +1151,30 @@ const sv  = v => (v===null||v===undefined)?'—': typeof v==='number'? fmt(v) : 
 const pct = (a,b) => b>0?(a-b)/b*100:null;
 const hide = id => { const e=document.getElementById(id); if(e)e.style.display='none'; };
 const show = (id,d='block') => { const e=document.getElementById(id); if(e)e.style.display=d; };
+// Last-week values are only surfaced when the metric improved on them (lower is better when invert is set)
+const lwNum = v => typeof v==='number'?v:parseFloat(String(v).replace(/[^0-9.\-]/g,''));
+const lwImproved = d => { if(!d||!vv(d.lw)||!vv(d.now))return false; const n=lwNum(d.now),l=lwNum(d.lw); if(isNaN(n)||isNaN(l))return true; return d.invert?n<l:n>l; };
+function trajPts(d,conv=x=>x){
+  const l=[],v=[];
+  if(vv(d.start)){l.push('Campaign Start');v.push(conv(d.start));}
+  if(lwImproved(d)){l.push(D.lwLabel||'Last Week');v.push(conv(d.lw));}
+  l.push(D.nowLabel||'This Week');v.push(conv(d.now));
+  return {l,v};
+}
 const extraCards = sec => (sec&&sec.extra||[]).filter(e=>(!e.type||e.type==='number')&&vv(e.now)).map(e=>({label:e.label,data:e}));
 
 // ── ANIMATION ──────────────────────────────────────────────────
 function animCount(el){
   const target=parseFloat(el.dataset.count),short=el.dataset.fmt==='s';
+  if(!el.dataset.final)el.dataset.final=el.textContent;
+  if(window.CC_PRINTING)return;
   let t0=null;
   const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
   (function step(ts){
-    if(!t0)t0=ts; const p=Math.min((ts-t0)/1400,1),v=target*ease(p);
+    if(!t0)t0=ts; const p=Math.max(0,Math.min((ts-t0)/1400,1)),v=target*ease(p);
     const sfx=el.dataset.suffix||'';
     let s; if(short){if(target>=1e6)s=(v/1e6).toFixed(1).replace(/\.0$/,'')+'M';else if(target>=1e3)s=(v/1e3).toFixed(1).replace(/\.0$/,'')+'k';else s=Math.round(v).toLocaleString();}else s=Math.round(v).toLocaleString();
+    if(window.CC_PRINTING){el.textContent=el.dataset.final;return;}
     el.textContent=s+sfx; if(p<1)requestAnimationFrame(step);
   })(performance.now());
 }
@@ -1090,16 +1213,17 @@ function colChart(canvasId,labels,lwData,nowData,lwLbl,nowLbl,clrs){
 function mGrowRows(d){
   if(!d||!vv(d.now))return '';
   const isNum=typeof d.now==='number'; let rows='';
-  if(isNum&&typeof d.lw==='number'){const p=pct(d.now,d.lw),clrUp=d.invert?p<0:p>=0,diff=d.now-d.lw;rows+=`<div class="m-grow-row"><span class="m-arrow ${clrUp?'up':'dn'}">${p>=0?'↑':'↓'}</span><span class="m-pct ${clrUp?'up':'dn'}">${p>=0?'+':''}${Math.abs(p).toFixed(1)}%</span><span class="m-pct-lbl">${diff>=0?'+':''}${fmt(Math.abs(diff))} vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}
-  else if(typeof d.now==='string'&&vv(d.lw)){const n=parseFloat(d.now),l=parseFloat(d.lw);if(!isNaN(n)&&!isNaN(l)){const up=n>=l;rows+=`<div class="m-grow-row"><span class="m-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}">${d.lw}→${d.now}</span><span class="m-pct-lbl">vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}}
+  if(isNum&&typeof d.lw==='number'&&(d.invert?d.now<d.lw:d.now>d.lw)){const p=pct(d.now,d.lw),clrUp=d.invert?p<0:p>=0,diff=d.now-d.lw;rows+=`<div class="m-grow-row"><span class="m-arrow ${clrUp?'up':'dn'}">${p>=0?'↑':'↓'}</span><span class="m-pct ${clrUp?'up':'dn'}">${p>=0?'+':''}${Math.abs(p).toFixed(1)}%</span><span class="m-pct-lbl">${diff>=0?'+':''}${fmt(Math.abs(diff))} vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}
+  else if(typeof d.now==='string'&&vv(d.lw)){const n=parseFloat(d.now),l=parseFloat(d.lw);if(!isNaN(n)&&!isNaN(l)&&n>l){const up=n>=l;rows+=`<div class="m-grow-row"><span class="m-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}">${d.lw}→${d.now}</span><span class="m-pct-lbl">vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}}
   if(isNum&&typeof d.start==='number'&&d.start>0){const p=pct(d.now,d.start),clrUp=d.invert?p<0:p>=0,diff=d.now-d.start;rows+=`<div class="m-grow-row" style="margin-top:4px"><span class="m-arrow ${clrUp?'up':'dn'}" style="font-size:14px">${p>=0?'↑':'↓'}</span><span class="m-pct ${clrUp?'up':'dn'}" style="font-size:14px">${p>=0?'+':''}${Math.round(p)}%</span><span class="m-pct-lbl">${diff>=0?'+':''}${fmt(Math.abs(diff))} since campaign start</span></div>`;}
+  else if(isNum&&d.fromZero&&d.start===0&&d.now>0){rows+=`<div class="m-grow-row" style="margin-top:4px"><span class="m-arrow up" style="font-size:14px">↑</span><span class="m-pct up" style="font-size:14px">+${fmt(d.now)}</span><span class="m-pct-lbl">since campaign start</span></div>`;}
   return rows?`<div>${rows}</div>`:'';
 }
 function mCtxStrip(d){
   if(!d)return ''; const c=[];
   const sfx=d.suffix||'';
   if(vv(d.start))c.push(`<div class="m-ctx-col"><div class="m-ctx-lbl">Start</div><div class="m-ctx-val">${fmt(d.start)}${sfx}</div></div>`);
-  if(vv(d.lw))c.push(`<div class="m-ctx-col"><div class="m-ctx-lbl">${D.lwLabel||'Last Week'}</div><div class="m-ctx-val">${fmt(d.lw)}${sfx}</div></div>`);
+  if(lwImproved(d))c.push(`<div class="m-ctx-col"><div class="m-ctx-lbl">${D.lwLabel||'Last Week'}</div><div class="m-ctx-val">${fmt(d.lw)}${sfx}</div></div>`);
   if(vv(d.now))c.push(`<div class="m-ctx-col m-ctx-now"><div class="m-ctx-lbl">${D.nowLabel||'This Week'}</div><div class="m-ctx-val">${fmt(d.now)}${sfx}</div></div>`);
   return c.length>=2?`<div class="m-ctx">${c.join('')}</div>`:'';
 }
@@ -1114,15 +1238,15 @@ function ovGrowRows(d){
   if(!d||!vv(d.now))return '';
   const isNum=typeof d.now==='number'; let rows='';
   if(isNum&&typeof d.start==='number'&&d.start>0){const p=pct(d.now,d.start),up=p>=0,diff=d.now-d.start;rows+=`<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}">${up?'+':''}${Math.round(p)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(diff))}</span><span class="grow-lbl">since start</span></div>`;}
-  if(isNum&&typeof d.lw==='number'){const p=pct(d.now,d.lw),up=p>=0,diff=d.now-d.lw;rows+=`<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}" style="font-size:19px">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}" style="font-size:19px">${up?'+':''}${Math.abs(p).toFixed(1)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(diff))}</span><span class="grow-lbl">vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}
+  if(isNum&&typeof d.lw==='number'&&d.now>d.lw){const p=pct(d.now,d.lw),up=p>=0,diff=d.now-d.lw;rows+=`<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}" style="font-size:19px">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}" style="font-size:19px">${up?'+':''}${Math.abs(p).toFixed(1)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(diff))}</span><span class="grow-lbl">vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}
   return rows?`<div style="margin-bottom:4px">${rows}</div>`:'';
 }
 function ctxStrip(d){
   if(!d)return ''; const c=[];
   if(vv(d.start))c.push(`<div class="ov-ctx-col"><div class="ov-ctx-lbl">Start</div><div class="ov-ctx-val">${fmt(d.start)}</div></div>`);
-  if(vv(d.lw))c.push(`<div class="ov-ctx-col"><div class="ov-ctx-lbl">${D.lwLabel||'Last Week'}</div><div class="ov-ctx-val">${fmt(d.lw)}</div></div>`);
+  if(lwImproved(d))c.push(`<div class="ov-ctx-col"><div class="ov-ctx-lbl">${D.lwLabel||'Last Week'}</div><div class="ov-ctx-val">${fmt(d.lw)}</div></div>`);
   if(vv(d.now))c.push(`<div class="ov-ctx-col ctx-now"><div class="ov-ctx-lbl">${D.nowLabel||'This Week'}</div><div class="ov-ctx-val">${fmt(d.now)}</div></div>`);
-  return c.length?`<div class="ov-ctx">${c.join('')}</div>`:'';
+  return c.length>=2?`<div class="ov-ctx">${c.join('')}</div>`:'';
 }
 
 // ── PLATFORM HELPER ────────────────────────────────────────────
@@ -1132,6 +1256,13 @@ function plat(url=''){
   if(url.includes('spotify'))return{name:'Spotify',color:'#1DB954',icon:`<svg viewBox="0 0 24 24" fill="#1DB954"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.7 0 12 0zm5.5 17.3c-.2.3-.6.4-.9.2-2.6-1.6-5.8-2-9.6-1.1-.4.1-.7-.2-.8-.5-.1-.4.2-.7.5-.8 4.2-1 7.7-.6 10.6 1.2.4.3.4.7.2 1zm1.5-3.3c-.3.4-.8.5-1.2.2-3-1.8-7.5-2.3-11-1.3-.4.1-.9-.1-1-.5-.1-.4.1-.9.5-1 4-.1 8.8.6 12.3 1.5.4.3.6.7.4 1.1zM5 8.5c4.1-1.2 10.8-.9 15 1.5.5.3.7.9.4 1.4-.3.5-.9.7-1.4.4C15.5 9.8 9.3 9.5 5.7 10.5c-.5.1-1-.2-1.1-.7C4.4 9.2 4.6 8.7 5 8.5z"/></svg>`,listen:'Listen'};
   if(url.includes('apple'))return{name:'Apple Podcasts',color:'#B455FF',icon:`<svg viewBox="0 0 24 24" fill="#B455FF"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.7 0 12 0zm0 4.5c4.1 0 7.5 3.4 7.5 7.5 0 3.1-1.9 5.8-4.6 7-.3-1.2-.5-2.4-.5-3.8 0-.9.7-1.7 1.6-1.7h.1c.5 0 .8.1 1.1.4-.2-2.1-1.9-3.8-4.2-3.8S8.5 11.9 8.3 14c.3-.3.7-.4 1.1-.4h.1c.9 0 1.6.8 1.6 1.7 0 1.4-.2 2.6-.5 3.8-2.7-1.2-4.6-3.9-4.6-7C6 7.9 8.6 4.5 12 4.5zm0 12c-.8 0-1.5-.7-1.5-1.5S11.2 13.5 12 13.5s1.5.7 1.5 1.5-.7 1.5-1.5 1.5z"/></svg>`,listen:'Listen'};
   return{name:'Podcast',color:'#88F802',icon:`<svg viewBox="0 0 24 24" fill="none" stroke="#88F802" stroke-width="2"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg>`,listen:'Listen'};
+}
+// Sheets turns typed dates like "Sep 30" into full date strings; show them as "Sep 30" again
+function shortDate(v){
+  if(!vv(v))return v; const s=String(v).trim();
+  let m=s.match(/^[A-Z][a-z]{2} ([A-Z][a-z]{2}) (\d{1,2}) \d{4} \d{2}:\d{2}/); if(m)return m[1]+' '+(+m[2]);
+  if(/^\d{4}-\d{2}-\d{2}T/.test(s)){const d=new Date(Date.parse(s)+12*3600e3);if(!isNaN(d))return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getUTCMonth()]+' '+d.getUTCDate();}
+  return s;
 }
 function domainOf(url){try{return new URL(url).hostname.replace('www.','');}catch(e){return url;}}
 
@@ -1199,7 +1330,7 @@ function xFollowersCard(fol){
   if(!hasStart)return mCard('X Followers',fol,'featured');
   var diff=fol.now-fol.start,pctV=Math.round((diff/fol.start)*100),up=diff>=0;
   var lwRow='';
-  if(typeof fol.lw==='number'){
+  if(typeof fol.lw==='number'&&fol.now>fol.lw){
     var lwDiff=fol.now-fol.lw,lwUp=lwDiff>=0;
     lwRow='<div class="m-grow-row"><span class="m-arrow '+(lwUp?'up':'dn')+'">'+(lwUp?'&#8593;':'&#8595;')+'</span><span class="m-pct '+(lwUp?'up':'dn')+'">'+(lwUp?'+':'')+Math.abs(pct(fol.now,fol.lw)).toFixed(1)+'%</span><span class="m-pct-lbl">'+(lwUp?'+':'')+fmt(Math.abs(lwDiff))+' vs '+(D.lwLabel||'last week').toLowerCase()+'</span></div>';
   }
@@ -1213,6 +1344,147 @@ function xFollowersCard(fol){
     +'<div class="m-grow-row" style="margin-top:2px"><span class="m-arrow up" style="font-size:15px">&#8593;</span><span class="m-pct up" style="font-size:15px">+'+pctV+'%</span><span class="m-pct-lbl">+'+fmt(diff)+' since campaign start</span></div>'
     +lwRow+'</div>';
 }
+// ── PER-CLIENT REPORT CONFIG ───────────────────────────────────
+// Optional hand-edited extras at client-assets/{slug}/report_config.json
+// (section title overrides, Korea KOL campaign). Missing file = no change.
+let RC=null, RC_BASE='';
+function loadReportConfig(){
+  const slug=location.pathname.split('/').filter(s=>s&&!/\.html?$/i.test(s)).pop()||'';
+  RC_BASE=window.CC_RC_BASE||('../client-assets/'+slug+'/');
+  if(!slug&&!window.CC_RC_BASE)return Promise.resolve();
+  const ctl=new AbortController(), t=setTimeout(()=>ctl.abort(),3000);
+  return fetch(RC_BASE+'report_config.json',{signal:ctl.signal,cache:'no-store'})
+    .then(r=>r.ok?r.json():null).then(j=>{RC=j;}).catch(()=>{}).finally(()=>clearTimeout(t));
+}
+function applyReportConfigTitles(){
+  const t=RC&&RC.titles, nl=(RC&&RC.navLabels)||{}; if(!t)return;
+  Object.keys(t).forEach(id=>{
+    const h=document.querySelector('#'+id+' .sec-title'); if(h)h.textContent=t[id];
+    const a=document.querySelector('#nav a[href="#'+id+'"]'); if(a)a.textContent=nl[id]||t[id];
+  });
+}
+const KK_TG=`<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#29A9EB"/><path d="M5.4 11.8l11.2-4.3c.5-.2 1 .1.8.9l-1.9 9c-.1.6-.5.8-1 .5l-2.9-2.1-1.4 1.3c-.2.2-.3.3-.6.3l.2-2.9 5.4-4.9c.2-.2 0-.3-.4-.1l-6.6 4.2-2.8-.9c-.6-.2-.6-.6.1-.9z" fill="#fff"/></svg>`;
+const KK_NV=`<svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#03C75A"/><path d="M13.6 12.4L10.2 7.5H7.5v9h2.9v-4.9l3.4 4.9h2.7v-9h-2.9z" fill="#fff"/></svg>`;
+function kkPlat(p){ return `<span class="kk-plat">${p==='Telegram'?KK_TG:p==='Naver Blog'?KK_NV:''}${cmEsc(p)}</span>`; }
+function kkDate(d){ if(!d)return ''; const m=String(d).match(/^(\d{4})-(\d{2})-(\d{2})/); return m?['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m[2]-1]+' '+(+m[3]):String(d); }
+function buildKoreaKol(){
+  const k=RC&&RC.koreaKol, P=k&&k.posts||[];
+  if(!P.length){hide('secKoreaKol');return;}
+  const sec=document.getElementById('secKoreaKol'); sec.style.display='';
+  if(k.title)sec.querySelector('.sec-title').textContent=k.title;
+  const A=u=>!u?'':/^(https?:|data:)/.test(u)?u:RC_BASE+u;
+  const tg=P.filter(p=>p.platform==='Telegram'&&p.followers>0), reach=tg.reduce((s,p)=>s+p.followers,0);
+  const kols=new Set(P.map(p=>p.channelUrl||p.name)).size;
+  const plats={}; P.forEach(p=>plats[p.platform]=(plats[p.platform]||0)+1);
+  const platLine=Object.keys(plats).map(x=>plats[x]+' '+x).join(' · ');
+
+  // Headline row
+  const kpis=[
+    ['Posts Live',P.length,`<span class="grow-lbl">${cmEsc(platLine)}</span>`],
+    ['KOLs Activated',kols,'<span class="grow-lbl">Korean crypto creators</span>'],
+    tg.length?['Telegram Reach',reach,'<span class="grow-lbl">Combined channel subscribers</span>']:null,
+    tg.length?['Avg. Channel Size',Math.round(reach/tg.length),'<span class="grow-lbl">Per Telegram KOL</span>']:null
+  ].filter(Boolean);
+  let h=(k.subtitle?`<div class="kk-sub">${cmEsc(k.subtitle)}${k.since?' · since '+cmEsc(k.since):''}</div>`:'')
+    +`<div class="ov-grid cm-kpis" style="grid-template-columns:repeat(${kpis.length},1fr)">${kpis.map(([l,v,sub])=>
+      `<div class="ov-card"><div class="ov-lbl">${l}</div><div class="ov-num" data-count="${v}" data-fmt="s">${fmt(v)}</div><div class="cm-kpi-sub">${sub}</div></div>`).join('')}</div>`;
+
+  // Top KOLs by reach
+  const top=[...tg].sort((a,b)=>b.followers-a.followers).slice(0,5);
+  if(top.length){
+    h+=`<div class="kk-group"><div class="sub-lbl">Top KOLs by Reach</div><div class="spot-grid">${top.map((p,i)=>`
+      <div class="spot-card">
+        <div class="spot-rank">#${i+1}</div>
+        <div class="spot-head">
+          <div class="spot-avatar">${p.avatar?`<img src="${A(p.avatar)}" alt="">`:cmEsc(String(p.name).slice(0,1))}</div>
+          <div><div class="spot-handle"><a href="${p.channelUrl||p.url}" target="_blank" rel="noopener">${cmEsc(p.name)}</a></div><div class="kk-spot-plat">${kkPlat(p.platform)}</div></div>
+        </div>
+        <div class="spot-score-lbl">Subscribers</div>
+        <div class="spot-score">${fmt(p.followers)}</div>
+        <div class="spot-stats">
+          <div class="spot-stat"><div class="spot-stat-val">${cmEsc(String(p.week||'').replace(/^W/,'Week '))}</div><div class="spot-stat-lbl">Campaign</div></div>
+          ${p.date?`<div class="spot-stat"><div class="spot-stat-val">${kkDate(p.date)}</div><div class="spot-stat-lbl">Posted</div></div>`:''}
+        </div>
+        <a class="kk-link" href="${p.url}" target="_blank" rel="noopener">${EXT_SVG} View post</a>
+      </div>`).join('')}</div></div>`;
+  }
+  if(tg.length>1){
+    h+=`<div class="chart-card" id="kkChartWrap" style="margin-top:12px"><div class="chart-lbl">Telegram Reach by KOL — Channel Subscribers</div><div class="ch" style="height:${Math.max(180,tg.length*30)}px"><canvas id="kkChartCvs"></canvas></div></div>`;
+  }
+
+  // Every post, grouped by campaign week
+  const weeks=[...new Set(P.map(p=>p.week||''))];
+  weeks.forEach(w=>{
+    const wp=P.filter(p=>(p.week||'')===w);
+    const lbl=w?String(w).replace(/^W/,'Week '):'Posts';
+    h+=`<div class="kk-group"><div class="sub-lbl">${cmEsc(lbl)} <span>${wp.length} post${wp.length===1?'':'s'}</span></div>
+      <div class="article-grid" style="grid-template-columns:repeat(${wp.length<=2?wp.length:4},minmax(0,${wp.length<=2?'360px':'1fr'}))">${wp.map(p=>`
+      <div class="article-card" onclick="if(!event.target.closest('a'))window.open('${p.url}','_blank')">
+        <div class="article-thumb">${p.image?`<img class="article-thumb-img" src="${A(p.image)}" alt="" onerror="this.remove()">`:''}</div>
+        <div class="kk-post-head">${p.avatar?`<img class="kk-av" src="${A(p.avatar)}" alt="">`:''}<div class="kk-post-name">${cmEsc(p.name)}</div>${kkPlat(p.platform)}</div>
+        ${p.title?`<div class="kk-post-title">${cmEsc(p.title)}</div>`:''}
+        <div class="kk-post-meta">${p.followers?`<span><b>${fmt(p.followers)}</b> subscribers</span>`:''}${p.date?`<span>${kkDate(p.date)}</span>`:''}</div>
+        <a href="${p.url}" target="_blank" rel="noopener" class="article-link" onclick="event.stopPropagation()">${EXT_SVG} View post</a>
+      </div>`).join('')}</div></div>`;
+  });
+
+  const el=document.getElementById('kkBody'); el.innerHTML=h;
+  el.querySelectorAll('.ov-card,.spot-card,.article-card,.chart-card').forEach(obs);
+  if(tg.length>1)setTimeout(()=>{
+    const p=cp('kkChartCvs'), g=p===Cl?'#4ea800':'#88F802', srt=[...tg].sort((a,b)=>b.followers-a.followers);
+    new Chart(document.getElementById('kkChartCvs'),{type:'bar',
+      data:{labels:srt.map(x=>x.name),datasets:[{data:srt.map(x=>x.followers),backgroundColor:srt.map((x,i)=>i<5?g:g+'66'),borderRadius:4,barThickness:16}]},
+      options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{right:56}},
+        plugins:{legend:{display:false},tooltip:{...p.tooltip,padding:10,cornerRadius:8,titleFont:{family:'Montserrat',size:12,weight:'700'},bodyFont:{family:'Montserrat',size:11},callbacks:{label:c=>' Subscribers: '+c.parsed.x.toLocaleString()}}},
+        scales:{x:{display:false,grid:{display:false}},y:{grid:{display:false},ticks:{color:p.tc,font:{family:'Montserrat',size:11,weight:'600'}}}}},
+      plugins:[{id:'kkEndLabel',afterDatasetsDraw(chart){const {ctx}=chart;chart.getDatasetMeta(0).data.forEach((bar,i)=>{ctx.save();ctx.font="700 12px 'Montserrat',sans-serif";ctx.fillStyle=getComputedStyle(document.getElementById('kkChartWrap')).getPropertyValue('--w').trim()||'#fff';ctx.textBaseline='middle';ctx.fillText(fmt(chart.data.datasets[0].data[i]),bar.x+8,bar.y);ctx.restore();});}}]});
+  },450);
+}
+
+// ── BUILD: COMMUNITY MANAGEMENT ────────────────────────────────
+// Every card, group and derived metric only renders when its inputs exist,
+// so partial data never shows empty placeholders.
+const cmNum = v => { if(typeof v==='number')return v; if(typeof v!=='string')return null; const n=parseFloat(v.replace(/[^0-9.\-]/g,'')); return isNaN(n)?null:n; };
+const cmEsc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+const cmFull = n => Math.round(n).toLocaleString();
+const cmP1 = p => (Math.round(p*10)/10).toFixed(1).replace(/\.0$/,'')+'%';
+function cmShow(v){ return typeof v==='number'?`<span data-count="${v}">${cmFull(v)}</span>`:cmEsc(v); }
+function cmCard(label,d,o={}){
+  if(!d||!vv(d.now))return '';
+  return `<div class="mcard${o.cls?' '+o.cls:''}"><div class="m-lbl">${label}</div><div class="m-num">${cmShow(d.now)}${o.inl||''}</div>${o.desc?`<div class="cm-sub">${o.desc}</div>`:''}${o.noGrow?'':mGrowRows(d)}${o.bar||''}${o.noGrow?'':mCtxStrip(d)}</div>`;
+}
+function cmGroup(label,cards,cols){
+  cards=cards.filter(Boolean); if(!cards.length)return '';
+  return `<div class="cm-group"><div class="sub-lbl">${label}</div><div class="mgrid m${cols||cards.length}">${cards.join('')}</div></div>`;
+}
+function buildCommunity(){
+  const c=D.community; if(!c){hide('secCommunity');return;}
+  const has=d=>d&&vv(d.now), n=d=>has(d)?cmNum(d.now):null;
+  const nm=n(c.newMembers), nc=n(c.newCommunicators);
+
+  // Headline row
+  const kpis=[
+    ['Total Members',c.totalMembers, nm!==null?`<span class="grow-arrow up" style="font-size:19px">↑</span><span class="grow-pct up">+${cmFull(nm)}</span><span class="grow-lbl">New this week</span>`:'<span class="grow-lbl">In the community</span>'],
+    ['Weekly Active',c.weeklyActive,'<span class="grow-lbl">Members active in the past week</span>'],
+    ['Monthly Active',c.monthlyActive,'<span class="grow-lbl">Members active in the past month</span>'],
+    ['Weekly Messages',c.weeklyMessages,(c.newPeak?'<span class="grow-pct up">New peak</span>':'')+'<span class="grow-lbl">Sent this week</span>']
+  ].filter(k=>has(k[1]));
+  const kpiHtml=kpis.length?`<div class="ov-grid cm-kpis" style="grid-template-columns:repeat(${kpis.length},1fr)">${kpis.map(([l,d,sub])=>
+    `<div class="ov-card"><div class="ov-lbl">${l}</div><div class="ov-num">${cmShow(d.now)}</div><div class="cm-kpi-sub">${sub}</div>${ovGrowRows(d)}</div>`).join('')}</div>`:'';
+
+  // Growth row
+  const growth=cmGroup('Growth',[
+    cmCard('New Members',c.newMembers,{desc:'People who joined the community this week'}),
+    cmCard('New → Communicators',c.newCommunicators,{desc:'New members who sent at least one message'}),
+    (nc!==null&&nm>0)?cmCard('Conversion Rate',{now:cmP1(nc/nm*100)},{cls:'cm-feat',noGrow:true,desc:`${cmFull(nc)} of ${cmFull(nm)} new joiners became active`}):''
+  ]);
+
+  if(!kpiHtml&&!growth){hide('secCommunity');return;}
+  const el=document.getElementById('cmBody');
+  el.innerHTML=kpiHtml+growth;
+  el.querySelectorAll('.ov-card,.mcard').forEach(obs);
+}
+
 // ── BUILD: SOCIAL METRICS ──────────────────────────────────────
 function buildSocial(){
   const s=D.social; if(!s){hide('secSocial');return;}
@@ -1232,16 +1504,16 @@ function buildSocial(){
     xEl.querySelectorAll('.mcard').forEach(obs);
     if(fol&&vv(fol.start)&&vv(fol.lw)&&vv(fol.now)){
       show('socialXTrajWrap'); obs(document.getElementById('socialXTrajWrap'));
-      setTimeout(()=>{const p=cp('socialXTrajCvs');trajChart('socialXTrajCvs',
-        ['Campaign Start',D.lwLabel||'Last Week',D.nowLabel||'This Week'],
-        [{label:'X Followers',data:[fol.start,fol.lw,fol.now],borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.38,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
+      setTimeout(()=>{const p=cp('socialXTrajCvs'),xt=trajPts(fol);trajChart('socialXTrajCvs',
+        xt.l,
+        [{label:'X Followers',data:xt.v,borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.38,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
       },450);
     }
   }
 
   const dcFields=[
-    {label:'Discord Members', data:s.discordMembers},
-    {label:'Telegram Members',data:s.telegram}
+    {label:'Discord Members', data:s.discordMembers&&Object.assign({},s.discordMembers,{fromZero:true})},
+    {label:'Telegram Members',data:s.telegram&&Object.assign({},s.telegram,{fromZero:true})}
   ].filter(f=>f.data&&vv(f.data.now));
   if(dcFields.length){
     hasAny=true; show('socialDiscordLbl');
@@ -1254,7 +1526,8 @@ function buildSocial(){
       show('socialDcBarWrap'); obs(document.getElementById('socialDcBarWrap'));
       const colors=['#4B8EF8','#1DB954'];
       setTimeout(()=>{const p=cp('socialDcBarCvs');
-        new Chart(document.getElementById('socialDcBarCvs'),{type:'line',data:{labels:['Campaign Start',D.lwLabel||'Last Week',D.nowLabel||'This Week'],datasets:dcChart.map((f,i)=>({label:f.label,data:[f.data.start,f.data.lw,f.data.now],borderColor:colors[i]||'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:colors[i]||'#88F802',tension:.38,fill:false}))},options:baseOpts(p)});
+        const dcLw=dcChart.some(f=>lwImproved(f.data));
+        new Chart(document.getElementById('socialDcBarCvs'),{type:'line',data:{labels:dcLw?['Campaign Start',D.lwLabel||'Last Week',D.nowLabel||'This Week']:['Campaign Start',D.nowLabel||'This Week'],datasets:dcChart.map((f,i)=>({label:f.label,data:dcLw?[f.data.start,lwImproved(f.data)?f.data.lw:null,f.data.now]:[f.data.start,f.data.now],spanGaps:true,borderColor:colors[i]||'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:colors[i]||'#88F802',tension:.38,fill:false}))},options:baseOpts(p)});
       },500);
     }
   } else { hide('socialDiscordLbl'); document.getElementById('socialDiscordMetrics').style.display='none'; }
@@ -1333,9 +1606,9 @@ function buildCookie3(){
   const sc=c.score;
   if(sc&&vv(sc.start)&&vv(sc.lw)&&vv(sc.now)){
     hasAny=true; show('cookie3TrajWrap'); obs(document.getElementById('cookie3TrajWrap'));
-    setTimeout(()=>{const p=cp('cookie3TrajCvs');
-      trajChart('cookie3TrajCvs',['Campaign Start',D.lwLabel||'Last Week',D.nowLabel||'This Week'],
-        [{label:'Score',data:[parseInt(sc.start),parseInt(sc.lw),parseInt(sc.now)],borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:6,pointHoverRadius:9,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.3,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
+    setTimeout(()=>{const p=cp('cookie3TrajCvs'),ct=trajPts(sc,x=>parseInt(x));
+      trajChart('cookie3TrajCvs',ct.l,
+        [{label:'Score',data:ct.v,borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:6,pointHoverRadius:9,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.3,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
     },500);
   }
   if(c.screenshot){
@@ -1493,9 +1766,9 @@ function buildKol(){
   const sf=kol.smartFollowers;
   if(sf&&vv(sf.start)&&vv(sf.lw)&&vv(sf.now)){
     hasAny=true;show('kolBarWrap');obs(document.getElementById('kolBarWrap'));
-    setTimeout(()=>{const p=cp('kolBarCvs');
-      trajChart('kolBarCvs',['Campaign Start',D.lwLabel||'Last Week',D.nowLabel||'This Week'],
-        [{label:'Smart Followers',data:[sf.start,sf.lw,sf.now],borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.38,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
+    setTimeout(()=>{const p=cp('kolBarCvs'),kt=trajPts(sf);
+      trajChart('kolBarCvs',kt.l,
+        [{label:'Smart Followers',data:kt.v,borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.38,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
     },450);
   }
   if(kol.scoreImg){
@@ -1629,12 +1902,15 @@ function buildPr(){
   if(pr.articles&&pr.articles.length){
     hasAny=true; show('prArticlesLbl');
     const grid=document.getElementById('articleGrid');
+    const nArt=pr.articles.length;
+    grid.style.gridTemplateColumns=nArt<=2?`repeat(${nArt},minmax(0,360px))`:`repeat(${smartCols(nArt)},minmax(0,1fr))`;
     pr.articles.forEach(a=>{
-      const dom=domainOf(a.url);
+      const dom=domainOf(a.url); a.date=shortDate(a.date);
       const statsH=[{v:a.reach,l:'Reach'},{v:a.views,l:'Views'},{v:a.value,l:'Value'},{v:a.eng,l:'Eng.'}].filter(s=>vv(s.v)).map(s=>`<div class="article-stat"><div class="article-stat-val">${s.v}</div><div class="article-stat-lbl">${s.l}</div></div>`).join('');
+      const phH=`<div class="article-thumb-placeholder"><div class="article-thumb-fav"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" alt=""></div><span class="article-thumb-pub">${a.pub||dom}</span></div>`;
       const thumbH=a.imgUrl
-        ?`<div class="article-thumb"><img class="article-thumb-img" src="${a.imgUrl}" alt="" onerror="this.style.display='none'"></div>`
-        :`<div class="article-thumb"><div class="article-thumb-placeholder"><div class="article-thumb-fav"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" alt=""></div><span class="article-thumb-pub">${a.pub||dom}</span></div></div>`;
+        ?`<div class="article-thumb">${phH}<img class="article-thumb-img" src="${a.imgUrl}" alt="" onerror="this.remove()"></div>`
+        :`<div class="article-thumb">${phH}</div>`;
       const card=document.createElement('div'); card.className='article-card';
       card.onclick=e=>{if(!e.target.closest('a'))window.open(a.url,'_blank');};
       const pubH=`<div class="article-pub-block"><div class="article-pub-fav"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" alt=""></div><div class="article-pub-big">${a.pub||dom}</div>${a.date?`<span class="article-pub-date" style="margin-left:auto;flex-shrink:0">${a.date}</span>`:''}</div>`;
@@ -1667,11 +1943,9 @@ function buildFinance(){
   el.innerHTML=fields.map(f=>mCard(f.label,f.data)).join('');
   el.querySelectorAll('.mcard').forEach(obs);
   const aumD=fin.aum;
-  if(aumD&&typeof aumD.now==='number'&&vv(aumD.lw)){
-    const pts=[],lbs=[];
-    if(vv(aumD.start)){pts.push(aumD.start);lbs.push('Campaign Start');}
-    pts.push(aumD.lw);lbs.push(D.lwLabel||'Last Week');
-    pts.push(aumD.now);lbs.push(D.nowLabel||'This Week');
+  const aumT=aumD?trajPts(aumD):null;
+  if(aumD&&typeof aumD.now==='number'&&vv(aumD.lw)&&aumT.v.length>1){
+    const pts=aumT.v,lbs=aumT.l;
     show('finTrajWrap');obs(document.getElementById('finTrajWrap'));
     setTimeout(()=>{const p=cp('finTrajCvs');trajChart('finTrajCvs',lbs,[{label:'AUM',data:pts,borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.38,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);},450);
   }
@@ -1690,7 +1964,7 @@ function buildWebsite(){
   el.className='mgrid m'+Math.min(Math.max(fields.length,1),4);
   el.innerHTML=fields.map(f=>mCard(f.label,f.data)).join('');
   el.querySelectorAll('.mcard').forEach(obs);
-  const wBar=fields.filter(f=>vv(f.data.lw));
+  const wBar=fields.filter(f=>lwImproved(f.data));
   if(wBar.length){show('webBarWrap');obs(document.getElementById('webBarWrap'));setTimeout(()=>{colChart('webBarCvs',wBar.map(f=>f.label),wBar.map(f=>f.data.lw),wBar.map(f=>f.data.now));},450);}
 }
 
@@ -1736,6 +2010,7 @@ function renderCustomExtras(secData, sectionEl) {
 function renderAllCustomExtras() {
   var map = [
     ['secSocial',    D.social],
+    ['secCommunity', D.community],
     ['secCollabs',   D.collabs],
     ['secCookie3',   D.cookie3],
     ['secProduct',   D.product],
@@ -1752,6 +2027,187 @@ function renderAllCustomExtras() {
     if (el) renderCustomExtras(pair[1], el);
   });
 }
+// ── PDF EXPORT ─────────────────────────────────────────────────
+// Prepares the page for the browser's Save as PDF: reveals every card,
+// settles count-ups at their final values and redraws charts at page size.
+function ccPrepPrint(){
+  if(window.CC_PRINTING)return; window.CC_PRINTING=true;
+  document.documentElement.classList.add('cc-print-layout');
+  document.querySelectorAll('.article-card,.campaign-growth-banner,.chart-card,.collab-pfp,.custom-link-card,.custom-text-card,.fol-card,.kol-card,.xpost-card,.lb-tbl-wrap,.mcard,.ov-card,.pod-card,.pr-summary,.score-ss-card,.spot-card,.tweet-embed-wrap').forEach(e=>e.classList.add('in'));
+  // Safety net: anything in the report still faded out (a component added later) is revealed too
+  document.querySelectorAll('#main *').forEach(e=>{if(e.offsetParent!==null&&getComputedStyle(e).opacity==='0'&&!e.closest('.tooltip')){e.classList.add('in');if(getComputedStyle(e).opacity==='0'){e.dataset.ccOp='1';e.style.opacity='1';e.style.transform='none';}}});
+  document.querySelectorAll('[data-count]').forEach(e=>{if(e.dataset.final)e.textContent=e.dataset.final;});
+  // Charts: taller for the page, then swapped for a sharp image so print can't blank the canvas
+  if(window.Chart)Object.values(Chart.instances).forEach(c=>{
+    const cv=c.canvas; if(!cv||cv.dataset.printSnap)return;
+    const box=cv.parentNode; box.dataset.printH=box.style.height||''; const h=box.getBoundingClientRect().height;
+    box.style.height=Math.round(h*(h<=240?1.6:1.25))+'px';
+    c.stop(); c.options.animation=false; c.options.devicePixelRatio=3; c.resize(); c.update('none'); c.render();
+    const img=new Image(); img.src=cv.toDataURL('image/png'); img.className='cc-print-snap';
+    img.style.cssText='display:block;width:100%;height:'+cv.clientHeight+'px';
+    cv.dataset.printSnap='1'; cv.style.display='none'; box.insertBefore(img,cv);
+  });
+  ccComposePages();
+}
+// Keep every heading / sub-label together with the block that follows it, so the
+// browser's own page breaking never strands a title at the bottom of a page.
+const CC_PAGE_H=1122.5/.62;   // A4 page height in print-layout px (zoom .62)
+// Split multi-row card grids into one container per row, so pages can break
+// between rows instead of pushing a whole grid onto the next page.
+function ccSplitGridRows(){
+  document.querySelectorAll('#main .mgrid,#main .article-grid,#main .spot-grid,#main .posts-grid,#main .kol-grid,#main .ss-grid,#main .pod-grid').forEach(g=>{
+    if(g.closest('.cc-grid-row')||getComputedStyle(g).display!=='grid'||!g.offsetHeight)return;
+    const kids=[...g.children].filter(k=>k.offsetHeight); if(kids.length<2)return;
+    const rows=[]; kids.forEach(k=>{const t=Math.round(k.offsetTop);let r=rows.find(r=>Math.abs(r.t-t)<4);if(!r)rows.push(r={t,items:[]});r.items.push(k);});
+    if(rows.length<2)return;
+    const gap=getComputedStyle(g).rowGap; g.classList.add('cc-grid-row'); let prev=g;
+    rows.slice(1).forEach(r=>{const c=g.cloneNode(false);c.removeAttribute('id');c.dataset.ccRowOf='1';c.style.marginTop=gap;
+      r.items.forEach(k=>c.appendChild(k));prev.after(c);prev=c;});
+    g.dataset.ccRowHead='1';
+  });
+}
+function ccJoinGridRows(){
+  document.querySelectorAll('[data-cc-row-head]').forEach(g=>{
+    let n=g.nextElementSibling; while(n&&n.dataset&&n.dataset.ccRowOf){const nx=n.nextElementSibling;while(n.firstChild)g.appendChild(n.firstChild);n.remove();n=nx;}
+    g.classList.remove('cc-grid-row'); delete g.dataset.ccRowHead;
+  });
+}
+// ── PAGE COMPOSER ──────────────────────────────────────────────
+// Lays the report out as fixed A4 pages: blocks (headings glued to their content,
+// card rows, charts, screenshots) are measured at print width and packed page by
+// page. Screenshots shrink to use leftover space, remaining space is spread between
+// blocks, and the last section on each page runs its background to the page edge.
+const CC_PAGE_BOX=Math.floor(CC_PAGE_H)-4, CC_PACK_CAP=CC_PAGE_BOX-24;
+let CC_MOVED=[];
+function ccMove(node,dest){ if(!node.__ccPh){const ph=document.createComment('cc');node.parentNode.insertBefore(ph,node);node.__ccPh=ph;CC_MOVED.push(node);} dest.appendChild(node); }
+function ccMeasureModel(){
+  const docTop=el=>el.getBoundingClientRect().top+window.scrollY, docBot=el=>el.getBoundingClientRect().bottom+window.scrollY;
+  const secs=[...document.querySelectorAll('#main>.page-sec')].filter(sc=>sc.style.display!=='none'&&sc.offsetHeight);
+  const glue=el=>el.matches('.sec-hdr,.sub-lbl,.kk-sub,.chart-lbl,.section-sub');
+  const model=secs.map(sc=>{
+    const inner=sc.querySelector('.ps-inner')||sc, atoms=[];
+    const walk=el=>[...el.children].forEach(ch=>{const cs=getComputedStyle(ch);if(cs.display==='none'||!ch.offsetHeight)return;
+      if(ch.matches('#cmBody,#kkBody,.kk-group,.cm-group,.custom-extras'))walk(ch);else atoms.push(ch);});
+    walk(inner);
+    const groups=[];
+    for(let i=0;i<atoms.length;i++){let j=i;while(j<atoms.length-1&&glue(atoms[j]))j++;groups.push({atoms:atoms.slice(i,j+1)});i=j;}
+    const cs=getComputedStyle(sc), padT=parseFloat(cs.paddingTop)||0, padB=parseFloat(cs.paddingBottom)||0;
+    const sTop=docTop(sc), cBot=docBot(sc)-padB;
+    groups.forEach(g=>{g.top=docTop(g.atoms[0]);});
+    groups.forEach((g,i)=>{g.slot=(i<groups.length-1?groups[i+1].top:cBot)-g.top;
+      g.imgs=[...g.atoms].flatMap(a=>[...a.querySelectorAll('.score-ss-img img,.ss-grid img')]).filter(im=>im.offsetHeight>120);
+      g.imgHs=g.imgs.map(im=>im.offsetHeight); g.imgH=g.imgHs.reduce((t,h)=>Math.max(t,h),0);});
+    return {sc,inner,groups,padT,padB,startPad:groups.length?groups[0].top-sTop:padT};
+  });
+  return {model,firstTop:secs.length?docTop(secs[0]):0};
+}
+// Simulate packing with screenshots capped at `cap` px; returns the page plan
+function ccPack(M,cap,footH){
+  const pages=[]; let pg=null;
+  const newPage=()=>{pg={frags:[],used:0,prefix:false};pages.push(pg);};
+  newPage(); pg.prefix=true; pg.used=M.firstTop;
+  const plan=new Map();   // group -> {f: image scale factor}
+  M.model.forEach(m=>{
+    if(!m.groups.length)return;
+    const gH=g=>{const capped=Math.min(g.imgH,cap);return {slot:g.slot-(g.imgH-capped),imgH:capped};};
+    const total=m.startPad+m.groups.reduce((t,g)=>t+gH(g).slot,0)+m.padB;
+    if(total<CC_PACK_CAP*.5&&pg.used+total>CC_PACK_CAP&&pg.frags.length)newPage();
+    let frag=null, firstFrag=true;
+    m.groups.forEach(g=>{
+      const {slot,imgH}=gH(g); let shrink=0;
+      const open=()=>frag?0:(firstFrag?m.startPad:m.padT);
+      let need=open()+slot+m.padB, room=CC_PACK_CAP-pg.used;
+      const shrinkable=g.imgs.length&&g.atoms.length<=2;
+      if(need>room){
+        const short=need-room;
+        if(shrinkable&&imgH-short>=imgH*.5&&room>open()+m.padB+160){shrink=short;}
+        else if(pg.frags.length||pg.prefix){ if(frag){pg.used+=m.padB;frag=null;} newPage(); need=open()+slot+m.padB; room=CC_PACK_CAP; }
+        if(need-shrink>room&&shrinkable){shrink=Math.min(need-room,imgH*.5);}
+      }
+      if(!frag){frag={m,first:firstFrag,groups:[]};pg.frags.push(frag);pg.used+=firstFrag?m.startPad:m.padT;firstFrag=false;}
+      frag.groups.push(g); pg.used+=slot-shrink;
+      if(g.imgH)plan.set(g,{f:Math.max(.5,(imgH-shrink)/imgH)});   // relative to the capped height
+    });
+    if(frag)pg.used+=m.padB;
+  });
+  if(footH){ if(pg.used+footH>CC_PACK_CAP)newPage(); pg.foot=true; pg.used+=footH; }
+  return {pages,plan};
+}
+function ccComposePages(){
+  ccSplitGridRows();
+  const M=ccMeasureModel(); if(!M.model.length)return;
+  const prefix=[document.getElementById('hdr'),document.getElementById('reportBannerWrap')].filter(e=>e&&e.style.display!=='none'&&e.offsetHeight);
+  const foot=document.getElementById('foot'), footH=foot&&foot.offsetHeight||0;
+  // Try smaller screenshot caps; keep the largest one that gives the fewest pages,
+  // and avoid ending on a page that is mostly empty when a smaller cap fixes it.
+  const maxImg=M.model.reduce((t,m)=>m.groups.reduce((u,g)=>Math.max(u,g.imgH),t),0);
+  let best=null;
+  [Infinity,620,580,540,500,460].forEach(cap=>{
+    if(cap!==Infinity&&cap>=maxImg)return;
+    const r=ccPack(M,cap,footH), n=r.pages.length, lastFill=r.pages[n-1].used/CC_PACK_CAP;
+    const score=n*10-(lastFill>=.45?1:0);
+    if(!best||score<best.score)best={...r,cap,score};
+  });
+  const {pages,plan}=best;
+  // Build the pages
+  const host=document.createElement('div'); host.id='ccPages'; document.body.appendChild(host);
+  pages.forEach(P=>{
+    const page=document.createElement('div'); page.className='cc-page'; page.style.height=CC_PAGE_BOX+'px'; host.appendChild(page);
+    if(P.prefix)prefix.forEach(n=>ccMove(n,page));
+    const nGroups=P.frags.reduce((t,f)=>t+f.groups.length,0);
+    const left=Math.max(0,CC_PAGE_BOX-P.used-8), extra=nGroups>1?Math.min(90,left*.85/(nGroups-1)):0;
+    let gi=0;
+    P.frags.forEach((f,fi)=>{
+      const sec=f.m.sc.cloneNode(false); sec.removeAttribute('id');
+      if(!f.first)sec.classList.remove('after-banner');
+      if(fi===P.frags.length-1&&!P.foot)sec.classList.add('cc-fill');
+      const inner=f.m.inner===f.m.sc?sec:f.m.inner.cloneNode(false); if(inner!==sec){inner.removeAttribute('id');sec.appendChild(inner);}
+      page.appendChild(sec);
+      const clones=new Map();
+      const holder=a=>{const chain=[];let n=a.parentNode;while(n&&n!==f.m.inner&&n!==f.m.sc){chain.unshift(n);n=n.parentNode;}
+        let parent=inner; chain.forEach(anc=>{let c=clones.get(anc);if(!c){c=anc.cloneNode(false);c.removeAttribute('id');parent.appendChild(c);clones.set(anc,c);}parent=c;});return parent;};
+      f.groups.forEach(g=>{
+        g.atoms.forEach((a,ai)=>{const h=holder(a);
+          if(ai===0&&gi>0&&extra>0){a.dataset.ccMt=a.style.marginTop||'';a.style.marginTop=(parseFloat(getComputedStyle(a).marginTop)||0)+extra+'px';}
+          ccMove(a,h);});
+        const pl=plan.get(g);
+        if(pl&&pl.f<.999||g.imgH>best.cap){const f2=pl?pl.f:1;g.imgs.forEach((im,k)=>{im.dataset.ccMh=im.style.maxHeight||'';im.style.maxHeight=Math.round(Math.min(g.imgHs[k],best.cap===Infinity?g.imgHs[k]:best.cap*g.imgHs[k]/g.imgH)*f2)+'px';});}
+        gi++;
+      });
+    });
+    if(P.foot){const fw=document.createElement('div');fw.className='cc-fill-black';page.appendChild(fw);ccMove(foot,page);}
+  });
+  document.documentElement.classList.add('cc-composed');
+  window.CC_PRINT_INFO={pages:pages.length,cap:best.cap,fills:pages.map(P=>Math.round(P.used/CC_PACK_CAP*100))};
+}
+function ccDecompose(){
+  document.documentElement.classList.remove('cc-composed');
+  CC_MOVED.reverse().forEach(n=>{const ph=n.__ccPh;if(ph&&ph.parentNode){ph.parentNode.insertBefore(n,ph);ph.remove();}delete n.__ccPh;
+    if(n.dataset&&'ccMt' in n.dataset){n.style.marginTop=n.dataset.ccMt;delete n.dataset.ccMt;}});
+  CC_MOVED=[];
+  document.querySelectorAll('[data-cc-mt]').forEach(n=>{n.style.marginTop=n.dataset.ccMt;delete n.dataset.ccMt;});
+  document.querySelectorAll('img[data-cc-mh]').forEach(im=>{im.style.maxHeight=im.dataset.ccMh;delete im.dataset.ccMh;});
+  const host=document.getElementById('ccPages'); if(host)host.remove();
+  ccJoinGridRows();
+}
+function ccAfterPrint(){
+  if(!window.CC_PRINTING)return; window.CC_PRINTING=false;
+  ccDecompose();
+  document.querySelectorAll('[data-cc-op]').forEach(e=>{e.style.opacity='';e.style.transform='';delete e.dataset.ccOp;});
+  document.querySelectorAll('img.cc-print-snap').forEach(i=>i.remove());
+  document.querySelectorAll('canvas[data-print-snap]').forEach(cv=>{cv.style.display='';delete cv.dataset.printSnap;const box=cv.parentNode;box.style.height=box.dataset.printH||'';delete box.dataset.printH;});
+  document.documentElement.classList.remove('cc-print-layout');
+  if(window.Chart)Object.values(Chart.instances).forEach(c=>{c.options.devicePixelRatio=undefined;c.resize();});
+  if(window.CC_TITLE){document.title=window.CC_TITLE;window.CC_TITLE=null;}
+}
+function ccPrint(){
+  window.CC_TITLE=document.title;
+  document.title=[D.client,'Weekly Report',D.weekDate].filter(Boolean).join(' — ');
+  ccPrepPrint();
+  setTimeout(()=>window.print(),120);
+}
+window.addEventListener('beforeprint',ccPrepPrint);
+window.addEventListener('afterprint',ccAfterPrint);
 function openLb(src){var el=document.getElementById("lb");document.getElementById("lb-img").src=src;el.classList.add("open");document.addEventListener("keydown",lbKey);}
 function closeLb(){document.getElementById("lb").classList.remove("open");document.removeEventListener("keydown",lbKey);}
 function lbKey(e){if(e.key==="Escape")closeLb();}
@@ -1760,11 +2216,12 @@ function buildDash(){
   document.getElementById('hdrWeek').textContent=D.weekDate;
   document.getElementById('footWeek').textContent=D.weekDate;
   if(D.clientLogo){const cl=document.getElementById('hdrCl');cl.src=D.clientLogo;cl.style.display='block';document.getElementById('hdrDiv').style.display='block';}
-  if(D.banner){document.getElementById('reportBanner').src=D.banner;document.getElementById('reportBannerWrap').style.display='block';}
+  if(D.banner){document.getElementById('reportBanner').src=D.banner;document.getElementById('reportBannerWrap').style.display='block';document.body.classList.add('has-banner');}
 
   buildOverview(); buildSocial(); buildCollabs(); buildCookie3(); buildProduct(); buildQuest();
-  buildNucContrib(); buildNucRep(); buildKol(); buildPr(); buildFinance(); buildWebsite();
+  buildNucContrib(); buildNucRep(); buildKol(); buildKoreaKol(); buildPr(); buildCommunity(); buildFinance(); buildWebsite();
   renderAllCustomExtras();
+  applyReportConfigTitles();
   document.querySelectorAll(".score-ss-img img,.ss-grid img").forEach(function(img){if(!img.onclick)img.onclick=function(){openLb(this.src);};});
   // Re-alternate light/dark on visible sections only
   setTimeout(function(){
@@ -1774,6 +2231,7 @@ function buildDash(){
       if(s.style.display==='none') return;
       s.classList.remove('light');
       if(idx%2!==0) s.classList.add('light');
+      if(idx===0) s.classList.add('after-banner');
       idx++;
     });
   },50);
@@ -1785,7 +2243,7 @@ function buildDash(){
   const navMap=[
     {a:'navOv',s:'secOv'},{a:'navProduct',s:'secProduct'},{a:'navSocial',s:'secSocial'},{a:'navCollabs',s:'secCollabs'},
     {a:'navCookie3',s:'secCookie3'},{a:'navProduct',s:'secProduct'},{a:'navQuest',s:'secQuest'},{a:'navNucContrib',s:'secNucContrib'},
-    {a:'navNucRep',s:'secNucRep'},{a:'navKol',s:'secKol'},{a:'navPr',s:'secPr'},
+    {a:'navNucRep',s:'secNucRep'},{a:'navKol',s:'secKol'},{a:'navKoreaKol',s:'secKoreaKol'},{a:'navPr',s:'secPr'},{a:'navCommunity',s:'secCommunity'},
     {a:'navFin',s:'secFin'},{a:'navWeb',s:'secWeb'}
   ];
   navMap.forEach(({a,s})=>{const sec=document.getElementById(s);if(sec&&sec.style.display==='none')document.getElementById(a).style.display='none';});
@@ -1813,7 +2271,7 @@ function checkPin(){
   if(pins.map(p=>p.value).join('')===String(D.pin)){
     const g=document.getElementById('gate'); g.classList.add('gone'); setTimeout(()=>g.style.display='none',400);
     if(!D.published){document.getElementById('np').classList.add('show');return;}
-    buildDash();
+    loadReportConfig().then(buildDash);
   } else {
     document.getElementById('pinErr').textContent='Incorrect code — please try again.';
     pins.forEach(p=>{p.value='';p.style.borderColor='var(--red)';setTimeout(()=>p.style.borderColor='',900);});
