@@ -448,6 +448,14 @@ html.cc-print-layout .ov-num{font-size:40px!important;margin-bottom:10px!importa
 html.cc-print-layout .grow-row{margin-bottom:14px}
 html.cc-print-layout #s1 .prose2{margin-top:26px!important}
 html.cc-print-layout #s1 .sub-lbl{margin-top:20px}
+.shots4.audit .shot img{max-height:300px}
+.krg{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.krc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 14px}
+.krc b{display:block;font-size:13px;color:var(--w)}
+.krc span{display:block;font-size:11px;color:var(--w50);margin-top:2px}
+.krc em{display:block;font-style:normal;font-size:11px;color:var(--w70);margin-top:6px}
+.krc em a{text-decoration:none;border-bottom:1px solid var(--w15)}
+@media screen and (max-width:860px){.krg{grid-template-columns:1fr 1fr}}
 
 .gate{position:fixed;inset:0;z-index:1000;background:#000;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .4s}
 .gate.gone{opacity:0;pointer-events:none}
@@ -781,7 +789,7 @@ html.cc-print-layout .gate{display:none!important}
     <figure class="fig"><div class="pad-img"><img src="assets/ev/collab_tracker.jpg" alt=""></div><div class="cap"><b>Collaboration tracker:</b> each partner's stage, activation type and winner list, managed through to completion.</div></figure>
   </div>
   <div class="split r55" style="margin-top:20px">
-    <div class="chart-card"><div class="chart-lbl">Completed collaborations by community tier</div><div class="chart-sub">200 completed</div><div class="chart-frame tall"><canvas id="cCol"></canvas></div></div>
+    <div class="chart-card"><div class="chart-lbl">Completed collaborations by community tier</div><div class="chart-sub">200 completed</div><div class="chart-frame" style="height:380px"><canvas id="cCol"></canvas></div></div>
     <div>
       <div class="sub-lbl" style="margin-top:0">Selected partner communities</div>
       <div class="chips"><span class="chip pf"><img src="assets/pfp/ChimpersHQ.jpg" alt="">Chimpers</span><span class="chip pf"><img src="assets/pfp/Claynosaurz.jpg" alt="">Claynosaurz</span><span class="chip pf"><img src="assets/pfp/CyberKongz.jpg" alt="">CyberKongz</span><span class="chip pf"><img src="assets/pfp/doodles.jpg" alt="">Doodles</span><span class="chip pf"><img src="assets/pfp/imaginary_ones.jpg" alt="">Imaginary Ones</span><span class="chip pf"><img src="assets/pfp/MadLads.jpg" alt="">MadLads</span><span class="chip pf"><img src="assets/pfp/Memeland.jpg" alt="">Memeland</span><span class="chip pf"><img src="assets/pfp/bodoggos.jpg" alt="">Bodoggos</span><span class="chip pf"><img src="assets/pfp/Moca_Network.jpg" alt="">Mocaverse</span><span class="chip pf"><img src="assets/pfp/getmoni_io.jpg" alt="">Moni</span><span class="chip pf"><img src="assets/pfp/FugzOfficial.jpg" alt="">Fugz</span><span class="chip pf"><img src="assets/pfp/PytheniansNFT.jpg" alt="">Pythenians</span><span class="chip pf"><img src="assets/pfp/MofuMofuMC.jpg" alt="">Mofu Mofu</span><span class="chip pf"><img src="assets/pfp/moriusa_STPR.jpg" alt="">Moriusa</span><span class="chip pf"><img src="assets/pfp/BlastRunnersPVP.jpg" alt="">Blast Runners</span><span class="chip pf"><img src="assets/pfp/ExtraordinalBTC.jpg" alt="">ExtraOrdinals</span><span class="chip pf"><img src="assets/pfp/INKedBTC.jpg" alt="">INK</span><span class="chip pf"><img src="assets/pfp/sappyseals.jpg" alt="">Sappy Seals</span><span class="chip pf"><img src="assets/pfp/ThePlagueNFT.jpg" alt="">Plague</span><span class="chip pf"><img src="assets/pfp/sealuminati.jpg" alt="">Sealuminati</span><span class="chip pf"><img src="assets/pfp/Squishiverse.jpg" alt="">Squishiverse</span><span class="chip pf"><img src="assets/pfp/IronAllies_.jpg" alt="">Iron Allies</span><span class="chip pf"><img src="assets/pfp/nightglyders.jpg" alt="">Nightglyders</span><span class="chip pf"><img src="assets/pfp/ExploreOmnia.jpg" alt="">Omnia</span><span class="chip pf"><img src="assets/pfp/ONEMINNFT.jpg" alt="">1MinuteWeb3</span><span class="chip"><b>+175 more</b></span></div>
@@ -921,7 +929,7 @@ html.cc-print-layout .gate{display:none!important}
     <div><div class="wk">Week 3</div><h5>How does Beldex enable privacy?</h5><p>Ring signatures, stealth addresses, RingCT and masternodes.</p><div class="st"><div>Posts<b>12</b></div><div>Views<b>13,886</b></div></div></div>
   </div>
 
-  <div class="sub-lbl pbk">Published Korean posts</div>
+  <div class="sub-lbl">Published Korean posts</div>
   <div class="shots4">
     <figure class="shot"><img src="assets/ev/tg_wecrypto.jpg" alt=""><figcaption>WeCrypto · Telegram · Week 1</figcaption></figure>
     <figure class="shot"><img src="assets/ev/tg_cen.jpg" alt=""><figcaption>CEN · Telegram · Week 1</figcaption></figure>
@@ -938,39 +946,34 @@ html.cc-print-layout .gate{display:none!important}
     <div class="chart-card"><div class="chart-lbl">Highest-reach posts</div><div class="chart-sub">Tracked views per post</div><div class="chart-frame"><canvas id="cKRtop"></canvas></div></div>
   </div>
 
-  <div class="split r55 pbk" style="margin-top:28px">
+  <div class="prose2" style="margin-top:28px">
     <div>
       <div class="sub-hd" style="margin-top:0">Korean &amp; Asian media</div>
       <p class="body">The $1M Grants Program was launched into Asian media during Korea Blockchain Week. Five Asia-focused placements were published: <b>Cointelegraph Korea</b> and <b>Coinreaders</b> in Korean, <b>TechFlow</b> and <b>BlockBeats</b> in Chinese, and <b>Tech in Asia</b> in English.</p>
-      <div class="sub-hd">Korea Blockchain Week</div>
+    </div>
+    <div>
+      <div class="sub-hd" style="margin-top:0">Korea Blockchain Week</div>
       <p class="body">CodeCraft supported both Beldex side events (29–30 Sep). The team sourced branded t-shirts, caps and pens with designer mockups, proofread the Korean event flyer, invited reporters to the VIP event, and arranged the CSO's in-person Web3pod recording in the KBW media corner. Beldex was also introduced to a Korean listings agency.</p>
     </div>
-    <figure class="fig"><div class="pad-img"><img src="assets/ev/kr_kol_tab.jpg" alt=""></div><div class="cap"><b>Korea KOL tracker:</b> every post logged by week, channel and platform, with views and live links.</div></figure>
-  </div>
-  <div class="split pbk" style="margin-top:24px">
-    <figure class="fig"><div class="pad-img"><img src="assets/ev/kr_report_cover.jpg" alt="" style="max-height:520px;margin:0 auto"></div><div class="cap"><b>Korea campaign report</b> delivered to Beldex on 8 Oct.</div></figure>
-    <figure class="fig"><div class="pad-img"><img src="assets/ev/kr_report_perf.jpg" alt="" style="max-height:520px;margin:0 auto"></div><div class="cap"><b>Korea campaign report:</b> reach and distribution by platform and week.</div></figure>
   </div>
 
+
   <div class="sub-lbl">Channel distribution</div>
-  <div class="tbl-wrap"><table class="t">
-    <tr><th>Channel</th><th>Platform</th><th class="n">Followers</th><th class="n">Posts</th><th>Published posts</th></tr>
-    <tr><td><b>WeCrypto</b></td><td>Telegram</td><td class="n">49K</td><td class="n">2</td><td><a href="https://t.me/WeCryptoTogether/66825" target="_blank">W1</a> · <a href="https://t.me/WeCryptoTogether/67217" target="_blank">W3</a></td></tr>
-<tr><td><b>CEN</b></td><td>Telegram</td><td class="n">38.5K</td><td class="n">2</td><td><a href="https://t.me/emperorcoin/61284" target="_blank">W1</a> · <a href="https://t.me/emperorcoin/61475" target="_blank">W3</a></td></tr>
-<tr><td><b>JohnKing</b></td><td>X</td><td class="n">30K</td><td class="n">2</td><td><a href="https://x.com/johnking_eth/status/2101858909409673288" target="_blank">W1</a> · <a href="https://x.com/johnking_eth/status/2106954861665206752" target="_blank">W3</a></td></tr>
-<tr><td><b>Clever</b></td><td>X</td><td class="n">25K</td><td class="n">2</td><td><a href="https://x.com/rapperr111/status/2103366726046069192" target="_blank">W2</a> · <a href="https://x.com/rapperr111/status/2106653946836353133" target="_blank">W3</a></td></tr>
-<tr><td><b>요블이 세상살이</b></td><td>Telegram</td><td class="n">22.2K</td><td class="n">2</td><td><a href="https://t.me/yobeullyANN/21248" target="_blank">W1</a> · <a href="https://t.me/yobeullyANN/21345" target="_blank">W3</a></td></tr>
-<tr><td><b>폐지줍기 연구소</b></td><td>Telegram</td><td class="n">20K</td><td class="n">2</td><td><a href="https://t.me/airdr0p_lab/20481" target="_blank">W1</a> · <a href="https://t.me/airdr0p_lab/20706" target="_blank">W3</a></td></tr>
-<tr><td><b>코백남</b></td><td>Telegram</td><td class="n">20K</td><td class="n">2</td><td><a href="https://t.me/cobacknamannounce/16307" target="_blank">W2</a> · <a href="https://t.me/cobacknamannounce/16358" target="_blank">W2</a></td></tr>
-<tr><td><b>코인소년</b></td><td>Telegram</td><td class="n">15.5K</td><td class="n">2</td><td><a href="https://t.me/coinboys/22084" target="_blank">W2</a> · <a href="https://t.me/coinboys/22306" target="_blank">W3</a></td></tr>
-<tr><td><b>이도진 메타버스</b></td><td>Telegram</td><td class="n">15.1K</td><td class="n">2</td><td><a href="https://t.me/leedogin2/24077" target="_blank">W2</a> · <a href="https://t.me/leedogin2/24237" target="_blank">W3</a></td></tr>
-<tr><td><b>청년열정마라</b></td><td>Telegram</td><td class="n">15K</td><td class="n">2</td><td><a href="https://t.me/minchoisfuture/53902" target="_blank">W1</a> · <a href="https://t.me/minchoisfuture/54387" target="_blank">W3</a></td></tr>
-<tr><td><b>피린이</b></td><td>Telegram</td><td class="n">12.2K</td><td class="n">2</td><td><a href="https://t.me/forevernft/10536" target="_blank">W1</a> · <a href="https://t.me/forevernft/10637" target="_blank">W2</a></td></tr>
-<tr><td><b>크립토하는 라쿤</b></td><td>Telegram</td><td class="n">12.2K</td><td class="n">3</td><td><a href="https://t.me/Kooncrypto/2402" target="_blank">W1</a> · <a href="https://t.me/Kooncrypto/2416" target="_blank">W2</a> · <a href="https://t.me/Kooncrypto/2427" target="_blank">W2</a></td></tr>
-<tr><td><b>pchild.eth</b></td><td>X</td><td class="n">11K</td><td class="n">2</td><td><a href="https://x.com/Pchild_NFT/status/2101180700204605688" target="_blank">W1</a> · <a href="https://x.com/pchild_nft/status/2104379131899294033" target="_blank">W2</a></td></tr>
-<tr><td><b>파도의 크립토일기</b></td><td>Telegram</td><td class="n">–</td><td class="n">1</td><td><a href="https://t.me/padocrypto/3365" target="_blank">W2</a></td></tr>
-<tr><td><b>Naver blogs (10 authors)</b></td><td>Naver blog</td><td class="n">–</td><td class="n">10</td><td><a href="https://m.blog.naver.com/earn2airdrop/224417725634" target="_blank">W1</a> · <a href="https://m.blog.naver.com/arale83/224418667799" target="_blank">W1</a> · <a href="https://m.blog.naver.com/mincholee_/224420994308" target="_blank">W1</a> · <a href="https://m.blog.naver.com/ajoumba/224422308166" target="_blank">W2</a> · <a href="https://m.blog.naver.com/2030six/224423361927" target="_blank">W2</a> · <a href="https://m.blog.naver.com/moneyalarm/224425120548" target="_blank">W2</a> · <a href="https://m.blog.naver.com/ghfjvb465/224425101082" target="_blank">W2</a> · <a href="https://m.blog.naver.com/ohstinpower/224430699724" target="_blank">W3</a> · <a href="https://m.blog.naver.com/coinbangul/224431397882" target="_blank">W3</a> · <a href="https://m.blog.naver.com/crypto4u/224432077073" target="_blank">W3</a></td></tr>
-  </table></div>
+  <div class="krg"><div class="krc"><b>WeCrypto</b><span>Telegram · 49K followers</span><em>2 posts · <a href="https://t.me/WeCryptoTogether/66825" target="_blank">W1</a> · <a href="https://t.me/WeCryptoTogether/67217" target="_blank">W3</a></em></div>
+<div class="krc"><b>CEN</b><span>Telegram · 38.5K followers</span><em>2 posts · <a href="https://t.me/emperorcoin/61284" target="_blank">W1</a> · <a href="https://t.me/emperorcoin/61475" target="_blank">W3</a></em></div>
+<div class="krc"><b>JohnKing</b><span>X · 30K followers</span><em>2 posts · <a href="https://x.com/johnking_eth/status/2101858909409673288" target="_blank">W1</a> · <a href="https://x.com/johnking_eth/status/2106954861665206752" target="_blank">W3</a></em></div>
+<div class="krc"><b>Clever</b><span>X · 25K followers</span><em>2 posts · <a href="https://x.com/rapperr111/status/2103366726046069192" target="_blank">W2</a> · <a href="https://x.com/rapperr111/status/2106653946836353133" target="_blank">W3</a></em></div>
+<div class="krc"><b>요블이 세상살이</b><span>Telegram · 22.2K followers</span><em>2 posts · <a href="https://t.me/yobeullyANN/21248" target="_blank">W1</a> · <a href="https://t.me/yobeullyANN/21345" target="_blank">W3</a></em></div>
+<div class="krc"><b>폐지줍기 연구소</b><span>Telegram · 20K followers</span><em>2 posts · <a href="https://t.me/airdr0p_lab/20481" target="_blank">W1</a> · <a href="https://t.me/airdr0p_lab/20706" target="_blank">W3</a></em></div>
+<div class="krc"><b>코백남</b><span>Telegram · 20K followers</span><em>2 posts · <a href="https://t.me/cobacknamannounce/16307" target="_blank">W2</a> · <a href="https://t.me/cobacknamannounce/16358" target="_blank">W2</a></em></div>
+<div class="krc"><b>코인소년</b><span>Telegram · 15.5K followers</span><em>2 posts · <a href="https://t.me/coinboys/22084" target="_blank">W2</a> · <a href="https://t.me/coinboys/22306" target="_blank">W3</a></em></div>
+<div class="krc"><b>이도진 메타버스</b><span>Telegram · 15.1K followers</span><em>2 posts · <a href="https://t.me/leedogin2/24077" target="_blank">W2</a> · <a href="https://t.me/leedogin2/24237" target="_blank">W3</a></em></div>
+<div class="krc"><b>청년열정마라</b><span>Telegram · 15K followers</span><em>2 posts · <a href="https://t.me/minchoisfuture/53902" target="_blank">W1</a> · <a href="https://t.me/minchoisfuture/54387" target="_blank">W3</a></em></div>
+<div class="krc"><b>피린이</b><span>Telegram · 12.2K followers</span><em>2 posts · <a href="https://t.me/forevernft/10536" target="_blank">W1</a> · <a href="https://t.me/forevernft/10637" target="_blank">W2</a></em></div>
+<div class="krc"><b>크립토하는 라쿤</b><span>Telegram · 12.2K followers</span><em>3 posts · <a href="https://t.me/Kooncrypto/2402" target="_blank">W1</a> · <a href="https://t.me/Kooncrypto/2416" target="_blank">W2</a> · <a href="https://t.me/Kooncrypto/2427" target="_blank">W2</a></em></div>
+<div class="krc"><b>pchild.eth</b><span>X · 11K followers</span><em>2 posts · <a href="https://x.com/Pchild_NFT/status/2101180700204605688" target="_blank">W1</a> · <a href="https://x.com/pchild_nft/status/2104379131899294033" target="_blank">W2</a></em></div>
+<div class="krc"><b>파도의 크립토일기</b><span>Telegram</span><em>1 post · <a href="https://t.me/padocrypto/3365" target="_blank">W2</a></em></div>
+<div class="krc"><b>Naver blogs (10 authors)</b><span>Naver blog</span><em>10 posts · <a href="https://m.blog.naver.com/earn2airdrop/224417725634" target="_blank">W1</a> · <a href="https://m.blog.naver.com/arale83/224418667799" target="_blank">W1</a> · <a href="https://m.blog.naver.com/mincholee_/224420994308" target="_blank">W1</a> · <a href="https://m.blog.naver.com/ajoumba/224422308166" target="_blank">W2</a> · <a href="https://m.blog.naver.com/2030six/224423361927" target="_blank">W2</a> · <a href="https://m.blog.naver.com/moneyalarm/224425120548" target="_blank">W2</a> · <a href="https://m.blog.naver.com/ghfjvb465/224425101082" target="_blank">W2</a> · <a href="https://m.blog.naver.com/ohstinpower/224430699724" target="_blank">W3</a> · <a href="https://m.blog.naver.com/coinbangul/224431397882" target="_blank">W3</a> · <a href="https://m.blog.naver.com/crypto4u/224432077073" target="_blank">W3</a></em></div></div>
 </div>
 </section>
 
@@ -1078,7 +1081,7 @@ html.cc-print-layout .gate{display:none!important}
     <div class="cal-c"><div class="cal-d">22 Oct</div><b>Where BDX works today</b><span>Ecosystem &amp; partner content</span><i>Draft delivered</i></div>
   </div>
 
-  <div class="sub-hd pbk">X profile audit · 21 July</div>
+  <div class="sub-hd">X profile audit · 21 July</div>
   <p class="body">CodeCraft delivered an audit of the @BeldexCoin profile, followed by a working session with the Beldex social team. The audit reviewed the profile, copy and visuals and set out specific changes; the bio recommendation was implemented during the campaign.</p>
   <div class="tbl-wrap"><table class="t">
     <tr><th>Area</th><th>Finding</th><th>Status</th></tr>
@@ -1088,11 +1091,7 @@ html.cc-print-layout .gate{display:none!important}
     <tr><td><b>Visuals</b></td><td>Build on the existing graphic system; keep graphics consistent with the brand</td><td>Shared</td></tr>
     <tr><td><b>Cadence</b></td><td>3–4 quality posts a week at peak hours; single posts over threads; launch playbook with pinned trailer</td><td>Adopted at launch</td></tr>
   </table></div>
-  <div class="pair" style="margin-top:14px">
-    <div><div class="pair-hd">Bio before<span>13 Jul 2026</span></div><div class="pair-ft" style="border-top:0;font-size:14px;line-height:1.6;padding:18px">Empowering private transactions, messages - @BChat_official, browsing - BelNet &amp; Beldex Browser, identity - BNS and chain-agnostic asset anonymization.</div></div>
-    <div class="after"><div class="pair-hd">Bio after<span>13 Oct 2026</span></div><div class="pair-ft" style="border-top:0;font-size:14px;line-height:1.6;padding:18px;color:var(--w)">Building privacy infrastructure for transactions, communication, browsing and identity. Backed by @Sigma_VC @NewTribeCap @EAK_Digital @nxgen_xyz @digiconsensus</div></div>
-  </div>
-  <div class="shots4" style="margin-top:14px">
+  <div class="shots4 audit" style="margin-top:14px">
     <figure class="shot"><img src="assets/ev/audit_p1.jpg" alt=""><figcaption>Audit · overview</figcaption></figure>
     <figure class="shot"><img src="assets/ev/audit_p2.jpg" alt=""><figcaption>Audit · profile</figcaption></figure>
     <figure class="shot"><img src="assets/ev/audit_p3.jpg" alt=""><figcaption>Audit · visuals</figcaption></figure>
@@ -1123,6 +1122,10 @@ html.cc-print-layout .gate{display:none!important}
       <div class="dcard"><div class="k">Platform</div><h5>Quest platform operations</h5><p>Domain setup, quest design, weekly rotations and bot filtering.</p></div>
       <div class="dcard"><div class="k">Cadence</div><h5>Weekly working rhythm</h5><p>26+ client calls, weekly strategy meetings, advisory sessions and a shared workspace with seven topic channels.</p></div>
     </div>
+  </div>
+  <div class="split" style="margin-top:24px">
+    <figure class="fig"><div class="pad-img"><img src="assets/ev/kr_report_cover.jpg" alt="" style="max-height:520px;margin:0 auto"></div><div class="cap"><b>Korea campaign report</b> delivered to Beldex on 8 Oct.</div></figure>
+    <figure class="fig"><div class="pad-img"><img src="assets/ev/kr_report_perf.jpg" alt="" style="max-height:520px;margin:0 auto"></div><div class="cap"><b>Korea campaign report:</b> reach and distribution by platform and week.</div></figure>
   </div>
 </div>
 </section>
@@ -1190,7 +1193,7 @@ const CC_PAGE_H=1122.5/.62;   // A4 page height in print-layout px (zoom .62)
 // Split multi-row card grids into one container per row, so pages can break
 // between rows instead of pushing a whole grid onto the next page.
 function ccSplitGridRows(){
-  document.querySelectorAll('#main .mgrid,#main .kpi-grid,#main .xgrid,#main .dgrid,#main .media-grid,#main .ann,#main .arc,#main .shots4,#main .ov-grid').forEach(g=>{
+  document.querySelectorAll('#main .mgrid,#main .kpi-grid,#main .xgrid,#main .dgrid,#main .media-grid,#main .ann,#main .arc,#main .shots4,#main .ov-grid,#main .krg').forEach(g=>{
     if(g.closest('.cc-grid-row')||g.parentElement.closest('.split,.prose2,.steps4')||getComputedStyle(g).display!=='grid'||!g.offsetHeight)return;
     const kids=[...g.children].filter(k=>k.offsetHeight); if(kids.length<2)return;
     const rows=[]; kids.forEach(k=>{const t=Math.round(k.offsetTop);let r=rows.find(r=>Math.abs(r.t-t)<4);if(!r)rows.push(r={t,items:[]});r.items.push(k);});
