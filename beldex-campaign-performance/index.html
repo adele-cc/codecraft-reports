@@ -457,6 +457,16 @@ html.cc-print-layout #s1 .sub-lbl{margin-top:20px}
 .krc em a{text-decoration:none;border-bottom:1px solid var(--w15)}
 @media screen and (max-width:860px){.krg{grid-template-columns:1fr 1fr}}
 
+html.cc-print-layout .pair-img.tall{height:330px}
+html.cc-print-layout .pair-img.sm{height:190px}
+html.cc-print-layout .pair-img.wide img{max-height:300px;width:auto;margin:0 auto}
+html.cc-print-layout .pair-title{margin-top:22px}
+html.cc-print-layout #s6 table.t td{padding:5px 14px}
+html.cc-print-layout #s6 .sub-hd{margin-top:30px}
+
+html.cc-print-layout #s2 .s3c .chart-frame{height:190px!important}
+html.cc-print-layout #s6 .split.r37 .shot img{max-height:330px}
+
 .gate{position:fixed;inset:0;z-index:1000;background:#000;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity .4s}
 .gate.gone{opacity:0;pointer-events:none}
 .gate-logo{height:30px;margin-bottom:44px;opacity:.75}
@@ -825,6 +835,7 @@ html.cc-print-layout .gate{display:none!important}
   </div>
 
   <div class="sub-hd">Announcements</div>
+  <p class="body">Four announcements were published: Beldex's 1.5M-install milestone (TheStreet, 13 Aug), the $8M funding round (20 Aug), the $1M Global Grants Program (29 Sep) and Privacy Tokens on testnet (Cointribune, U.Today and TradingView, 6 Oct). The two largest are shown below.</p>
   <div class="ann-row">
     <div class="ann-txt">
       <div class="d">20 Aug · Funding</div><h5>$8M raise led by Sigma Capital</h5>
@@ -842,10 +853,6 @@ html.cc-print-layout .gate{display:none!important}
     </div>
     <figure class="shot"><img src="assets/ev/art_ccn.jpg" alt=""><figcaption>CCN · 29 Sep 2026</figcaption></figure>
     <figure class="shot"><img src="assets/ev/art_techflow.jpg" alt=""><figcaption>TechFlow (Chinese) · 29 Sep 2026</figcaption></figure>
-  </div>
-  <div class="ann ann2">
-    <div class="ann-card"><div class="d">13 Aug · Traction</div><h5>1.5M installs as privacy demand grows</h5><p>TheStreet feature establishing Beldex's user base ahead of the funding news.</p><div class="cnt">1 <small>piece</small></div></div>
-    <div class="ann-card"><div class="d">6 Oct · Product</div><h5>Privacy Tokens live on testnet</h5><p>The "Proto" hard fork, announced at Token2049 and covered by Cointribune, U.Today and TradingView.</p><div class="cnt">3 <small>pieces</small></div></div>
   </div>
 
   <div class="sub-lbl pbk">Coverage register</div>
@@ -892,7 +899,6 @@ html.cc-print-layout .gate{display:none!important}
       </table></div>
     </div>
   </div>
-  <figure class="fig" style="margin-top:20px"><div class="pad-img"><img src="assets/ev/media_pr_tab.jpg" alt=""></div><div class="cap"><b>Media tracker:</b> every publication, draft, approval and podcast tracked from pitch to publication.</div></figure>
 </div>
 </section>
 
@@ -1179,7 +1185,7 @@ function ccPrepPrint(){
   if(window.Chart)Object.values(Chart.instances).forEach(c=>{
     const cv=c.canvas; if(!cv||cv.dataset.printSnap)return;
     const box=cv.parentNode; box.dataset.printH=box.style.height||''; const h=box.getBoundingClientRect().height;
-    box.style.height=Math.round(h*(h<=240?1.6:1.25))+'px';
+    if(!box.closest('.s3c'))box.style.height=Math.round(h*(h<=240?1.6:1.25))+'px';
     c.stop(); c.options.animation=false; c.options.devicePixelRatio=3; c.resize(); c.update('none'); c.render();
     const img=new Image(); img.src=cv.toDataURL('image/png'); img.className='cc-print-snap';
     img.style.cssText='display:block;width:100%;height:'+cv.clientHeight+'px';
