@@ -46,7 +46,9 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .hdr-cc{height:28px;opacity:.92}
 .hdr-div{width:1px;height:24px;background:var(--border)}
 .hdr-cl{height:30px}
-.hdr-r{text-align:right}
+.hdr-r{text-align:right;display:flex;align-items:center;gap:18px}
+.pdf-btn{display:inline-flex;align-items:center;gap:7px;font-family:var(--bd,'Montserrat'),sans-serif;font-size:11px;font-weight:700;letter-spacing:.3px;color:#000;background:var(--green);border:0;border-radius:20px;padding:7px 14px;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.pdf-btn:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(136,248,2,.25)}
 .hdr-name{font-family:var(--hd);font-size:17px;font-weight:800;letter-spacing:-.3px}
 .hdr-week{display:flex;align-items:center;justify-content:flex-end;gap:6px;font-size:11px;color:var(--w50);margin-top:2px}
 .hdr-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:pulse 2.4s ease-in-out infinite}
@@ -65,7 +67,9 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
 .nav a.active{color:#000;background:var(--green);border-color:var(--green);font-weight:700}
 
 /* ── PAGE SECTIONS ───────────────────────────────────────────── */
-.page-sec{padding:80px 0;scroll-margin-top:120px}
+.page-sec{padding:40px 0;scroll-margin-top:120px}
+/* First visible section rises into the banner's fade-to-black */
+body.has-banner .page-sec.after-banner{margin-top:-100px;padding-top:0;position:relative;z-index:1}
 .page-sec.light{
   background:#f3f1ed;
   --bg:#f3f1ed;--card:#fff;--border:#e4e2dd;
@@ -74,7 +78,7 @@ body{font-family:var(--bd);background:var(--bg);color:var(--w);-webkit-font-smoo
   --green:#4ea800;--red:#c0392b;
 }
 .ps-inner{max-width:1400px;margin:0 auto;padding:0 52px}
-.sec-hdr{margin-bottom:36px}
+.sec-hdr{margin-bottom:28px}
 .sec-title{font-family:var(--hd);font-size:30px;font-weight:800;letter-spacing:-1.2px;color:var(--w);line-height:1;margin-bottom:20px}
 .sec-rule{width:100%;height:1px;background:var(--border)}
 .sub-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:var(--w50);margin:28px 0 14px}
@@ -406,17 +410,76 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
 .foot img{height:18px;opacity:.16}
 .foot p{font-size:11px;color:var(--w30);margin-top:6px}
 
+/* ── COMMUNITY MANAGEMENT ────────────────────────────────────── */
+.cm-group .sub-lbl{margin-top:0}
+.cm-kpis{margin-bottom:36px}
+.cm-kpis .ov-card{padding:32px 28px 28px}
+.cm-kpis .ov-lbl{white-space:nowrap}
+.cm-kpis .ov-num{font-size:48px;letter-spacing:-2px;white-space:nowrap;margin-bottom:18px}
+.cm-kpis .cm-kpi-sub+div{margin-top:14px}
+@media screen and (max-width:1100px){.cm-kpis{grid-template-columns:repeat(2,1fr)!important}}
+@media screen and (max-width:600px){.cm-kpis{grid-template-columns:1fr!important}.cm-kpis .ov-num{font-size:42px}}
+.cm-kpi-sub{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;row-gap:4px}
+.cm-kpi-sub .grow-pct{font-size:19px;letter-spacing:-.5px}
+.cm-sub{font-size:12px;color:var(--w70);font-weight:500;line-height:1.5;margin-bottom:12px}
+.cm-feat{background:#0d0d0d!important;border-color:#0d0d0d!important;--w:#fff;--w70:rgba(255,255,255,.75);--w50:rgba(255,255,255,.6);--w08:rgba(255,255,255,.14);--border:rgba(255,255,255,.12);--green:#88F802}
+.cm-feat .m-num{color:var(--green)}
+.page-sec:not(.light) .cm-feat{border-color:rgba(136,248,2,.35)!important}
+
+/* ── KOREA KOL CAMPAIGN (per-client config) ─────────────────── */
+.kk-sub{font-size:13px;color:var(--w70);font-weight:500;margin:-14px 0 28px}
+.kk-group{margin-top:32px}
+.kk-group .sub-lbl{margin-top:0;display:flex;align-items:center;gap:10px}
+.kk-group .sub-lbl span{font-weight:600;letter-spacing:.5px;text-transform:none;color:var(--w50)}
+.kk-plat{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.3px;padding:3px 8px 3px 6px;border-radius:20px;background:var(--w08);color:var(--w70);white-space:nowrap;flex-shrink:0}
+.kk-plat svg{width:12px;height:12px;flex-shrink:0}
+.kk-av{width:30px;height:30px;border-radius:50%;object-fit:cover;flex-shrink:0;background:var(--w15)}
+.kk-post-head{display:flex;align-items:center;gap:10px;padding:16px 18px 0}
+.kk-post-name{font-family:var(--hd);font-size:14px;font-weight:800;color:var(--w);line-height:1.2;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.kk-post-title{font-size:13px;font-weight:600;line-height:1.5;color:var(--w);padding:12px 18px 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.kk-post-meta{display:flex;gap:14px;padding:12px 18px 0;margin-top:auto;font-size:11px;color:var(--w50);font-weight:600}
+.kk-post-meta b{font-family:var(--hd);color:var(--w);font-weight:800}
+.kk-spot-plat{margin-top:4px}
+.spot-card .kk-link{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:11px;font-weight:700;color:var(--green);text-decoration:none}
+.spot-card .kk-link:hover{text-decoration:underline}
+
+/* ── PRINT / PDF (portrait A4, same alternating dark/light bands as screen) ── */
+/* .cc-print-layout is applied just before printing so the page can be measured
+   at exactly the print width (1280px × 0.62 zoom = A4 width) and paginated by JS. */
+@page{size:A4 portrait;margin:0}
+html.cc-print-layout body{width:1280px!important;min-width:1280px!important;margin:0!important}
+html.cc-print-layout #gate,html.cc-print-layout #np,html.cc-print-layout #nav,html.cc-print-layout #lb,html.cc-print-layout .pdf-btn,html.cc-print-layout .tooltip{display:none!important}
+html.cc-print-layout .hdr{position:static!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:#000!important}
+html.cc-print-layout :is(.article-card,.campaign-growth-banner,.chart-card,.collab-pfp,.custom-link-card,.custom-text-card,.fol-card,.kol-card,.lb-tbl-wrap,.mcard,.ov-card,.pod-card,.pr-summary,.score-ss-card,.spot-card,.tweet-embed-wrap,.xpost-card){opacity:1!important;transform:none!important;transition:none!important;box-shadow:none!important}
+html.cc-print-layout .report-banner{animation:none!important}
+html.cc-print-layout :is(.score-ss-img img,.ss-grid img){max-height:680px;object-fit:contain}
+#ccPages{display:none}
+html.cc-composed #ccPages{display:block}
+html.cc-composed #main{display:none!important}
+.cc-page{position:relative;overflow:hidden;display:flex;flex-direction:column;background:#000;break-after:page;page-break-after:always}
+.cc-page:last-child{break-after:auto;page-break-after:auto}
+.cc-page>*{flex:none}
+.cc-page>.page-sec{margin-top:0}
+.cc-page>.page-sec.after-banner{margin-top:-100px}
+.cc-page>.cc-fill,.cc-page>.cc-fill-black{flex:1 1 auto}
+@media print{
+  html{zoom:.62}
+  html,body{background:#000!important;-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  :is(.mcard,.ov-card,.chart-card,.article-card,.spot-card,.pod-card,.kol-card,.score-ss-card,.custom-link-card,.custom-text-card,.collab-pfp,.fol-card,.pr-summary,.tweet-embed-wrap,.xpost-card,.ov-grid,.cc-grid-row,table.lb tr){break-inside:avoid;page-break-inside:avoid}
+}
+
 /* ── RESPONSIVE ──────────────────────────────────────────────── */
-@media(max-width:1100px){.ps-inner{padding:0 36px}.nav{padding:10px 36px}}
-@media(max-width:860px){
+@media screen and (max-width:1100px){.ps-inner{padding:0 36px}.nav{padding:10px 36px}.article-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media screen and (max-width:860px){.article-grid{grid-template-columns:1fr!important}}
+@media screen and (max-width:860px){
   .ov-grid{grid-template-columns:repeat(2,1fr)!important}
-  .m3,.m4,.m5,.posts-grid,.kol-grid,.article-grid,.pod-grid,.ss-grid{grid-template-columns:1fr!important}
+  .m3,.m4,.m5,.posts-grid,.kol-grid,.pod-grid,.ss-grid{grid-template-columns:1fr!important}
   .m2{grid-template-columns:1fr 1fr}.hdr{flex-direction:column;gap:8px;padding:16px 20px;text-align:center}
-  .hdr-r,.hdr-week{justify-content:center}.page-sec{padding:56px 0;scroll-margin-top:150px}.ps-inner{padding:0 20px}.nav{padding:10px 20px}
+  .hdr-r,.hdr-week{justify-content:center}.page-sec{padding:32px 0;scroll-margin-top:150px}.ps-inner{padding:0 20px}.nav{padding:10px 20px}
   .pr-summary{flex-wrap:wrap}.pr-sum-item{min-width:50%}
   .fol-card{grid-column:span 1!important}
 }
-@media(max-width:600px){
+@media screen and (max-width:600px){
   .m2,.ov-grid{grid-template-columns:1fr!important}.ps-inner{padding:0 16px}
   .ov-num{font-size:44px}.pin-box{width:44px;height:52px;font-size:24px}.pin-row{gap:8px}
 }
@@ -472,6 +535,7 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
     <img class="hdr-cl" id="hdrCl" style="display:none" alt="">
   </div>
   <div class="hdr-r">
+    <button class="pdf-btn" id="pdfBtn" type="button" onclick="ccPrint()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>Download PDF</button>
     <div class="hdr-week"><span class="hdr-dot"></span><span id="hdrWeek"></span></div>
   </div>
 </div>
@@ -487,7 +551,9 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
   <a href="#secNucContrib" id="navNucContrib">Contributors' LB</a>
   <a href="#secNucRep"     id="navNucRep">Reputation LB</a>
   <a href="#secKol"          id="navKol">KOL Campaign</a>
+  <a href="#secKoreaKol"   id="navKoreaKol">Korea KOLs</a>
   <a href="#secPr"          id="navPr">PR &amp; Comms</a>
+  <a href="#secCommunity"  id="navCommunity">Community Management</a>
   <a href="#secFin"        id="navFin">Finance</a>
   <a href="#secWeb"        id="navWeb">Website</a>
 </div>
@@ -633,6 +699,14 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
     </div>
   </div>
 
+  <!-- 8c. KOREA KOL CAMPAIGN (per-client config, hidden unless configured) -->
+  <div class="page-sec" id="secKoreaKol" style="display:none">
+    <div class="ps-inner">
+      <div class="sec-hdr"><div class="sec-title">Korea KOL Campaign Progress</div><div class="sec-rule"></div></div>
+      <div id="kkBody"></div>
+    </div>
+  </div>
+
   <!-- 9. PR & COMMS (dark) -->
   <div class="page-sec" id="secPr">
     <div class="ps-inner">
@@ -642,6 +716,14 @@ table.lb td.score{font-weight:800;color:var(--w)}.lb-row-avatar{width:22px;heigh
       <div class="article-grid" id="articleGrid"></div>
       <div class="sub-lbl" id="prPodsLbl" style="display:none;margin-top:36px">Podcast &amp; interview features</div>
       <div class="pod-grid" id="podGrid"></div>
+    </div>
+  </div>
+
+  <!-- 8b. COMMUNITY MANAGEMENT -->
+  <div class="page-sec" id="secCommunity">
+    <div class="ps-inner">
+      <div class="sec-hdr"><div class="sec-title">Community Management</div><div class="sec-rule"></div></div>
+      <div id="cmBody"></div>
     </div>
   </div>
 
@@ -685,25 +767,25 @@ const D = {
   "pin": "4081",
   "published": true,
   "week": 1,
-  "weekDate": "8th October",
+  "weekDate": "15th October",
   "campaignStart": "20th November",
   "lwLabel": "Last Week",
   "nowLabel": "This Week",
   "overview": {
     "followers": {
       "start": 747,
-      "lw": 162665,
-      "now": 160475
+      "lw": 160475,
+      "now": 149714
     },
     "discord": {
       "start": 416,
-      "lw": 125982,
-      "now": 125554
+      "lw": 125554,
+      "now": 125167
     },
     "cookie": {
       "start": 208,
-      "lw": 3806,
-      "now": 3752
+      "lw": 3752,
+      "now": 3883
     },
     "collabs": {
       "lw": 205,
@@ -718,29 +800,29 @@ const D = {
   "social": {
     "xFollowers": {
       "start": 747,
-      "lw": 162665,
-      "now": 160475
+      "lw": 160475,
+      "now": 149714
     },
     "impressions": {
       "start": 4100,
-      "lw": 72200,
-      "now": 61800
+      "lw": 61800,
+      "now": 48500
     },
     "engagements": {
       "start": 76,
-      "lw": 1500,
-      "now": 880
+      "lw": 880,
+      "now": 1200
     },
     "mutual": {
       "start": 0,
-      "lw": 206,
-      "now": 208
+      "lw": 208,
+      "now": 206
     },
-    "mutualScreenshot": "https://drive.google.com/thumbnail?id=1E2fp5kP_RDgXl2b0k2Y5KuIpxn9-Ew9N&sz=w1200",
+    "mutualScreenshot": "https://drive.google.com/thumbnail?id=1idapjgGEFNDmCfshLOjUYpg__7ZjlVJg&sz=w1200",
     "discordMembers": {
       "start": 416,
-      "lw": 125982,
-      "now": 125554
+      "lw": 125554,
+      "now": 125167
     },
     "telegram": null,
     "posts": [
@@ -748,57 +830,58 @@ const D = {
         "name": "Canopy",
         "handle": "@CNPYNetwork",
         "avatar": "data:image/png;base64,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",
-        "text": "Every chain tells you that you own your app. Ask what happens when you try to leave.\n\n@AdamLiposky on what sovereignty actually means here: you own the application, you own the validator set, you own the token.\n\nCanoliq proved it on September 22, the first third-party chain to graduate on Canopy with its full history intact. 🌿\n\nhttps://www.canopynetwork.org/blogs/cnpy-is-collateral-first",
-        "imageUrl": "https://pbs.twimg.com/amplify_video_thumb/2107826510635614208/img/9jHLm1vf3T4KKMyN.jpg",
-        "views": 4408,
-        "likes": 86,
-        "reposts": 17,
-        "replies": 48,
-        "followers": 160467,
-        "url": "https://x.com/CNPYNetwork/status/2107827994450596187"
+        "text": "A delegate bonds CNPY and lists committees but runs no app nodes and signs no blocks.\n\nIts stake counts toward each listed committee's 33% subsidization threshold, so delegators decide which apps receive issuance. \n\nIt's also eligible for a 10% reward share, drawn by stake weight.",
+        "imageUrl": "https://pbs.twimg.com/media/HUl-_-Aa0AAaJh4.jpg?name=orig",
+        "views": 2850,
+        "likes": 88,
+        "reposts": 16,
+        "replies": 53,
+        "followers": 149712,
+        "url": "https://x.com/CNPYNetwork/status/2110370050255577108"
       },
       {
         "name": "Canopy",
         "handle": "@CNPYNetwork",
         "avatar": "data:image/png;base64,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",
-        "text": "Good read from @hackernoon on where crypto's lapsed users actually come back from. The short version: lower the bar to build, and the builders return. That is the whole idea behind Canopy.\nhttps://hackernoon.com/the-crypto-sector-lost-58percent-of-its-newcomers-there-is-still-a-way-to-get-them-back",
+        "text": "Two minutes.\n\nThat's how long it takes to move CNPY from BNB Smart Chain to Canopy.\n\nOn Canopy, bonded CNPY is the only collateral securing apps. Stake it with a validator, or delegate it and help decide which apps receive issuance all while receiving rewards.\n\nStep-by-step guide:\nhttps://www.canopynetwork.org/blogs/unwrapping-cnpy?utm_source=x&utm_medium=social",
         "imageUrl": null,
-        "views": 5651,
-        "likes": 141,
-        "reposts": 27,
-        "replies": 99,
-        "followers": 160467,
-        "url": "https://x.com/CNPYNetwork/status/2107110268358815849"
+        "views": 4627,
+        "likes": 103,
+        "reposts": 19,
+        "replies": 56,
+        "followers": 149712,
+        "url": "https://x.com/CNPYNetwork/status/2110030147667558614"
       },
       {
         "name": "Canopy",
         "handle": "@CNPYNetwork",
         "avatar": "data:image/png;base64,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",
-        "text": "Two very different apps went live on Canopy in the past 10 days, and both got there the same way.\n\nCanoliq (@canoliq): liquid staking. \nPraxis (@praxis_fdn): an onchain prediction market.\n\nOne launch path: build with the Canopy Stack, launch through Terminal, run as your own network.\n\nhttps://www.canopynetwork.org/blogs/two-apps-two-networks?utm_source=x&utm_medium=social",
-        "imageUrl": null,
-        "views": 6977,
-        "likes": 89,
-        "reposts": 22,
-        "replies": 22,
-        "followers": 160467,
-        "url": "https://x.com/CNPYNetwork/status/2106149093798015322"
+        "text": "When an app on Canopy halts, the recovery tools sit with the Security Root.\n\nIt can reassign the app's validators, restart its consensus, or roll back its state.\n\nOn a standalone chain, the same fix waits on two-thirds of the validator set upgrading and restarting together.",
+        "imageUrl": "https://pbs.twimg.com/media/HUb0DRtasAAW1EP.jpg?name=orig",
+        "views": 5531,
+        "likes": 140,
+        "reposts": 18,
+        "replies": 84,
+        "followers": 149712,
+        "url": "https://x.com/CNPYNetwork/status/2109645272833761646"
       },
       {
         "name": "Canopy",
         "handle": "@CNPYNetwork",
         "avatar": "data:image/png;base64,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",
-        "text": "An app on Canopy isn't a dead end.\n\nApps in the Canopy ecosystem both receive security from Canopy, as well as provide it. \n\nThese apps can then become ecosystems of their own - with side apps that augment base utility and sub-apps which interoperate with the base application. \n\nIt’s a simple way separate, yet augment base app utility without changing the underlying code.\n\nThat's how you build a world, one app at a time 🌿",
-        "imageUrl": "https://pbs.twimg.com/media/HTi1mOSaIAA0R5i.jpg?name=orig",
-        "views": 6748,
-        "likes": 138,
-        "reposts": 28,
-        "replies": 85,
-        "followers": 160467,
-        "url": "https://x.com/CNPYNetwork/status/2105658996384551036"
+        "text": "A validator with 10,000 CNPY bonded and three committees listed participates in all three, with 10,000 CNPY of voting power in each, slashable in any of them.\n\nThe same collateral backs multiple consensus instances at once. \n\nApps join the network with no new capital.",
+        "imageUrl": "https://pbs.twimg.com/media/HUMF5yxaEAAIL44.jpg?name=orig",
+        "views": 6898,
+        "likes": 134,
+        "reposts": 18,
+        "replies": 82,
+        "followers": 149712,
+        "url": "https://x.com/CNPYNetwork/status/2108558105025921437"
       }
     ],
     "extra": []
   },
+  "community": null,
   "collabs": {
     "done": 193,
     "inProgress": 12,
@@ -809,59 +892,59 @@ const D = {
   "cookie3": {
     "score": {
       "start": 208,
-      "lw": 3806,
-      "now": 3752
+      "lw": 3752,
+      "now": 3883
     },
     "uniqueEngagers": {
       "start": 2,
-      "lw": 858,
-      "now": 777
+      "lw": 777,
+      "now": 701
     },
     "smartFollowers": {
       "start": 9,
       "lw": 211,
-      "now": 211
+      "now": 340
     },
     "avgViews": {
       "start": 4610,
-      "lw": 58320,
-      "now": 51480
+      "lw": 51480,
+      "now": 42250
     },
     "avgEngagement": {
       "start": 65,
-      "lw": 1510,
-      "now": 1370
+      "lw": 1370,
+      "now": 1220
     },
     "smartEngagement": {
       "start": 3,
-      "lw": 118,
-      "now": 107
+      "lw": 107,
+      "now": 91
     },
     "smartReach": {
       "start": 44790,
-      "lw": 42820000,
-      "now": 36570000
+      "lw": 36570000,
+      "now": 30320000
     },
-    "screenshot": "https://drive.google.com/thumbnail?id=1QkqTqPPfZFhvo0jpo4A8_-iRGl6I7AAy&sz=w1200",
+    "screenshot": "https://drive.google.com/thumbnail?id=1Zjo4eno2N5LWUV-Huqpgb4Zb6zdDSlsq&sz=w1200",
     "smart": {
       "start": 9,
       "lw": 211,
-      "now": 211
+      "now": 340
     },
     "reach": {
       "start": 44790,
-      "lw": 42820000,
-      "now": 36570000
+      "lw": 36570000,
+      "now": 30320000
     },
     "viewsPost": {
       "start": 4610,
-      "lw": 58320,
-      "now": 51480
+      "lw": 51480,
+      "now": 42250
     },
     "engTweet": {
       "start": 65,
-      "lw": 1510,
-      "now": 1370
+      "lw": 1370,
+      "now": 1220
     },
     "extra": []
   },
@@ -971,7 +1054,7 @@ const D = {
         "likes": 131,
         "reposts": null,
         "replies": 146,
-        "followers": "11k",
+        "followers": "12k",
         "url": "https://x.com/ITzINSANE_NFTs/status/2084933763881156652"
       },
       {
@@ -993,11 +1076,11 @@ const D = {
         "avatar": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gKgSUNDX1BST0ZJTEUAAQEAAAKQbGNtcwQwAABtbnRyUkdCIFhZWiAAAAAAAAAAAAAAAABhY3NwQVBQTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA9tYAAQAAAADTLWxjbXMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAtkZXNjAAABCAAAADhjcHJ0AAABQAAAAE53dHB0AAABkAAAABRjaGFkAAABpAAAACxyWFlaAAAB0AAAABRiWFlaAAAB5AAAABRnWFlaAAAB+AAAABRyVFJDAAACDAAAACBnVFJDAAACLAAAACBiVFJDAAACTAAAACBjaHJtAAACbAAAACRtbHVjAAAAAAAAAAEAAAAMZW5VUwAAABwAAAAcAHMAUgBHAEIAIABiAHUAaQBsAHQALQBpAG4AAG1sdWMAAAAAAAAAAQAAAAxlblVTAAAAMgAAABwATgBvACAAYwBvAHAAeQByAGkAZwBoAHQALAAgAHUAcwBlACAAZgByAGUAZQBsAHkAAAAAWFlaIAAAAAAAAPbWAAEAAAAA0y1zZjMyAAAAAAABDEoAAAXj///zKgAAB5sAAP2H///7ov///aMAAAPYAADAlFhZWiAAAAAAAABvlAAAOO4AAAOQWFlaIAAAAAAAACSdAAAPgwAAtr5YWVogAAAAAAAAYqUAALeQAAAY3nBhcmEAAAAAAAMAAAACZmYAAPKnAAANWQAAE9AAAApbcGFyYQAAAAAAAwAAAAJmZgAA8qcAAA1ZAAAT0AAACltwYXJhAAAAAAADAAAAAmZmAADypwAADVkAABPQAAAKW2Nocm0AAAAAAAMAAAAAo9cAAFR7AABMzQAAmZoAACZmAAAPXP/bAEMABQMEBAQDBQQEBAUFBQYHDAgHBwcHDwsLCQwRDxISEQ8RERMWHBcTFBoVEREYIRgaHR0fHx8TFyIkIh4kHB4fHv/bAEMBBQUFBwYHDggIDh4UERQeHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHv/CABEIAMgAyAMBIgACEQEDEQH/xAAcAAEAAQUBAQAAAAAAAAAAAAAABwIDBAUGAQj/xAAZAQEAAwEBAAAAAAAAAAAAAAAAAQIDBAX/2gAMAwEAAhADEAAAAZMEAAAAAAAAAAAAAAAADTc8brYwlbi03ZEAeJ+ikCyCr3ImAAAAAAAKI11fJxbJsVexd7TUeU5NELFyoSHIXztPds84TAAAAACOpDj1PDYa3XS9m6/yGxwfLcq2HlCmq2XZTi3vVZNFqAAAAAIzkyLU8Kt1V09tZVtb3Fula7GTUnDyLduYxpBjCY5zkkIAAAAApjaS/D5ruSRyC+v3OzuV7cHRdZpltLvsi2roNLseety7D6c+ffodiAAAAAABRwMg8g05di5VfTUVexLUbLMnDneLlLn5pmzPwXezxgqAAAAAABH+klCOI7LXjWx08tvOX7u3FcyNfpm+XJsN7txzk0W9UAAAAAAAaLek8p1XohTT9vwNovUqcrVU4e+0yyZihbpb0k957nsAAAAAAA0W0gNFVFvITbydhi2ytV3L2uTz0jrJDg6RM9+tFNAAAAAAOLibuOOGdZoiKdhZr2wu26qrUq89oKLvol7Y8V2uHUCQAAAFu5wyI2q0+yic3HuL55FdLXH25R4hcuXZjGyvKlekkCJZay6QpqAAAAgMmOX6shbyjTC1ilmdlls8+0WyrCtiTDLs24y3/8QALRAAAgIABQIFAwQDAAAAAAAAAQIDBAAFBhESEzAQFCEiMSMyQBUWJDNDRFD/2gAIAQEAAQUC/wC5muZx0jVFgRvfooYbFef8TMsyq0MfuapvFesRX7E9iyfQYKg4qXrtVsrz9Jn77sqJmeoZHMksk0j/AGeI+T88SRpfNDJ39RZobsxPHxHxiGJ5mdenJOQWV22DPHLRsLap9zVOa8UggDxxoXeZShhrSSYYQpjccV9MP8SfZCfa/wAaOl5Uu2w5LqpYq1Eeob7sRyHbB9Dzbm32P64f2MfcuiW3l7mtP7/8Unxvsg2UMOahuonFWT+vBLhpfskY120RJK1zua0eM2omDxKeS1niisSt15dpOG+FAxb3jo1oJxBZb+PM3I6Mqy05+22/HNslc06UMnQDNgV+dKOjmC1RByrSIVQIRi/BCaWSnevdk5HK4fMZlwXqdw+oo5a1bMM0yexl+YLGiuRucXE6tqSHea5wbF+z9Enc6RXlqDvFQTnU/Xv+IUc8ZmqywWKomjtxdO1lcHls379rJec8IYHAIIxK6xx6dtmxWmbnbvU+payIxtN+BmuX+UHEEYJAGa3vMHTFhqoSRZLJIUWbO503dNun37deK1Xt12pXSQA9G9muM0pS5fdoxdGpLbQGaRnPT5SZVd/T7uWZpWzA9/NaHncVMkhRsas6s+fPM02CfTwi+q1SxLBapzparfg6njC5pEOMeN8b9aXZIY15HGSZl5JvwM6zKHLKiSzTWW3LKvImsrQ141hjjBdsH1GnsxMTd6zNHXgzy29u4nLZFZ23hqKJZrTsOZ8WAYafzE2E7urZdqagPJgnopIC0voij2rFvxwfTBUvhCYWy60LlLuazm3u4rgc9/WuhVV9zv8ACjYYHr46PJ/Tu3I6xpdsvfzbZBhSgrr9SSUniuww33YHu8emqjTcqJd7erbnSq0GJOP9amPp/MifI+4+4opdmjHCuAZF95jleCz29TW+vbon+TJKEM9uQQqBHGjcX98Vsb8YAOSe4Tcy3TKxIBIbHRbGTWPM5Xj/xAAjEQACAgEDBAMBAAAAAAAAAAABAgARAxAhMBIgMUEEE0BC/9oACAEDAQE/AfxdM6ZXCB2sO8dzd486dO16VcIocKn1DgPozKm20CdCmZG2C8OJgrWYDYvT5DhVqPj+xAwjr0tXD8fL/JmTIEFxFOdjc+1cS9I3jMXNnhBrcQknzAx8aZHraI3riqt4zk7iXojXwAbw7xzet8AjbDW4TMRte4yrMf1o3iDzAbFzBp//xAAfEQABBAICAwAAAAAAAAAAAAABAAIRIRAwIEADMUH/2gAIAQIBAT8B6Uqe4OtO8azj0om1I+azQnDGpw1EzSa0DLm6CaQTRGslNs8Xi+QRpNwM+TH/xABCEAABAwEEBgQKBwgDAAAAAAABAAIDEQQSITEQEyJBUWEwMkJxICNAUnKBkaHR4QUUM1OxwfAkQ2KCkqKywjRQ8f/aAAgBAQAGPwL/ALxsTGGa0v6kTVftcjb5zawbLVR9ts7TzkC8TPHJ6LgfJG68uvOya0VK/wCLavY34o2y6187qmruyT8lW0zPl9I4ezLRkvEWmSg7LjUJsNrYIXnAPHVPw8gL3uDWjEk7kY7BsM+9cMT3BGSWZ8ruLjVHwKFepZVQsNodVwHinHfy6cwQu/Z2n+s8e5YZ+DSMVTb1DxoVsgCjad6FHFNkjN14NWnmFFaG9ttacOldYLKSXZTOb2RwTpC4NDck0DMv/JEHMKuAaMySnAhxNcKHCiHvRC9aPcsc1XgVLB93Jh3H9HpCMceBVns0EbY2vkvGgzoPnpJWrvdTQa5ZoSdg4IlAc1f7JzXerX6LP9ulsY/hf/qq8lXguKHGuaIV2QbQKpuVDiDmmPps9WvNFUYatO4qdzIfFuaL5vdXOn59LZm3tqNji710p+CqMkAr0rqNaibNZ5CzfhhVB12jqZcUHFtL+4qoTZB2pPcrzgNXLh3HcVXihyAVshmFHXYne2vSG6KncrTbZ5jNaeuQOqBw9iml/dxuDX8q711RfyaBvRdBGHzV2nFWmS0Wn6tqjda24SZDyJQZKav87mow4ZXx71QCl/FqpJgIxgp2uds4epADvVng3PkAPdVaym1SleXS0K+kPo8UEdqirG5wqKfKqhdjJAXi7J+SL2ihdmgTiRlXQyIcMe5RPGTc1clkux0NRTNamytu2cGhcN5VSrNyvH+09OCRiMlq29Sz4fzn9e/wC/edBbq3yOBwazOv6Khhawxsa7bBFCOSfHTtYL6LtQbRkgMLvTFW/DyB8lntZhvm8Wll4VTxI6sjHljqZYHRUGo0F7sgp7rY2nXXg5wrcwCtBx+039wUM7Bk4X+5TWOVocCRPHXjv/L2+QvtMLxqi/aY7MFx3H1ra2tFSaBauP7Ie9SPcysbiMaE4ju71M6MODXbWLaU5KpNAmSRSPhDThK00J5BFkjiZYjQ1zI3H9cPIHQTAljs6Gi+rX3Pjc2/G52fMKpNArtmBEHnnBp+KfZZSC5u8ZFRs30xRbENa4cMh3lVeRI7cOwPitZI4vcm2g11fVkA4Ith1jXAXqPFMPII3MlEckdaEtqKFCS1yG1OGQIowerQBqW0iusHPfj71tPvjgMG/NUyHAaTWmrGZrmmWmJn2e44XhvCZaI63Xjf5FE/7yL/ABd800cBp1bdr8AuACvOw4BfV5z+zOOy77sn8vITM/F5wjZ5xRt1rcXSvyHJEigVEZHNlMbcyBQIuNG7zyWsePRHDRQpthtDtg4QvP8Aj8OnfPKaMYKlCSetTiGDsjcFV+fBBrBUnIKlGzyn+lvxWsmkLmt6o3Km4eBQr6taHePYMD57ePTQQjOSYewY/BOmObjh3aLjftHDaPAcFqx/4gG9w0VdmTpxJDeCbJEbj48WlR2gCl7McDv6WCEboz/cflovHJovFGR5yxKvO6zkXbhgPAqfVpliP7udw/A9I57zRrRUlPlPqHBYmvcnm6cXAZoNpRrcSFQZuwCujcENFd27SDK+7XsgVKls7XOIkZfFRTEfodILMDi/af6I+JUrq4uz0fzov84onzcEeaJ9Spu3oNbmi5kgdTNVd1Wi8U6aXEb+ZVntL3tY1rxsfwnA/j0kzwcHPuN9FvzTW1DQ40qdyu2agA7RGLlqnfabw9oOaA3NCEZzIvIAnxTq05IcSqUrgaLDFzmEVpv4IRMGzQUAGeCuVAqdt24ckKNOqZkPOKe2S9I52ZBoFBMetdo7vGB0f//EACoQAQABAwMDBAIDAQEBAAAAAAERACExQVFhcYGREKGx8DDBQNHhIFDx/9oACAEBAAE/If8A3IYiiLs4l0KtyaYDiFu9V8Vx+Qb819y92/iAhQrPga8d6ds71TMBzRZSGsSArf8AiLLpgosABVyQu9SQX+F2ruKQvbM/2Of4B6BkoBvQkgbjqGDl8U2YkXoNuM4qdlhjNBBB6IJDTZZjDuVZb9FSQOzappboLgy+T46fnwRtbB6uGnnaokGbPLRbaXam5FYJ9LwqJbxFTmGJCSR5KtxUs91HipkJxUQENpeKJaAluanZk/KaS41Stfouv+0YlIG8F4+6UqBbQ0RgbrF6lwXSGA3rbwaXKETDSSkd/NYej5ru7CkYYM9dawbBqXm83AZ+fyDRQCGw+SlyRCK4zvcUoelWS4Hw/wC0NqEztwidKWE5pBFGp80Ta1scb0xJpfxXex7Xpf8AzF3qCA2GajLlVOZD+Vu0/fQbOrXynbWjQqLQatTKRybpqBGH4aK0YF8KVgd4kbVdyp+3mnDZ+JNRvYh+KD5I2qkAjmLpkjXHs/L4SEz+wojwK30mHt996PwEp1j/AH4om53WThWq3KTj/dQCGiXU0mpErG02otmOTcDB81hGZNfgpt3o5YWx3qX7L2qzuR0D/wA7fkRQIbFgWp2BiYDkGWMOhUf35EyjotHcqBkU5gH32KvQSMljMk9sUze7kBW2juNT+xS6ilyNIrHgUANmxSaSVYxCFqmmBInGUvFBZRp2nSiaJ9zD2rHkv90pj7v+UCAI5GoFG2yWG2r+lqRkTRgLyDCA9aIToOtFvuFMdPRLEL0aSv8AHvRHAVBxFvegpJmvB6E6XtxNAuziO1TNkaA7q8H5wLrlbUM9JKdwv4IO7/gcC0C8HpDBrWHAGPqN6kamUgmhvN6Q/BA40ogB2mA/eu8/wIbJx026lxJo7zWbJgsT6EzJhNfRV4KWkYTZpAh6+b0I67+d0/dJMiMbyzRzogaIIciL+CeN2RWCTqXlD5pKOtOHt6MzASrpSS6Jnf8A1TEGwI3lQ9lqSqxBJGTwApyYLquKa+eAl2dVnepSitynN2t1X8CNO0EVkS5yFO1sSCYR1i1+aZGDKuKhpLw9ZLfsIqAFiYxJEqaSBPqbtagBS/WFQBLh7P7VKDnE4OhV0BmUl69m/mhoyFTuL/ZP4DiEZOUEiSbFMRKR0fPvNFiDFRks0m8zxXHapOb7vr3UqLBwEB29HE0ZkG+OirylZbu3B/YVllQhCaI9H+EVEkpPc8PxUo5gfRJzRDblGPd3oF0f3vWKfF681Amlq6qUeS506fwY2c0X/o3a4HcMLTgpCAKu9LcT7FCob2JvnpQoI9ltQpgGf3PPoBAkclIXbiY5v1pt+e+xA/RzXMwg2H3Xmp8BeFO1dAa1ubbN+L6ipaKjHLcMUEvPLy/8OSkaTzJy/YmvnX8yMMp0Ve5QCp7Do9Fe1ypNP78b0CeNFNBl+70wUGjQMlglavkuHpx6IErBXaZGF6tSx5F0f63q1nk2xgeR/Kiq7ujB8OgAAwVImLgdYwd2CjPmU6tMC1ng0Kf9zO7+u1OKwI51pQJbBQXFbR6mYlA6IHz+QKrjsAZaE5xOw0Ox7zWpntj5oreM93bgrHVlNXT7xRJ8N0ufEtAw4CoSPf77elwWPlz6zIISWZzcij1Gg9C6uj4fkO2z+u8B0mkhcEtdfTXyPius9OhY+KOMsdXP6pS25jtarttToLy4o6rqKAWERI5vpUIpUO8ad2DvRliLPK0p14wbatBYtK+35L1HtV95Peo1kTS0tWnBYbvKdOhWfBmcBgAT9vW2U+KCw4zlm5UzMlT15ioCN7pvVtBCBvLFTtoeMJ/ZA+ac5Upc6GLtTAuB3FiWr0/VG8ijUfTq+xRsjUPFdrM0jWUfrGR9P//aAAwDAQACAAMAAAAQAAAAAAAAAAAAAAAAAJqEPAAAAAAAAP1JL7nAAAAAAAMH9sgLAAAAAAUY/CCFMAAAAAABBLILtyAAAAAAAl136spAAAAAAAAViKMkKAAAAAAAQQx+HFIAAAAAAAHZ/t+sAAAAAAA4pvfydrAAAAAXvnw3QzBAAAAAC8D8gCfAA//EACYRAQACAQMDBAIDAAAAAAAAAAEAESEQMUEgMFFxgaHwQLGRwdH/2gAIAQMBAT8Q/BpYJnrizs87K0vSh690rUbjNnYt4WyZ8RGFS+CJYxbx1jUzEYGDzXMF823yQbOR+/uEBbrnsheGGQ5mGOeTKQZx/G0uPDs/1csbeODic1j7niNN/sohMx21bCqWiAG0oU3ZU27K01AZIFsHnz6H+/MU550rU79iyzM1OxLVcE40EbQb6logaiueblYrRI0zNUrurh6ymSAChVw/ZFlMH7vyxV+swUPtp//EAB8RAQACAgMBAAMAAAAAAAAAAAEAESExECAwQUBRcf/aAAgBAgEBPxD8KnAR8V/XN8Dfd1DgJXidQgSoZiZgeCXnoDNx8HXIVxBRphnxEC5c5LYI2VCV5VEG4qtstyy/J4h9ms1EKcsqscVZPCqkKalD+80MSmuwW1AHBLBzTAlHZ9x0K+zdizaOpRcy4//EACkQAQABAwMDBAMAAwEAAAAAAAERACExQVFhcYGhEDCRsUDB8CDR4VD/2gAIAQEAAT8Q/wDcUB0GIoV6ZsWVvBAoTSgs60HNYDkKIBTJR2aEKOEts+T+IovjLwHQCUJROmGjQE/oi6oh4VYrcDIxAE2hVo1uqnCHYKESLgCCmwcxC50dKMIwlTnfAeIeSn5EK5dgLmtiXgMH4ChvixCVLYA1pPOIn5dptCrszQUnNYCoNBKYQXoI3ZwMls0R4Ag9GQSOlGSkJT+JMPbepSyul6If20jWykkiReeKJSwzx13qZI6h5PurAqgF2sJf13S+4xZhToIkwQrqkE/fBRmDuERLQEWEhpKmUE9fRoQsABuzU24WMOhBImY+KnU5jay+WagJcgYJzanYhvlwnOLmxRsp9J0euHY926EcCIAhZKC0GM2K6MjTMBu2Ckcey0RNq8T9VA2mbCLz1t9lBkYBFCeoi8lqWugXIE3YZS5aJ7UDSETZJ/PxTBhfVkU/c/BV8iwL4tFYcl1Eg81hYiHYMeV+iVbquwTD4WlltZbIfH3KRiIkTsgjyI7UGNf0E5WVJVlUvSrlhkG03q33SNsnhfFXlcltwW/VI4yIlEiS3Ex2oxraw65/3QknLzABh8w92pGnIxIh7Sx2adCwlwq/1RgLC5jQX+gd6KbkCHSOjR7UAApAM5M1itsAHlLe7KLYgcoVGbQeE0C/cucwjwWsRY4JdLG7HzRPo2uHfPRscW2oFDGOpXHsxUSNrdHTztzaaJrpAi5xwkeKgLSShxAnw60jJaUhFvkLk5hjFMOZkJ3NRWzEJBw1coZRGCSIYEBRlv7pnADTZ4DyzxwblXYAsXQGw9ooBlRd53PeD4UApgxIYpC9hGNdlS8fZEDMgwOpM3kC8gTVkJAYhTAbaI2S9S0Q4DYsG8IiZtjRs1pREl8/qo+C1GL1NyRdyozjzc3FrSzljooBRQAdHLxNIoz4UT5WuksLbX6Krle4QCLhwFhgnWHo08YlXGBqbiJ6QysFB1mYNuS070PIY9xRZSboWtdAuxVkYxNCFQMOCZmKNi32pNgm1CIFUAvZoOOWueYxyFAMGBEjBbcSsUzAhSCWWOUnvTrJ56gODNi+9JcA3WOWwsPMcUTsssbsnYPmoRf/AJD91AtBBLIQLcFY2lu+6MBkBIjkSrJ1CJZ3AIkLkSzSuMU3mc8BawF0QBQxojJhTE3b5veak5BCDO0sHB6GsotclPhsB3FH5ABBBPxHmjCuqwiXFwgkQIK4FJI0IGFuykC7utJRKUIAlx3QeY99sHq5dojDyLQmIBNiH+5I6f4Bq/rm5B0lXv6Km9QyMsK1igK2WuNSeu6CAlVd5aS8RlqmfFKIhH8IQdkgbzs/AYEniFZUBKpKSsRijrLltkoi8TMGdL0sEtijwDKJBuek+OoCVjQqzzbsa3w2AQwEXkAgKCAdwYAvdjHNEU2YQ+GHiNqmXmmiRPQfS4p3/BRFfQvXQLwZLxgEIKCB/wAT5mgggsUqgS0AMq0pv1YJav0O7oDP5kMyRGQLplWpRSRd8gEl4MjROaKX9nA3VpRhw1xAkBZKgsZrMZ/WijVQpbqNfwJvA5EOhBERbajE5jUiFgklkJQzcmhITMMDdXFM6kCv+Emz8qEAMwhkgDrHUasqFP8A0Cx2pE9hEOo/Bd4qTxJQX7maN/gUir66zj0CkPuTJKGJqkdENaGU0GXYtISYm8mC/wCBpCmCA1MuI2TDNBgwKVhCouXwBoAAAIA0KFwkBBjK0lYGrWnAdUZXdQBj5QcNBvQc6YWPRAkwGacKjYuem0YnO2tLtmxNAsIYJCLhEWpebJyIUDRBHk1/CAQIJJkFRySeW1IKgHUC/pNBeZDTq4KcpTfSGdztgmKOWIYW6rxql0urU0UG8txvu4YOc1H+tQSKO8Ms290giCIjhPwLxLBhA8GzoYygzN0hbEgDBjYzh1WjMDBWAsxpUvK1WWA1XjrU1tUosgBRNUDJUtR6bkIgMS1gy6stXMSGw2t/gYzPoMAyISI6UqxSRL0V5Pvk7qRErsGqUA1UKGR6KhY0241U7QnRXMGe51d2gueBlTQICUjslIBnI9QZigCLIbOyGAGCDMu1A7pB0O4PBZ6xs/4L+FDDDwjomRreCWQQHdAd0ws92BMmd/6IZqcYEnRtDqA9/SbCIHCSbCiOq5oki5QacgDlccyowVA0sxbsBPQag7ckZdVfLQkhSD/FsdvRSYMrUYbx3Qlw4O7pQb4XLEXk1RINRSpoWYJnpuoEHUh91xwYR1g9Rx1omgCANCkA3AkwJwrcNOvDO/6hO8v7pzBCLn9Tryta3K7SH7iHVvRkOFv0Lp3iO9M6GEo1W6/M0zcBKulAVAuunLz9eiCIkjSE5QZnLvN9xi2xwMqcANPZql5aDjRB6utNuPygDiUz2I5oQ1Qk3g3ypENA5hJGKt24vw1q1Uimpz2DsVG8QGxg+mi1uVdCH78qbUL6kkbt3G3ztHoHHyIKuIQkXBZ4qSggQNGRJLu/3InCQG4hD/6ANGCd4Eqey/XoW6I5hz91IjP9CMS70ZDD2AV8Q7tShlnQj/rvXGID7XyHar0c7d/L/G9AwVtLABdV0AlXQKNZoXRMCBMiJzi16j1cDAw7igEKXJhnIXSbrGAeKn3CxDEKAaSFg3z7iTfzDI5hxTjiuz0wBNAcu006NYAUNaFLpBBEyysgwDkCiBxAyQihhKK7ApcDPijJGU3F8UnZ4oSciLmGU9rSHxhpWSlU6lldp+qJADNAUkmt73y0AhAFGQcdh3Ym1P8Ao+cwkolu5WFajUg44kYmVJKwFHtRotiOpCdngm0wlSCQVgaNi1iIam1up130N//Z",
         "text": "Canopy is making it easier than ever to launch your own blockchain.\n\nInstead of dealing with complex infrastructure and code.\n\nYou simply describe what you want, build it, deploy it, and actually own a chain.\n\nWith your own Canopy blockchain, you also keep:\n\n→ The fees your users pay\n→ The direct relationship with your users\n→ Full control over how your chain operates\n\nThe momentum is already showing.\n\n@CNPYNetwork has surpassed 793K+ virtual chains on testnet,\n\nWith each one created by independent builders without having to manage the underlying infrastructure.\n\nAnd this is only the beginning.",
         "imageUrl": "https://pbs.twimg.com/media/HOzko1paUAAVIdh.jpg?name=orig",
-        "views": 2607,
+        "views": 2609,
         "likes": 69,
         "reposts": 1,
         "replies": 29,
-        "followers": "104k",
+        "followers": "103k",
         "url": "https://x.com/andrewtalksdefi/status/2084292121222332920"
       }
     ],
@@ -1020,31 +1103,31 @@ const D = {
   "x": {
     "followers": {
       "start": 747,
-      "lw": 162665,
-      "now": 160475
+      "lw": 160475,
+      "now": 149714
     },
     "impressions": {
       "start": 4100,
-      "lw": 72200,
-      "now": 61800
+      "lw": 61800,
+      "now": 48500
     },
     "engagements": {
       "start": 76,
-      "lw": 1500,
-      "now": 880
+      "lw": 880,
+      "now": 1200
     },
     "verified": null,
     "mutual": {
       "start": 0,
-      "lw": 206,
-      "now": 208
+      "lw": 208,
+      "now": 206
     }
   },
   "discord": {
     "members": {
       "start": 416,
-      "lw": 125982,
-      "now": 125554
+      "lw": 125554,
+      "now": 125167
     },
     "messages": null,
     "topEngagers": []
@@ -1083,17 +1166,30 @@ const sv  = v => (v===null||v===undefined)?'—': typeof v==='number'? fmt(v) : 
 const pct = (a,b) => b>0?(a-b)/b*100:null;
 const hide = id => { const e=document.getElementById(id); if(e)e.style.display='none'; };
 const show = (id,d='block') => { const e=document.getElementById(id); if(e)e.style.display=d; };
+// Last-week values are only surfaced when the metric improved on them (lower is better when invert is set)
+const lwNum = v => typeof v==='number'?v:parseFloat(String(v).replace(/[^0-9.\-]/g,''));
+const lwImproved = d => { if(!d||!vv(d.lw)||!vv(d.now))return false; const n=lwNum(d.now),l=lwNum(d.lw); if(isNaN(n)||isNaN(l))return true; return d.invert?n<l:n>l; };
+function trajPts(d,conv=x=>x){
+  const l=[],v=[];
+  if(vv(d.start)){l.push('Campaign Start');v.push(conv(d.start));}
+  if(lwImproved(d)){l.push(D.lwLabel||'Last Week');v.push(conv(d.lw));}
+  l.push(D.nowLabel||'This Week');v.push(conv(d.now));
+  return {l,v};
+}
 const extraCards = sec => (sec&&sec.extra||[]).filter(e=>(!e.type||e.type==='number')&&vv(e.now)).map(e=>({label:e.label,data:e}));
 
 // ── ANIMATION ──────────────────────────────────────────────────
 function animCount(el){
   const target=parseFloat(el.dataset.count),short=el.dataset.fmt==='s';
+  if(!el.dataset.final)el.dataset.final=el.textContent;
+  if(window.CC_PRINTING)return;
   let t0=null;
   const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
   (function step(ts){
-    if(!t0)t0=ts; const p=Math.min((ts-t0)/1400,1),v=target*ease(p);
+    if(!t0)t0=ts; const p=Math.max(0,Math.min((ts-t0)/1400,1)),v=target*ease(p);
     const sfx=el.dataset.suffix||'';
     let s; if(short){if(target>=1e6)s=(v/1e6).toFixed(1).replace(/\.0$/,'')+'M';else if(target>=1e3)s=(v/1e3).toFixed(1).replace(/\.0$/,'')+'k';else s=Math.round(v).toLocaleString();}else s=Math.round(v).toLocaleString();
+    if(window.CC_PRINTING){el.textContent=el.dataset.final;return;}
     el.textContent=s+sfx; if(p<1)requestAnimationFrame(step);
   })(performance.now());
 }
@@ -1132,16 +1228,17 @@ function colChart(canvasId,labels,lwData,nowData,lwLbl,nowLbl,clrs){
 function mGrowRows(d){
   if(!d||!vv(d.now))return '';
   const isNum=typeof d.now==='number'; let rows='';
-  if(isNum&&typeof d.lw==='number'){const p=pct(d.now,d.lw),clrUp=d.invert?p<0:p>=0,diff=d.now-d.lw;rows+=`<div class="m-grow-row"><span class="m-arrow ${clrUp?'up':'dn'}">${p>=0?'↑':'↓'}</span><span class="m-pct ${clrUp?'up':'dn'}">${p>=0?'+':''}${Math.abs(p).toFixed(1)}%</span><span class="m-pct-lbl">${diff>=0?'+':''}${fmt(Math.abs(diff))} vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}
-  else if(typeof d.now==='string'&&vv(d.lw)){const n=parseFloat(d.now),l=parseFloat(d.lw);if(!isNaN(n)&&!isNaN(l)){const up=n>=l;rows+=`<div class="m-grow-row"><span class="m-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}">${d.lw}→${d.now}</span><span class="m-pct-lbl">vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}}
+  if(isNum&&typeof d.lw==='number'&&(d.invert?d.now<d.lw:d.now>d.lw)){const p=pct(d.now,d.lw),clrUp=d.invert?p<0:p>=0,diff=d.now-d.lw;rows+=`<div class="m-grow-row"><span class="m-arrow ${clrUp?'up':'dn'}">${p>=0?'↑':'↓'}</span><span class="m-pct ${clrUp?'up':'dn'}">${p>=0?'+':''}${Math.abs(p).toFixed(1)}%</span><span class="m-pct-lbl">${diff>=0?'+':''}${fmt(Math.abs(diff))} vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}
+  else if(typeof d.now==='string'&&vv(d.lw)){const n=parseFloat(d.now),l=parseFloat(d.lw);if(!isNaN(n)&&!isNaN(l)&&n>l){const up=n>=l;rows+=`<div class="m-grow-row"><span class="m-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="m-pct ${up?'up':'dn'}">${d.lw}→${d.now}</span><span class="m-pct-lbl">vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}}
   if(isNum&&typeof d.start==='number'&&d.start>0){const p=pct(d.now,d.start),clrUp=d.invert?p<0:p>=0,diff=d.now-d.start;rows+=`<div class="m-grow-row" style="margin-top:4px"><span class="m-arrow ${clrUp?'up':'dn'}" style="font-size:14px">${p>=0?'↑':'↓'}</span><span class="m-pct ${clrUp?'up':'dn'}" style="font-size:14px">${p>=0?'+':''}${Math.round(p)}%</span><span class="m-pct-lbl">${diff>=0?'+':''}${fmt(Math.abs(diff))} since campaign start</span></div>`;}
+  else if(isNum&&d.fromZero&&d.start===0&&d.now>0){rows+=`<div class="m-grow-row" style="margin-top:4px"><span class="m-arrow up" style="font-size:14px">↑</span><span class="m-pct up" style="font-size:14px">+${fmt(d.now)}</span><span class="m-pct-lbl">since campaign start</span></div>`;}
   return rows?`<div>${rows}</div>`:'';
 }
 function mCtxStrip(d){
   if(!d)return ''; const c=[];
   const sfx=d.suffix||'';
   if(vv(d.start))c.push(`<div class="m-ctx-col"><div class="m-ctx-lbl">Start</div><div class="m-ctx-val">${fmt(d.start)}${sfx}</div></div>`);
-  if(vv(d.lw))c.push(`<div class="m-ctx-col"><div class="m-ctx-lbl">${D.lwLabel||'Last Week'}</div><div class="m-ctx-val">${fmt(d.lw)}${sfx}</div></div>`);
+  if(lwImproved(d))c.push(`<div class="m-ctx-col"><div class="m-ctx-lbl">${D.lwLabel||'Last Week'}</div><div class="m-ctx-val">${fmt(d.lw)}${sfx}</div></div>`);
   if(vv(d.now))c.push(`<div class="m-ctx-col m-ctx-now"><div class="m-ctx-lbl">${D.nowLabel||'This Week'}</div><div class="m-ctx-val">${fmt(d.now)}${sfx}</div></div>`);
   return c.length>=2?`<div class="m-ctx">${c.join('')}</div>`:'';
 }
@@ -1156,15 +1253,15 @@ function ovGrowRows(d){
   if(!d||!vv(d.now))return '';
   const isNum=typeof d.now==='number'; let rows='';
   if(isNum&&typeof d.start==='number'&&d.start>0){const p=pct(d.now,d.start),up=p>=0,diff=d.now-d.start;rows+=`<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}">${up?'+':''}${Math.round(p)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(diff))}</span><span class="grow-lbl">since start</span></div>`;}
-  if(isNum&&typeof d.lw==='number'){const p=pct(d.now,d.lw),up=p>=0,diff=d.now-d.lw;rows+=`<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}" style="font-size:19px">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}" style="font-size:19px">${up?'+':''}${Math.abs(p).toFixed(1)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(diff))}</span><span class="grow-lbl">vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}
+  if(isNum&&typeof d.lw==='number'&&d.now>d.lw){const p=pct(d.now,d.lw),up=p>=0,diff=d.now-d.lw;rows+=`<div class="grow-row"><span class="grow-arrow ${up?'up':'dn'}" style="font-size:19px">${up?'↑':'↓'}</span><span class="grow-pct ${up?'up':'dn'}" style="font-size:19px">${up?'+':''}${Math.abs(p).toFixed(1)}%</span><span class="grow-abs">${up?'+':''}${fmt(Math.abs(diff))}</span><span class="grow-lbl">vs ${(D.lwLabel||'last week').toLowerCase()}</span></div>`;}
   return rows?`<div style="margin-bottom:4px">${rows}</div>`:'';
 }
 function ctxStrip(d){
   if(!d)return ''; const c=[];
   if(vv(d.start))c.push(`<div class="ov-ctx-col"><div class="ov-ctx-lbl">Start</div><div class="ov-ctx-val">${fmt(d.start)}</div></div>`);
-  if(vv(d.lw))c.push(`<div class="ov-ctx-col"><div class="ov-ctx-lbl">${D.lwLabel||'Last Week'}</div><div class="ov-ctx-val">${fmt(d.lw)}</div></div>`);
+  if(lwImproved(d))c.push(`<div class="ov-ctx-col"><div class="ov-ctx-lbl">${D.lwLabel||'Last Week'}</div><div class="ov-ctx-val">${fmt(d.lw)}</div></div>`);
   if(vv(d.now))c.push(`<div class="ov-ctx-col ctx-now"><div class="ov-ctx-lbl">${D.nowLabel||'This Week'}</div><div class="ov-ctx-val">${fmt(d.now)}</div></div>`);
-  return c.length?`<div class="ov-ctx">${c.join('')}</div>`:'';
+  return c.length>=2?`<div class="ov-ctx">${c.join('')}</div>`:'';
 }
 
 // ── PLATFORM HELPER ────────────────────────────────────────────
@@ -1174,6 +1271,13 @@ function plat(url=''){
   if(url.includes('spotify'))return{name:'Spotify',color:'#1DB954',icon:`<svg viewBox="0 0 24 24" fill="#1DB954"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.7 0 12 0zm5.5 17.3c-.2.3-.6.4-.9.2-2.6-1.6-5.8-2-9.6-1.1-.4.1-.7-.2-.8-.5-.1-.4.2-.7.5-.8 4.2-1 7.7-.6 10.6 1.2.4.3.4.7.2 1zm1.5-3.3c-.3.4-.8.5-1.2.2-3-1.8-7.5-2.3-11-1.3-.4.1-.9-.1-1-.5-.1-.4.1-.9.5-1 4-.1 8.8.6 12.3 1.5.4.3.6.7.4 1.1zM5 8.5c4.1-1.2 10.8-.9 15 1.5.5.3.7.9.4 1.4-.3.5-.9.7-1.4.4C15.5 9.8 9.3 9.5 5.7 10.5c-.5.1-1-.2-1.1-.7C4.4 9.2 4.6 8.7 5 8.5z"/></svg>`,listen:'Listen'};
   if(url.includes('apple'))return{name:'Apple Podcasts',color:'#B455FF',icon:`<svg viewBox="0 0 24 24" fill="#B455FF"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.7 0 12 0zm0 4.5c4.1 0 7.5 3.4 7.5 7.5 0 3.1-1.9 5.8-4.6 7-.3-1.2-.5-2.4-.5-3.8 0-.9.7-1.7 1.6-1.7h.1c.5 0 .8.1 1.1.4-.2-2.1-1.9-3.8-4.2-3.8S8.5 11.9 8.3 14c.3-.3.7-.4 1.1-.4h.1c.9 0 1.6.8 1.6 1.7 0 1.4-.2 2.6-.5 3.8-2.7-1.2-4.6-3.9-4.6-7C6 7.9 8.6 4.5 12 4.5zm0 12c-.8 0-1.5-.7-1.5-1.5S11.2 13.5 12 13.5s1.5.7 1.5 1.5-.7 1.5-1.5 1.5z"/></svg>`,listen:'Listen'};
   return{name:'Podcast',color:'#88F802',icon:`<svg viewBox="0 0 24 24" fill="none" stroke="#88F802" stroke-width="2"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2"/></svg>`,listen:'Listen'};
+}
+// Sheets turns typed dates like "Sep 30" into full date strings; show them as "Sep 30" again
+function shortDate(v){
+  if(!vv(v))return v; const s=String(v).trim();
+  let m=s.match(/^[A-Z][a-z]{2} ([A-Z][a-z]{2}) (\d{1,2}) \d{4} \d{2}:\d{2}/); if(m)return m[1]+' '+(+m[2]);
+  if(/^\d{4}-\d{2}-\d{2}T/.test(s)){const d=new Date(Date.parse(s)+12*3600e3);if(!isNaN(d))return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][d.getUTCMonth()]+' '+d.getUTCDate();}
+  return s;
 }
 function domainOf(url){try{return new URL(url).hostname.replace('www.','');}catch(e){return url;}}
 
@@ -1241,7 +1345,7 @@ function xFollowersCard(fol){
   if(!hasStart)return mCard('X Followers',fol,'featured');
   var diff=fol.now-fol.start,pctV=Math.round((diff/fol.start)*100),up=diff>=0;
   var lwRow='';
-  if(typeof fol.lw==='number'){
+  if(typeof fol.lw==='number'&&fol.now>fol.lw){
     var lwDiff=fol.now-fol.lw,lwUp=lwDiff>=0;
     lwRow='<div class="m-grow-row"><span class="m-arrow '+(lwUp?'up':'dn')+'">'+(lwUp?'&#8593;':'&#8595;')+'</span><span class="m-pct '+(lwUp?'up':'dn')+'">'+(lwUp?'+':'')+Math.abs(pct(fol.now,fol.lw)).toFixed(1)+'%</span><span class="m-pct-lbl">'+(lwUp?'+':'')+fmt(Math.abs(lwDiff))+' vs '+(D.lwLabel||'last week').toLowerCase()+'</span></div>';
   }
@@ -1255,6 +1359,147 @@ function xFollowersCard(fol){
     +'<div class="m-grow-row" style="margin-top:2px"><span class="m-arrow up" style="font-size:15px">&#8593;</span><span class="m-pct up" style="font-size:15px">+'+pctV+'%</span><span class="m-pct-lbl">+'+fmt(diff)+' since campaign start</span></div>'
     +lwRow+'</div>';
 }
+// ── PER-CLIENT REPORT CONFIG ───────────────────────────────────
+// Optional hand-edited extras at client-assets/{slug}/report_config.json
+// (section title overrides, Korea KOL campaign). Missing file = no change.
+let RC=null, RC_BASE='';
+function loadReportConfig(){
+  const slug=location.pathname.split('/').filter(s=>s&&!/\.html?$/i.test(s)).pop()||'';
+  RC_BASE=window.CC_RC_BASE||('../client-assets/'+slug+'/');
+  if(!slug&&!window.CC_RC_BASE)return Promise.resolve();
+  const ctl=new AbortController(), t=setTimeout(()=>ctl.abort(),3000);
+  return fetch(RC_BASE+'report_config.json',{signal:ctl.signal,cache:'no-store'})
+    .then(r=>r.ok?r.json():null).then(j=>{RC=j;}).catch(()=>{}).finally(()=>clearTimeout(t));
+}
+function applyReportConfigTitles(){
+  const t=RC&&RC.titles, nl=(RC&&RC.navLabels)||{}; if(!t)return;
+  Object.keys(t).forEach(id=>{
+    const h=document.querySelector('#'+id+' .sec-title'); if(h)h.textContent=t[id];
+    const a=document.querySelector('#nav a[href="#'+id+'"]'); if(a)a.textContent=nl[id]||t[id];
+  });
+}
+const KK_TG=`<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#29A9EB"/><path d="M5.4 11.8l11.2-4.3c.5-.2 1 .1.8.9l-1.9 9c-.1.6-.5.8-1 .5l-2.9-2.1-1.4 1.3c-.2.2-.3.3-.6.3l.2-2.9 5.4-4.9c.2-.2 0-.3-.4-.1l-6.6 4.2-2.8-.9c-.6-.2-.6-.6.1-.9z" fill="#fff"/></svg>`;
+const KK_NV=`<svg viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#03C75A"/><path d="M13.6 12.4L10.2 7.5H7.5v9h2.9v-4.9l3.4 4.9h2.7v-9h-2.9z" fill="#fff"/></svg>`;
+function kkPlat(p){ return `<span class="kk-plat">${p==='Telegram'?KK_TG:p==='Naver Blog'?KK_NV:''}${cmEsc(p)}</span>`; }
+function kkDate(d){ if(!d)return ''; const m=String(d).match(/^(\d{4})-(\d{2})-(\d{2})/); return m?['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][+m[2]-1]+' '+(+m[3]):String(d); }
+function buildKoreaKol(){
+  const k=RC&&RC.koreaKol, P=k&&k.posts||[];
+  if(!P.length){hide('secKoreaKol');return;}
+  const sec=document.getElementById('secKoreaKol'); sec.style.display='';
+  if(k.title)sec.querySelector('.sec-title').textContent=k.title;
+  const A=u=>!u?'':/^(https?:|data:)/.test(u)?u:RC_BASE+u;
+  const tg=P.filter(p=>p.platform==='Telegram'&&p.followers>0), reach=tg.reduce((s,p)=>s+p.followers,0);
+  const kols=new Set(P.map(p=>p.channelUrl||p.name)).size;
+  const plats={}; P.forEach(p=>plats[p.platform]=(plats[p.platform]||0)+1);
+  const platLine=Object.keys(plats).map(x=>plats[x]+' '+x).join(' · ');
+
+  // Headline row
+  const kpis=[
+    ['Posts Live',P.length,`<span class="grow-lbl">${cmEsc(platLine)}</span>`],
+    ['KOLs Activated',kols,'<span class="grow-lbl">Korean crypto creators</span>'],
+    tg.length?['Telegram Reach',reach,'<span class="grow-lbl">Combined channel subscribers</span>']:null,
+    tg.length?['Avg. Channel Size',Math.round(reach/tg.length),'<span class="grow-lbl">Per Telegram KOL</span>']:null
+  ].filter(Boolean);
+  let h=(k.subtitle?`<div class="kk-sub">${cmEsc(k.subtitle)}${k.since?' · since '+cmEsc(k.since):''}</div>`:'')
+    +`<div class="ov-grid cm-kpis" style="grid-template-columns:repeat(${kpis.length},1fr)">${kpis.map(([l,v,sub])=>
+      `<div class="ov-card"><div class="ov-lbl">${l}</div><div class="ov-num" data-count="${v}" data-fmt="s">${fmt(v)}</div><div class="cm-kpi-sub">${sub}</div></div>`).join('')}</div>`;
+
+  // Top KOLs by reach
+  const top=[...tg].sort((a,b)=>b.followers-a.followers).slice(0,5);
+  if(top.length){
+    h+=`<div class="kk-group"><div class="sub-lbl">Top KOLs by Reach</div><div class="spot-grid">${top.map((p,i)=>`
+      <div class="spot-card">
+        <div class="spot-rank">#${i+1}</div>
+        <div class="spot-head">
+          <div class="spot-avatar">${p.avatar?`<img src="${A(p.avatar)}" alt="">`:cmEsc(String(p.name).slice(0,1))}</div>
+          <div><div class="spot-handle"><a href="${p.channelUrl||p.url}" target="_blank" rel="noopener">${cmEsc(p.name)}</a></div><div class="kk-spot-plat">${kkPlat(p.platform)}</div></div>
+        </div>
+        <div class="spot-score-lbl">Subscribers</div>
+        <div class="spot-score">${fmt(p.followers)}</div>
+        <div class="spot-stats">
+          <div class="spot-stat"><div class="spot-stat-val">${cmEsc(String(p.week||'').replace(/^W/,'Week '))}</div><div class="spot-stat-lbl">Campaign</div></div>
+          ${p.date?`<div class="spot-stat"><div class="spot-stat-val">${kkDate(p.date)}</div><div class="spot-stat-lbl">Posted</div></div>`:''}
+        </div>
+        <a class="kk-link" href="${p.url}" target="_blank" rel="noopener">${EXT_SVG} View post</a>
+      </div>`).join('')}</div></div>`;
+  }
+  if(tg.length>1){
+    h+=`<div class="chart-card" id="kkChartWrap" style="margin-top:12px"><div class="chart-lbl">Telegram Reach by KOL — Channel Subscribers</div><div class="ch" style="height:${Math.max(180,tg.length*30)}px"><canvas id="kkChartCvs"></canvas></div></div>`;
+  }
+
+  // Every post, grouped by campaign week
+  const weeks=[...new Set(P.map(p=>p.week||''))];
+  weeks.forEach(w=>{
+    const wp=P.filter(p=>(p.week||'')===w);
+    const lbl=w?String(w).replace(/^W/,'Week '):'Posts';
+    h+=`<div class="kk-group"><div class="sub-lbl">${cmEsc(lbl)} <span>${wp.length} post${wp.length===1?'':'s'}</span></div>
+      <div class="article-grid" style="grid-template-columns:repeat(${wp.length<=2?wp.length:4},minmax(0,${wp.length<=2?'360px':'1fr'}))">${wp.map(p=>`
+      <div class="article-card" onclick="if(!event.target.closest('a'))window.open('${p.url}','_blank')">
+        <div class="article-thumb">${p.image?`<img class="article-thumb-img" src="${A(p.image)}" alt="" onerror="this.remove()">`:''}</div>
+        <div class="kk-post-head">${p.avatar?`<img class="kk-av" src="${A(p.avatar)}" alt="">`:''}<div class="kk-post-name">${cmEsc(p.name)}</div>${kkPlat(p.platform)}</div>
+        ${p.title?`<div class="kk-post-title">${cmEsc(p.title)}</div>`:''}
+        <div class="kk-post-meta">${p.followers?`<span><b>${fmt(p.followers)}</b> subscribers</span>`:''}${p.date?`<span>${kkDate(p.date)}</span>`:''}</div>
+        <a href="${p.url}" target="_blank" rel="noopener" class="article-link" onclick="event.stopPropagation()">${EXT_SVG} View post</a>
+      </div>`).join('')}</div></div>`;
+  });
+
+  const el=document.getElementById('kkBody'); el.innerHTML=h;
+  el.querySelectorAll('.ov-card,.spot-card,.article-card,.chart-card').forEach(obs);
+  if(tg.length>1)setTimeout(()=>{
+    const p=cp('kkChartCvs'), g=p===Cl?'#4ea800':'#88F802', srt=[...tg].sort((a,b)=>b.followers-a.followers);
+    new Chart(document.getElementById('kkChartCvs'),{type:'bar',
+      data:{labels:srt.map(x=>x.name),datasets:[{data:srt.map(x=>x.followers),backgroundColor:srt.map((x,i)=>i<5?g:g+'66'),borderRadius:4,barThickness:16}]},
+      options:{indexAxis:'y',responsive:true,maintainAspectRatio:false,layout:{padding:{right:56}},
+        plugins:{legend:{display:false},tooltip:{...p.tooltip,padding:10,cornerRadius:8,titleFont:{family:'Montserrat',size:12,weight:'700'},bodyFont:{family:'Montserrat',size:11},callbacks:{label:c=>' Subscribers: '+c.parsed.x.toLocaleString()}}},
+        scales:{x:{display:false,grid:{display:false}},y:{grid:{display:false},ticks:{color:p.tc,font:{family:'Montserrat',size:11,weight:'600'}}}}},
+      plugins:[{id:'kkEndLabel',afterDatasetsDraw(chart){const {ctx}=chart;chart.getDatasetMeta(0).data.forEach((bar,i)=>{ctx.save();ctx.font="700 12px 'Montserrat',sans-serif";ctx.fillStyle=getComputedStyle(document.getElementById('kkChartWrap')).getPropertyValue('--w').trim()||'#fff';ctx.textBaseline='middle';ctx.fillText(fmt(chart.data.datasets[0].data[i]),bar.x+8,bar.y);ctx.restore();});}}]});
+  },450);
+}
+
+// ── BUILD: COMMUNITY MANAGEMENT ────────────────────────────────
+// Every card, group and derived metric only renders when its inputs exist,
+// so partial data never shows empty placeholders.
+const cmNum = v => { if(typeof v==='number')return v; if(typeof v!=='string')return null; const n=parseFloat(v.replace(/[^0-9.\-]/g,'')); return isNaN(n)?null:n; };
+const cmEsc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');
+const cmFull = n => Math.round(n).toLocaleString();
+const cmP1 = p => (Math.round(p*10)/10).toFixed(1).replace(/\.0$/,'')+'%';
+function cmShow(v){ return typeof v==='number'?`<span data-count="${v}">${cmFull(v)}</span>`:cmEsc(v); }
+function cmCard(label,d,o={}){
+  if(!d||!vv(d.now))return '';
+  return `<div class="mcard${o.cls?' '+o.cls:''}"><div class="m-lbl">${label}</div><div class="m-num">${cmShow(d.now)}${o.inl||''}</div>${o.desc?`<div class="cm-sub">${o.desc}</div>`:''}${o.noGrow?'':mGrowRows(d)}${o.bar||''}${o.noGrow?'':mCtxStrip(d)}</div>`;
+}
+function cmGroup(label,cards,cols){
+  cards=cards.filter(Boolean); if(!cards.length)return '';
+  return `<div class="cm-group"><div class="sub-lbl">${label}</div><div class="mgrid m${cols||cards.length}">${cards.join('')}</div></div>`;
+}
+function buildCommunity(){
+  const c=D.community; if(!c){hide('secCommunity');return;}
+  const has=d=>d&&vv(d.now), n=d=>has(d)?cmNum(d.now):null;
+  const nm=n(c.newMembers), nc=n(c.newCommunicators);
+
+  // Headline row
+  const kpis=[
+    ['Total Members',c.totalMembers, nm!==null?`<span class="grow-arrow up" style="font-size:19px">↑</span><span class="grow-pct up">+${cmFull(nm)}</span><span class="grow-lbl">New this week</span>`:'<span class="grow-lbl">In the community</span>'],
+    ['Weekly Active',c.weeklyActive,'<span class="grow-lbl">Members active in the past week</span>'],
+    ['Monthly Active',c.monthlyActive,'<span class="grow-lbl">Members active in the past month</span>'],
+    ['Weekly Messages',c.weeklyMessages,(c.newPeak?'<span class="grow-pct up">New peak</span>':'')+'<span class="grow-lbl">Sent this week</span>']
+  ].filter(k=>has(k[1]));
+  const kpiHtml=kpis.length?`<div class="ov-grid cm-kpis" style="grid-template-columns:repeat(${kpis.length},1fr)">${kpis.map(([l,d,sub])=>
+    `<div class="ov-card"><div class="ov-lbl">${l}</div><div class="ov-num">${cmShow(d.now)}</div><div class="cm-kpi-sub">${sub}</div>${ovGrowRows(d)}</div>`).join('')}</div>`:'';
+
+  // Growth row
+  const growth=cmGroup('Growth',[
+    cmCard('New Members',c.newMembers,{desc:'People who joined the community this week'}),
+    cmCard('New → Communicators',c.newCommunicators,{desc:'New members who sent at least one message'}),
+    (nc!==null&&nm>0)?cmCard('Conversion Rate',{now:cmP1(nc/nm*100)},{cls:'cm-feat',noGrow:true,desc:`${cmFull(nc)} of ${cmFull(nm)} new joiners became active`}):''
+  ]);
+
+  if(!kpiHtml&&!growth){hide('secCommunity');return;}
+  const el=document.getElementById('cmBody');
+  el.innerHTML=kpiHtml+growth;
+  el.querySelectorAll('.ov-card,.mcard').forEach(obs);
+}
+
 // ── BUILD: SOCIAL METRICS ──────────────────────────────────────
 function buildSocial(){
   const s=D.social; if(!s){hide('secSocial');return;}
@@ -1274,16 +1519,16 @@ function buildSocial(){
     xEl.querySelectorAll('.mcard').forEach(obs);
     if(fol&&vv(fol.start)&&vv(fol.lw)&&vv(fol.now)){
       show('socialXTrajWrap'); obs(document.getElementById('socialXTrajWrap'));
-      setTimeout(()=>{const p=cp('socialXTrajCvs');trajChart('socialXTrajCvs',
-        ['Campaign Start',D.lwLabel||'Last Week',D.nowLabel||'This Week'],
-        [{label:'X Followers',data:[fol.start,fol.lw,fol.now],borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.38,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
+      setTimeout(()=>{const p=cp('socialXTrajCvs'),xt=trajPts(fol);trajChart('socialXTrajCvs',
+        xt.l,
+        [{label:'X Followers',data:xt.v,borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.38,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
       },450);
     }
   }
 
   const dcFields=[
-    {label:'Discord Members', data:s.discordMembers},
-    {label:'Telegram Members',data:s.telegram}
+    {label:'Discord Members', data:s.discordMembers&&Object.assign({},s.discordMembers,{fromZero:true})},
+    {label:'Telegram Members',data:s.telegram&&Object.assign({},s.telegram,{fromZero:true})}
   ].filter(f=>f.data&&vv(f.data.now));
   if(dcFields.length){
     hasAny=true; show('socialDiscordLbl');
@@ -1296,7 +1541,8 @@ function buildSocial(){
       show('socialDcBarWrap'); obs(document.getElementById('socialDcBarWrap'));
       const colors=['#4B8EF8','#1DB954'];
       setTimeout(()=>{const p=cp('socialDcBarCvs');
-        new Chart(document.getElementById('socialDcBarCvs'),{type:'line',data:{labels:['Campaign Start',D.lwLabel||'Last Week',D.nowLabel||'This Week'],datasets:dcChart.map((f,i)=>({label:f.label,data:[f.data.start,f.data.lw,f.data.now],borderColor:colors[i]||'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:colors[i]||'#88F802',tension:.38,fill:false}))},options:baseOpts(p)});
+        const dcLw=dcChart.some(f=>lwImproved(f.data));
+        new Chart(document.getElementById('socialDcBarCvs'),{type:'line',data:{labels:dcLw?['Campaign Start',D.lwLabel||'Last Week',D.nowLabel||'This Week']:['Campaign Start',D.nowLabel||'This Week'],datasets:dcChart.map((f,i)=>({label:f.label,data:dcLw?[f.data.start,lwImproved(f.data)?f.data.lw:null,f.data.now]:[f.data.start,f.data.now],spanGaps:true,borderColor:colors[i]||'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:colors[i]||'#88F802',tension:.38,fill:false}))},options:baseOpts(p)});
       },500);
     }
   } else { hide('socialDiscordLbl'); document.getElementById('socialDiscordMetrics').style.display='none'; }
@@ -1375,9 +1621,9 @@ function buildCookie3(){
   const sc=c.score;
   if(sc&&vv(sc.start)&&vv(sc.lw)&&vv(sc.now)){
     hasAny=true; show('cookie3TrajWrap'); obs(document.getElementById('cookie3TrajWrap'));
-    setTimeout(()=>{const p=cp('cookie3TrajCvs');
-      trajChart('cookie3TrajCvs',['Campaign Start',D.lwLabel||'Last Week',D.nowLabel||'This Week'],
-        [{label:'Score',data:[parseInt(sc.start),parseInt(sc.lw),parseInt(sc.now)],borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:6,pointHoverRadius:9,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.3,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
+    setTimeout(()=>{const p=cp('cookie3TrajCvs'),ct=trajPts(sc,x=>parseInt(x));
+      trajChart('cookie3TrajCvs',ct.l,
+        [{label:'Score',data:ct.v,borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:6,pointHoverRadius:9,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.3,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
     },500);
   }
   if(c.screenshot){
@@ -1535,9 +1781,9 @@ function buildKol(){
   const sf=kol.smartFollowers;
   if(sf&&vv(sf.start)&&vv(sf.lw)&&vv(sf.now)){
     hasAny=true;show('kolBarWrap');obs(document.getElementById('kolBarWrap'));
-    setTimeout(()=>{const p=cp('kolBarCvs');
-      trajChart('kolBarCvs',['Campaign Start',D.lwLabel||'Last Week',D.nowLabel||'This Week'],
-        [{label:'Smart Followers',data:[sf.start,sf.lw,sf.now],borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.38,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
+    setTimeout(()=>{const p=cp('kolBarCvs'),kt=trajPts(sf);
+      trajChart('kolBarCvs',kt.l,
+        [{label:'Smart Followers',data:kt.v,borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.38,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);
     },450);
   }
   if(kol.scoreImg){
@@ -1671,12 +1917,15 @@ function buildPr(){
   if(pr.articles&&pr.articles.length){
     hasAny=true; show('prArticlesLbl');
     const grid=document.getElementById('articleGrid');
+    const nArt=pr.articles.length;
+    grid.style.gridTemplateColumns=nArt<=2?`repeat(${nArt},minmax(0,360px))`:`repeat(${smartCols(nArt)},minmax(0,1fr))`;
     pr.articles.forEach(a=>{
-      const dom=domainOf(a.url);
+      const dom=domainOf(a.url); a.date=shortDate(a.date);
       const statsH=[{v:a.reach,l:'Reach'},{v:a.views,l:'Views'},{v:a.value,l:'Value'},{v:a.eng,l:'Eng.'}].filter(s=>vv(s.v)).map(s=>`<div class="article-stat"><div class="article-stat-val">${s.v}</div><div class="article-stat-lbl">${s.l}</div></div>`).join('');
+      const phH=`<div class="article-thumb-placeholder"><div class="article-thumb-fav"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" alt=""></div><span class="article-thumb-pub">${a.pub||dom}</span></div>`;
       const thumbH=a.imgUrl
-        ?`<div class="article-thumb"><img class="article-thumb-img" src="${a.imgUrl}" alt="" onerror="this.style.display='none'"></div>`
-        :`<div class="article-thumb"><div class="article-thumb-placeholder"><div class="article-thumb-fav"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" alt=""></div><span class="article-thumb-pub">${a.pub||dom}</span></div></div>`;
+        ?`<div class="article-thumb">${phH}<img class="article-thumb-img" src="${a.imgUrl}" alt="" onerror="this.remove()"></div>`
+        :`<div class="article-thumb">${phH}</div>`;
       const card=document.createElement('div'); card.className='article-card';
       card.onclick=e=>{if(!e.target.closest('a'))window.open(a.url,'_blank');};
       const pubH=`<div class="article-pub-block"><div class="article-pub-fav"><img src="https://www.google.com/s2/favicons?domain=${dom}&sz=32" alt=""></div><div class="article-pub-big">${a.pub||dom}</div>${a.date?`<span class="article-pub-date" style="margin-left:auto;flex-shrink:0">${a.date}</span>`:''}</div>`;
@@ -1709,11 +1958,9 @@ function buildFinance(){
   el.innerHTML=fields.map(f=>mCard(f.label,f.data)).join('');
   el.querySelectorAll('.mcard').forEach(obs);
   const aumD=fin.aum;
-  if(aumD&&typeof aumD.now==='number'&&vv(aumD.lw)){
-    const pts=[],lbs=[];
-    if(vv(aumD.start)){pts.push(aumD.start);lbs.push('Campaign Start');}
-    pts.push(aumD.lw);lbs.push(D.lwLabel||'Last Week');
-    pts.push(aumD.now);lbs.push(D.nowLabel||'This Week');
+  const aumT=aumD?trajPts(aumD):null;
+  if(aumD&&typeof aumD.now==='number'&&vv(aumD.lw)&&aumT.v.length>1){
+    const pts=aumT.v,lbs=aumT.l;
     show('finTrajWrap');obs(document.getElementById('finTrajWrap'));
     setTimeout(()=>{const p=cp('finTrajCvs');trajChart('finTrajCvs',lbs,[{label:'AUM',data:pts,borderColor:p===Cl?'#4ea800':'#88F802',borderWidth:2.5,pointRadius:5,pointHoverRadius:8,pointBackgroundColor:p===Cl?'#4ea800':'#88F802',tension:.38,fill:true,backgroundColor:p===Cl?'rgba(78,168,0,.1)':'rgba(136,248,2,.1)'}]);},450);
   }
@@ -1732,7 +1979,7 @@ function buildWebsite(){
   el.className='mgrid m'+Math.min(Math.max(fields.length,1),4);
   el.innerHTML=fields.map(f=>mCard(f.label,f.data)).join('');
   el.querySelectorAll('.mcard').forEach(obs);
-  const wBar=fields.filter(f=>vv(f.data.lw));
+  const wBar=fields.filter(f=>lwImproved(f.data));
   if(wBar.length){show('webBarWrap');obs(document.getElementById('webBarWrap'));setTimeout(()=>{colChart('webBarCvs',wBar.map(f=>f.label),wBar.map(f=>f.data.lw),wBar.map(f=>f.data.now));},450);}
 }
 
@@ -1778,6 +2025,7 @@ function renderCustomExtras(secData, sectionEl) {
 function renderAllCustomExtras() {
   var map = [
     ['secSocial',    D.social],
+    ['secCommunity', D.community],
     ['secCollabs',   D.collabs],
     ['secCookie3',   D.cookie3],
     ['secProduct',   D.product],
@@ -1794,6 +2042,187 @@ function renderAllCustomExtras() {
     if (el) renderCustomExtras(pair[1], el);
   });
 }
+// ── PDF EXPORT ─────────────────────────────────────────────────
+// Prepares the page for the browser's Save as PDF: reveals every card,
+// settles count-ups at their final values and redraws charts at page size.
+function ccPrepPrint(){
+  if(window.CC_PRINTING)return; window.CC_PRINTING=true;
+  document.documentElement.classList.add('cc-print-layout');
+  document.querySelectorAll('.article-card,.campaign-growth-banner,.chart-card,.collab-pfp,.custom-link-card,.custom-text-card,.fol-card,.kol-card,.xpost-card,.lb-tbl-wrap,.mcard,.ov-card,.pod-card,.pr-summary,.score-ss-card,.spot-card,.tweet-embed-wrap').forEach(e=>e.classList.add('in'));
+  // Safety net: anything in the report still faded out (a component added later) is revealed too
+  document.querySelectorAll('#main *').forEach(e=>{if(e.offsetParent!==null&&getComputedStyle(e).opacity==='0'&&!e.closest('.tooltip')){e.classList.add('in');if(getComputedStyle(e).opacity==='0'){e.dataset.ccOp='1';e.style.opacity='1';e.style.transform='none';}}});
+  document.querySelectorAll('[data-count]').forEach(e=>{if(e.dataset.final)e.textContent=e.dataset.final;});
+  // Charts: taller for the page, then swapped for a sharp image so print can't blank the canvas
+  if(window.Chart)Object.values(Chart.instances).forEach(c=>{
+    const cv=c.canvas; if(!cv||cv.dataset.printSnap)return;
+    const box=cv.parentNode; box.dataset.printH=box.style.height||''; const h=box.getBoundingClientRect().height;
+    box.style.height=Math.round(h*(h<=240?1.6:1.25))+'px';
+    c.stop(); c.options.animation=false; c.options.devicePixelRatio=3; c.resize(); c.update('none'); c.render();
+    const img=new Image(); img.src=cv.toDataURL('image/png'); img.className='cc-print-snap';
+    img.style.cssText='display:block;width:100%;height:'+cv.clientHeight+'px';
+    cv.dataset.printSnap='1'; cv.style.display='none'; box.insertBefore(img,cv);
+  });
+  ccComposePages();
+}
+// Keep every heading / sub-label together with the block that follows it, so the
+// browser's own page breaking never strands a title at the bottom of a page.
+const CC_PAGE_H=1122.5/.62;   // A4 page height in print-layout px (zoom .62)
+// Split multi-row card grids into one container per row, so pages can break
+// between rows instead of pushing a whole grid onto the next page.
+function ccSplitGridRows(){
+  document.querySelectorAll('#main .mgrid,#main .article-grid,#main .spot-grid,#main .posts-grid,#main .kol-grid,#main .ss-grid,#main .pod-grid').forEach(g=>{
+    if(g.closest('.cc-grid-row')||getComputedStyle(g).display!=='grid'||!g.offsetHeight)return;
+    const kids=[...g.children].filter(k=>k.offsetHeight); if(kids.length<2)return;
+    const rows=[]; kids.forEach(k=>{const t=Math.round(k.offsetTop);let r=rows.find(r=>Math.abs(r.t-t)<4);if(!r)rows.push(r={t,items:[]});r.items.push(k);});
+    if(rows.length<2)return;
+    const gap=getComputedStyle(g).rowGap; g.classList.add('cc-grid-row'); let prev=g;
+    rows.slice(1).forEach(r=>{const c=g.cloneNode(false);c.removeAttribute('id');c.dataset.ccRowOf='1';c.style.marginTop=gap;
+      r.items.forEach(k=>c.appendChild(k));prev.after(c);prev=c;});
+    g.dataset.ccRowHead='1';
+  });
+}
+function ccJoinGridRows(){
+  document.querySelectorAll('[data-cc-row-head]').forEach(g=>{
+    let n=g.nextElementSibling; while(n&&n.dataset&&n.dataset.ccRowOf){const nx=n.nextElementSibling;while(n.firstChild)g.appendChild(n.firstChild);n.remove();n=nx;}
+    g.classList.remove('cc-grid-row'); delete g.dataset.ccRowHead;
+  });
+}
+// ── PAGE COMPOSER ──────────────────────────────────────────────
+// Lays the report out as fixed A4 pages: blocks (headings glued to their content,
+// card rows, charts, screenshots) are measured at print width and packed page by
+// page. Screenshots shrink to use leftover space, remaining space is spread between
+// blocks, and the last section on each page runs its background to the page edge.
+const CC_PAGE_BOX=Math.floor(CC_PAGE_H)-4, CC_PACK_CAP=CC_PAGE_BOX-24;
+let CC_MOVED=[];
+function ccMove(node,dest){ if(!node.__ccPh){const ph=document.createComment('cc');node.parentNode.insertBefore(ph,node);node.__ccPh=ph;CC_MOVED.push(node);} dest.appendChild(node); }
+function ccMeasureModel(){
+  const docTop=el=>el.getBoundingClientRect().top+window.scrollY, docBot=el=>el.getBoundingClientRect().bottom+window.scrollY;
+  const secs=[...document.querySelectorAll('#main>.page-sec')].filter(sc=>sc.style.display!=='none'&&sc.offsetHeight);
+  const glue=el=>el.matches('.sec-hdr,.sub-lbl,.kk-sub,.chart-lbl,.section-sub');
+  const model=secs.map(sc=>{
+    const inner=sc.querySelector('.ps-inner')||sc, atoms=[];
+    const walk=el=>[...el.children].forEach(ch=>{const cs=getComputedStyle(ch);if(cs.display==='none'||!ch.offsetHeight)return;
+      if(ch.matches('#cmBody,#kkBody,.kk-group,.cm-group,.custom-extras'))walk(ch);else atoms.push(ch);});
+    walk(inner);
+    const groups=[];
+    for(let i=0;i<atoms.length;i++){let j=i;while(j<atoms.length-1&&glue(atoms[j]))j++;groups.push({atoms:atoms.slice(i,j+1)});i=j;}
+    const cs=getComputedStyle(sc), padT=parseFloat(cs.paddingTop)||0, padB=parseFloat(cs.paddingBottom)||0;
+    const sTop=docTop(sc), cBot=docBot(sc)-padB;
+    groups.forEach(g=>{g.top=docTop(g.atoms[0]);});
+    groups.forEach((g,i)=>{g.slot=(i<groups.length-1?groups[i+1].top:cBot)-g.top;
+      g.imgs=[...g.atoms].flatMap(a=>[...a.querySelectorAll('.score-ss-img img,.ss-grid img')]).filter(im=>im.offsetHeight>120);
+      g.imgHs=g.imgs.map(im=>im.offsetHeight); g.imgH=g.imgHs.reduce((t,h)=>Math.max(t,h),0);});
+    return {sc,inner,groups,padT,padB,startPad:groups.length?groups[0].top-sTop:padT};
+  });
+  return {model,firstTop:secs.length?docTop(secs[0]):0};
+}
+// Simulate packing with screenshots capped at `cap` px; returns the page plan
+function ccPack(M,cap,footH){
+  const pages=[]; let pg=null;
+  const newPage=()=>{pg={frags:[],used:0,prefix:false};pages.push(pg);};
+  newPage(); pg.prefix=true; pg.used=M.firstTop;
+  const plan=new Map();   // group -> {f: image scale factor}
+  M.model.forEach(m=>{
+    if(!m.groups.length)return;
+    const gH=g=>{const capped=Math.min(g.imgH,cap);return {slot:g.slot-(g.imgH-capped),imgH:capped};};
+    const total=m.startPad+m.groups.reduce((t,g)=>t+gH(g).slot,0)+m.padB;
+    if(total<CC_PACK_CAP*.5&&pg.used+total>CC_PACK_CAP&&pg.frags.length)newPage();
+    let frag=null, firstFrag=true;
+    m.groups.forEach(g=>{
+      const {slot,imgH}=gH(g); let shrink=0;
+      const open=()=>frag?0:(firstFrag?m.startPad:m.padT);
+      let need=open()+slot+m.padB, room=CC_PACK_CAP-pg.used;
+      const shrinkable=g.imgs.length&&g.atoms.length<=2;
+      if(need>room){
+        const short=need-room;
+        if(shrinkable&&imgH-short>=imgH*.5&&room>open()+m.padB+160){shrink=short;}
+        else if(pg.frags.length||pg.prefix){ if(frag){pg.used+=m.padB;frag=null;} newPage(); need=open()+slot+m.padB; room=CC_PACK_CAP; }
+        if(need-shrink>room&&shrinkable){shrink=Math.min(need-room,imgH*.5);}
+      }
+      if(!frag){frag={m,first:firstFrag,groups:[]};pg.frags.push(frag);pg.used+=firstFrag?m.startPad:m.padT;firstFrag=false;}
+      frag.groups.push(g); pg.used+=slot-shrink;
+      if(g.imgH)plan.set(g,{f:Math.max(.5,(imgH-shrink)/imgH)});   // relative to the capped height
+    });
+    if(frag)pg.used+=m.padB;
+  });
+  if(footH){ if(pg.used+footH>CC_PACK_CAP)newPage(); pg.foot=true; pg.used+=footH; }
+  return {pages,plan};
+}
+function ccComposePages(){
+  ccSplitGridRows();
+  const M=ccMeasureModel(); if(!M.model.length)return;
+  const prefix=[document.getElementById('hdr'),document.getElementById('reportBannerWrap')].filter(e=>e&&e.style.display!=='none'&&e.offsetHeight);
+  const foot=document.getElementById('foot'), footH=foot&&foot.offsetHeight||0;
+  // Try smaller screenshot caps; keep the largest one that gives the fewest pages,
+  // and avoid ending on a page that is mostly empty when a smaller cap fixes it.
+  const maxImg=M.model.reduce((t,m)=>m.groups.reduce((u,g)=>Math.max(u,g.imgH),t),0);
+  let best=null;
+  [Infinity,620,580,540,500,460].forEach(cap=>{
+    if(cap!==Infinity&&cap>=maxImg)return;
+    const r=ccPack(M,cap,footH), n=r.pages.length, lastFill=r.pages[n-1].used/CC_PACK_CAP;
+    const score=n*10-(lastFill>=.45?1:0);
+    if(!best||score<best.score)best={...r,cap,score};
+  });
+  const {pages,plan}=best;
+  // Build the pages
+  const host=document.createElement('div'); host.id='ccPages'; document.body.appendChild(host);
+  pages.forEach(P=>{
+    const page=document.createElement('div'); page.className='cc-page'; page.style.height=CC_PAGE_BOX+'px'; host.appendChild(page);
+    if(P.prefix)prefix.forEach(n=>ccMove(n,page));
+    const nGroups=P.frags.reduce((t,f)=>t+f.groups.length,0);
+    const left=Math.max(0,CC_PAGE_BOX-P.used-8), extra=nGroups>1?Math.min(90,left*.85/(nGroups-1)):0;
+    let gi=0;
+    P.frags.forEach((f,fi)=>{
+      const sec=f.m.sc.cloneNode(false); sec.removeAttribute('id');
+      if(!f.first)sec.classList.remove('after-banner');
+      if(fi===P.frags.length-1&&!P.foot)sec.classList.add('cc-fill');
+      const inner=f.m.inner===f.m.sc?sec:f.m.inner.cloneNode(false); if(inner!==sec){inner.removeAttribute('id');sec.appendChild(inner);}
+      page.appendChild(sec);
+      const clones=new Map();
+      const holder=a=>{const chain=[];let n=a.parentNode;while(n&&n!==f.m.inner&&n!==f.m.sc){chain.unshift(n);n=n.parentNode;}
+        let parent=inner; chain.forEach(anc=>{let c=clones.get(anc);if(!c){c=anc.cloneNode(false);c.removeAttribute('id');parent.appendChild(c);clones.set(anc,c);}parent=c;});return parent;};
+      f.groups.forEach(g=>{
+        g.atoms.forEach((a,ai)=>{const h=holder(a);
+          if(ai===0&&gi>0&&extra>0){a.dataset.ccMt=a.style.marginTop||'';a.style.marginTop=(parseFloat(getComputedStyle(a).marginTop)||0)+extra+'px';}
+          ccMove(a,h);});
+        const pl=plan.get(g);
+        if(pl&&pl.f<.999||g.imgH>best.cap){const f2=pl?pl.f:1;g.imgs.forEach((im,k)=>{im.dataset.ccMh=im.style.maxHeight||'';im.style.maxHeight=Math.round(Math.min(g.imgHs[k],best.cap===Infinity?g.imgHs[k]:best.cap*g.imgHs[k]/g.imgH)*f2)+'px';});}
+        gi++;
+      });
+    });
+    if(P.foot){const fw=document.createElement('div');fw.className='cc-fill-black';page.appendChild(fw);ccMove(foot,page);}
+  });
+  document.documentElement.classList.add('cc-composed');
+  window.CC_PRINT_INFO={pages:pages.length,cap:best.cap,fills:pages.map(P=>Math.round(P.used/CC_PACK_CAP*100))};
+}
+function ccDecompose(){
+  document.documentElement.classList.remove('cc-composed');
+  CC_MOVED.reverse().forEach(n=>{const ph=n.__ccPh;if(ph&&ph.parentNode){ph.parentNode.insertBefore(n,ph);ph.remove();}delete n.__ccPh;
+    if(n.dataset&&'ccMt' in n.dataset){n.style.marginTop=n.dataset.ccMt;delete n.dataset.ccMt;}});
+  CC_MOVED=[];
+  document.querySelectorAll('[data-cc-mt]').forEach(n=>{n.style.marginTop=n.dataset.ccMt;delete n.dataset.ccMt;});
+  document.querySelectorAll('img[data-cc-mh]').forEach(im=>{im.style.maxHeight=im.dataset.ccMh;delete im.dataset.ccMh;});
+  const host=document.getElementById('ccPages'); if(host)host.remove();
+  ccJoinGridRows();
+}
+function ccAfterPrint(){
+  if(!window.CC_PRINTING)return; window.CC_PRINTING=false;
+  ccDecompose();
+  document.querySelectorAll('[data-cc-op]').forEach(e=>{e.style.opacity='';e.style.transform='';delete e.dataset.ccOp;});
+  document.querySelectorAll('img.cc-print-snap').forEach(i=>i.remove());
+  document.querySelectorAll('canvas[data-print-snap]').forEach(cv=>{cv.style.display='';delete cv.dataset.printSnap;const box=cv.parentNode;box.style.height=box.dataset.printH||'';delete box.dataset.printH;});
+  document.documentElement.classList.remove('cc-print-layout');
+  if(window.Chart)Object.values(Chart.instances).forEach(c=>{c.options.devicePixelRatio=undefined;c.resize();});
+  if(window.CC_TITLE){document.title=window.CC_TITLE;window.CC_TITLE=null;}
+}
+function ccPrint(){
+  window.CC_TITLE=document.title;
+  document.title=[D.client,'Weekly Report',D.weekDate].filter(Boolean).join(' — ');
+  ccPrepPrint();
+  setTimeout(()=>window.print(),120);
+}
+window.addEventListener('beforeprint',ccPrepPrint);
+window.addEventListener('afterprint',ccAfterPrint);
 function openLb(src){var el=document.getElementById("lb");document.getElementById("lb-img").src=src;el.classList.add("open");document.addEventListener("keydown",lbKey);}
 function closeLb(){document.getElementById("lb").classList.remove("open");document.removeEventListener("keydown",lbKey);}
 function lbKey(e){if(e.key==="Escape")closeLb();}
@@ -1802,11 +2231,12 @@ function buildDash(){
   document.getElementById('hdrWeek').textContent=D.weekDate;
   document.getElementById('footWeek').textContent=D.weekDate;
   if(D.clientLogo){const cl=document.getElementById('hdrCl');cl.src=D.clientLogo;cl.style.display='block';document.getElementById('hdrDiv').style.display='block';}
-  if(D.banner){document.getElementById('reportBanner').src=D.banner;document.getElementById('reportBannerWrap').style.display='block';}
+  if(D.banner){document.getElementById('reportBanner').src=D.banner;document.getElementById('reportBannerWrap').style.display='block';document.body.classList.add('has-banner');}
 
   buildOverview(); buildSocial(); buildCollabs(); buildCookie3(); buildProduct(); buildQuest();
-  buildNucContrib(); buildNucRep(); buildKol(); buildPr(); buildFinance(); buildWebsite();
+  buildNucContrib(); buildNucRep(); buildKol(); buildKoreaKol(); buildPr(); buildCommunity(); buildFinance(); buildWebsite();
   renderAllCustomExtras();
+  applyReportConfigTitles();
   document.querySelectorAll(".score-ss-img img,.ss-grid img").forEach(function(img){if(!img.onclick)img.onclick=function(){openLb(this.src);};});
   // Re-alternate light/dark on visible sections only
   setTimeout(function(){
@@ -1816,6 +2246,7 @@ function buildDash(){
       if(s.style.display==='none') return;
       s.classList.remove('light');
       if(idx%2!==0) s.classList.add('light');
+      if(idx===0) s.classList.add('after-banner');
       idx++;
     });
   },50);
@@ -1827,7 +2258,7 @@ function buildDash(){
   const navMap=[
     {a:'navOv',s:'secOv'},{a:'navProduct',s:'secProduct'},{a:'navSocial',s:'secSocial'},{a:'navCollabs',s:'secCollabs'},
     {a:'navCookie3',s:'secCookie3'},{a:'navProduct',s:'secProduct'},{a:'navQuest',s:'secQuest'},{a:'navNucContrib',s:'secNucContrib'},
-    {a:'navNucRep',s:'secNucRep'},{a:'navKol',s:'secKol'},{a:'navPr',s:'secPr'},
+    {a:'navNucRep',s:'secNucRep'},{a:'navKol',s:'secKol'},{a:'navKoreaKol',s:'secKoreaKol'},{a:'navPr',s:'secPr'},{a:'navCommunity',s:'secCommunity'},
     {a:'navFin',s:'secFin'},{a:'navWeb',s:'secWeb'}
   ];
   navMap.forEach(({a,s})=>{const sec=document.getElementById(s);if(sec&&sec.style.display==='none')document.getElementById(a).style.display='none';});
@@ -1855,7 +2286,7 @@ function checkPin(){
   if(pins.map(p=>p.value).join('')===String(D.pin)){
     const g=document.getElementById('gate'); g.classList.add('gone'); setTimeout(()=>g.style.display='none',400);
     if(!D.published){document.getElementById('np').classList.add('show');return;}
-    buildDash();
+    loadReportConfig().then(buildDash);
   } else {
     document.getElementById('pinErr').textContent='Incorrect code — please try again.';
     pins.forEach(p=>{p.value='';p.style.borderColor='var(--red)';setTimeout(()=>p.style.borderColor='',900);});
